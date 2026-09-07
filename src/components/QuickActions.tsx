@@ -25,6 +25,15 @@ export const QuickActions: React.FC<QuickActionsProps> = ({
 }) => {
   const actions: QuickActionItem[] = [
     {
+      id: 'ap-science',
+      label: 'AP Sciences',
+      emoji: '🔬',
+      subtext: 'Bio, Chem, Phys & APES',
+      accentColor: 'text-emerald-400',
+      bgGradient: 'from-emerald-950/40 to-slate-900/40',
+      borderHover: 'group-hover:border-emerald-500/50'
+    },
+    {
       id: 'ap-prep',
       label: 'AP & Exam Prep',
       emoji: '🎯',
@@ -106,7 +115,7 @@ export const QuickActions: React.FC<QuickActionsProps> = ({
         <span className="text-xs text-slate-400">Click to filter dashboard</span>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-8 gap-3">
         {actions.map(action => {
           const isSelected = activeCategory === action.id;
           return (

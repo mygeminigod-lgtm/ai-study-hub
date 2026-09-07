@@ -78,6 +78,7 @@
     // --- DATA LAYER ---
     const CATEGORIES = [
       { id: 'all', label: 'All Tools', shortLabel: 'All', icon: 'sparkles' },
+      { id: 'ap-science', label: 'AP Sciences (Bio, Chem, Physics, APES)', shortLabel: 'AP Sciences', icon: 'atom' },
       { id: 'ap-prep', label: 'AP Coursework & Exam Prep', shortLabel: 'AP & Exams', icon: 'award' },
       { id: 'research', label: 'Academic Research & Paper Writing', shortLabel: 'Research', icon: 'graduation-cap' },
       { id: 'stem', label: 'STEM, Math & Logical Reasoning', shortLabel: 'STEM & Math', icon: 'binary' },
@@ -89,6 +90,158 @@
     ];
 
     const TOOLS = [
+      // 0. AP Sciences (Bio, Chem, Physics & APES)
+      {
+        id: 'ap-chem-phet',
+        name: 'PhET Interactive Simulations',
+        url: 'https://phet.colorado.edu/',
+        category: 'ap-science',
+        categoryName: 'AP Sciences',
+        description: 'Interactive science simulations for AP Chemistry (acid-base titrations, gas laws, equilibrium) and AP Physics (circuits, projectile motion, optics).',
+        bestFor: ['Acid-base titration curves & buffer zones', 'Visualizing Le Chatelier’s principle', 'Circuit construction kit (DC & AC)', 'Photoelectric effect & optics'],
+        tags: ['AP Chemistry', 'AP Physics', 'Simulations', 'Labs', 'Titration', 'Circuits', 'STEM'],
+        icon: 'flask-conical',
+        featured: true,
+        pricing: 'Free (CU Boulder)',
+        studentBonus: 'Perform virtual AP Chemistry and Physics lab experiments to understand conceptual FRQ questions before exam day.',
+        toolOfTheDayRationale: 'Crucial for conceptual visual understanding of AP Chemistry equilibrium and AP Physics circuit labs.'
+      },
+      {
+        id: 'ap-chem-openai',
+        name: 'OpenAI o1 & o3-mini (AP Chemistry Solver)',
+        url: 'https://chatgpt.com/',
+        category: 'ap-science',
+        categoryName: 'AP Sciences',
+        description: 'Rigorous chain-of-thought derivations for AP Chemistry equilibrium expressions (Ka, Kb, Ksp), buffer pH calculations, thermodynamics (ΔG, ΔH, ΔS), and electrochemistry.',
+        bestFor: ['Equilibrium & Henderson-Hasselbalch derivations', 'Thermodynamics & Hess’s Law', 'Electrochemistry cell potentials (E°cell)', 'Reaction kinetics & rate laws'],
+        tags: ['AP Chemistry', 'Equilibrium', 'Thermodynamics', 'Kinetics', 'Electrochemistry', 'FRQ', 'Calculations'],
+        icon: 'brain-circuit',
+        featured: true,
+        pricing: 'Freemium',
+        studentBonus: 'Reasoning models write out complete balanced chemical equations, ICE tables, and units to guarantee full College Board rubric points.',
+        toolOfTheDayRationale: 'The most reliable solver for challenging 10-point AP Chemistry Section II Free Response Questions.'
+      },
+      {
+        id: 'ap-physics-gemini',
+        name: 'Google Gemini (AP Physics Visualizer)',
+        url: 'https://gemini.google.com/',
+        category: 'ap-science',
+        categoryName: 'AP Sciences',
+        description: 'Multimodal homework solver that evaluates photos of handwritten free-body diagrams, circuit schematics, vector components, and optics diagrams to detect errors.',
+        bestFor: ['Auditing handwritten Free-Body Diagrams (FBDs)', 'Kirchhoff’s loop rule & circuit schematics', 'Lenz’s law & magnetic field loops', 'Optics ray diagrams'],
+        tags: ['AP Physics', 'Free-Body Diagrams', 'Circuits', 'Optics', 'Mechanics', 'Multimodal', 'Diagrams'],
+        icon: 'atom',
+        featured: true,
+        pricing: 'Freemium',
+        studentBonus: 'Upload a picture of your free-body diagram or circuit diagram and ask Gemini to verify arrow lengths, vector directions, and loop equations.',
+        toolOfTheDayRationale: 'Detects vector mistakes in handwritten AP Physics 1 and Physics C mechanics solutions instantly.'
+      },
+      {
+        id: 'ap-physics-deepseek',
+        name: 'DeepSeek-R1 (AP Physics C Mechanics & E&M)',
+        url: 'https://chat.deepseek.com/',
+        category: 'ap-science',
+        categoryName: 'AP Sciences',
+        description: 'Open-weights reasoning model for calculus-based AP Physics C: moment of inertia integrals, differential equations for air resistance/RC circuits, and Gauss’s law.',
+        bestFor: ['Moment of inertia surface & volume integrals', 'Differential equations for damping & terminal velocity', 'Gauss’s Law & Ampère’s Law surface integrals', 'Calculus-based derivations'],
+        tags: ['AP Physics C', 'Calculus', 'Mechanics', 'E&M', 'Integrals', 'Derivations', 'Gauss Law'],
+        icon: 'binary',
+        featured: true,
+        pricing: 'Free Tier',
+        studentBonus: 'Provides full calculus derivations with step-by-step limits of integration and coordinate system setups.',
+        toolOfTheDayRationale: 'Unsurpassed step-by-step calculus derivations for AP Physics C Mechanics and Electricity & Magnetism.'
+      },
+      {
+        id: 'ap-bio-notebooklm',
+        name: 'Google NotebookLM (AP Biology Source Notebook)',
+        url: 'https://notebooklm.google.com/',
+        category: 'ap-science',
+        categoryName: 'AP Sciences',
+        description: 'AI research assistant grounded in your uploaded Campbell Biology chapters, unit CEDs, cellular energetics pathways, and genetics notes with zero hallucinations.',
+        bestFor: ['Cellular respiration & photosynthesis pathways', 'Mendelian genetics & chi-square analysis', 'Gene expression & operon regulation', 'Generating audio study overviews'],
+        tags: ['AP Biology', 'Cellular Energetics', 'Genetics', 'Ecology', 'Study Guides', 'Notes', 'Podcasts'],
+        icon: 'book-open',
+        featured: true,
+        pricing: 'Free',
+        studentBonus: 'Generate interactive podcasts and study flashcards based 100% on your teacher’s AP Bio slide decks and Campbell Biology PDFs.',
+        toolOfTheDayRationale: 'Turn complex biological signaling cascades into clear, question-and-answer study guides.'
+      },
+      {
+        id: 'ap-bio-hhmi',
+        name: 'HHMI BioInteractive',
+        url: 'https://www.biointeractive.org/',
+        category: 'ap-science',
+        categoryName: 'AP Sciences',
+        description: 'Premier scientific education platform offering real biological datasets, interactive click-and-learn virtual labs, pedigree charts, and evolutionary case studies.',
+        bestFor: ['Eukaryotic gene regulation click & learn', 'Hardy-Weinberg population data simulations', 'Gel electrophoresis & CRISPR labs', 'Real-world ecology case studies'],
+        tags: ['AP Biology', 'Virtual Labs', 'Genetics', 'Evolution', 'Hardy-Weinberg', 'Ecology', 'Datasets'],
+        icon: 'dna',
+        featured: false,
+        pricing: 'Free (HHMI)',
+        studentBonus: 'Frequently used by College Board exam writers as the source material for AP Biology experimental design FRQs.',
+        toolOfTheDayRationale: 'Practice with the exact real-world biological datasets and experiments featured on the AP Biology exam.'
+      },
+      {
+        id: 'ap-apes-perplexity',
+        name: 'Perplexity AI (AP Environmental Science)',
+        url: 'https://www.perplexity.ai/',
+        category: 'ap-science',
+        categoryName: 'AP Sciences',
+        description: 'Conversational engine delivering real-time, cited scientific data on renewable energy efficiency, biogeochemical cycles, atmospheric pollution, and environmental legislation.',
+        bestFor: ['APES environmental legislation (Clean Air Act, CERCLA)', 'Biogeochemical cycle diagrams & stoichiometry', 'Renewable vs. nonrenewable energy trade-offs', 'Trophic energy transfer calculations'],
+        tags: ['APES', 'Environmental Science', 'Legislation', 'Ecology', 'Pollution', 'Climate', 'Data'],
+        icon: 'compass',
+        featured: false,
+        pricing: 'Freemium',
+        studentBonus: 'Ask for specific historical examples of Clean Water Act, Montreal Protocol, or Endangered Species Act applications for APES FRQs.',
+        toolOfTheDayRationale: 'Instant access to sourced environmental case studies required for AP Environmental Science free-response questions.'
+      },
+      {
+        id: 'ap-apes-ourworldindata',
+        name: 'Our World in Data (APES Empirical Datasets)',
+        url: 'https://ourworldindata.org/',
+        category: 'ap-science',
+        categoryName: 'AP Sciences',
+        description: 'Authoritative global empirical data, interactive charts, and research covering greenhouse gas emissions, energy transitions, deforestation, and human population demographics.',
+        bestFor: ['Demographic transition models & population pyramids', 'Global carbon & greenhouse gas emission trends', 'Water usage & agricultural footprint charts', 'Biodiversity loss statistics'],
+        tags: ['APES', 'Charts', 'Demographics', 'Emissions', 'Energy', 'Biodiversity', 'Empirical Data'],
+        icon: 'line-chart',
+        featured: false,
+        pricing: 'Free (Oxford)',
+        studentBonus: 'Provides the exact type of multi-variable demographic and ecological charts analyzed in APES Section I and Section II.',
+        toolOfTheDayRationale: 'Master reading and interpreting real environmental charts and population models.'
+      },
+      {
+        id: 'ap-science-central',
+        name: 'College Board AP Science Central',
+        url: 'https://apcentral.collegeboard.org/courses/past-exam-questions',
+        category: 'ap-science',
+        categoryName: 'AP Sciences',
+        description: 'Official College Board repository of released past Free Response Questions (FRQs), scoring guidelines, and Chief Reader commentaries across all AP Science courses.',
+        bestFor: ['AP Biology, Chemistry, Physics 1/2/C & APES past FRQs', 'Official scoring guidelines & rubrics', 'Sample student responses with scores', 'Chief Reader common misconception notes'],
+        tags: ['AP Science', 'College Board', 'Released FRQs', 'Scoring Rubrics', 'Chief Reader', 'Official'],
+        icon: 'graduation-cap',
+        featured: true,
+        pricing: 'Free (Official)',
+        studentBonus: 'Direct access to 15+ years of authentic College Board science exam prompts and exact point-scoring criteria.',
+        toolOfTheDayRationale: 'The ultimate benchmark for practicing real AP science lab-based and quantitative free-response questions.'
+      },
+      {
+        id: 'ap-science-knowt',
+        name: 'Knowt (AP Science Practice Rooms)',
+        url: 'https://knowt.com/exams/AP',
+        category: 'ap-science',
+        categoryName: 'AP Sciences',
+        description: 'Free practice exam rooms, diagnostic tests, and flashcards built strictly around official College Board Course and Exam Descriptions (CEDs) for all AP sciences.',
+        bestFor: ['CED unit-by-unit flashcards for AP Bio & Chem', 'AP Physics formula practice modules', 'APES vocabulary & legislation study rooms', 'Spaced repetition testing'],
+        tags: ['AP Science', 'Practice Exams', 'Flashcards', 'CED', 'Study Rooms', 'AP Bio', 'AP Chem', 'AP Physics'],
+        icon: 'book-check',
+        featured: true,
+        pricing: 'Free',
+        studentBonus: 'Study every unit of AP Biology, Chemistry, Physics, and APES with curated flashcard rooms completely free.',
+        toolOfTheDayRationale: 'The most comprehensive free flashcard and diagnostic testing resource for AP science students.'
+      },
+
       // 1. AP Coursework & Exam Preparation
       {
         id: 'ap-claude',
@@ -721,6 +874,50 @@
 
     const TASK_RECOMMENDATIONS = [
       {
+        id: 'ap-chem-frqs',
+        taskTitle: 'Solve AP Chemistry equilibrium & stoichiometry',
+        icon: 'flask-conical',
+        recommendedToolIds: ['ap-chem-openai', 'ap-chem-phet', 'ap-science-central'],
+        explanations: {
+          'ap-chem-openai': 'Derives equilibrium ICE tables, buffer pH, thermodynamics, and electrochemistry step-by-step.',
+          'ap-chem-phet': 'Simulates acid-base titration curves, Le Chatelier shifts, and gas laws visually before calculations.',
+          'ap-science-central': 'Access official College Board past released AP Chemistry FRQs and grading guidelines.'
+        }
+      },
+      {
+        id: 'ap-physics-frqs',
+        taskTitle: 'Debug AP Physics diagrams & calculus mechanics',
+        icon: 'atom',
+        recommendedToolIds: ['ap-physics-gemini', 'ap-physics-deepseek', 'ap-chem-phet'],
+        explanations: {
+          'ap-physics-gemini': 'Audits photos of handwritten free-body diagrams, Kirchhoff loop equations, and circuit schematics.',
+          'ap-physics-deepseek': 'Solves calculus-based moment of inertia integrals, damping differential equations, and Gauss’s law.',
+          'ap-chem-phet': 'Builds virtual AC/DC circuits and visualizes projectile motion and wave optics.'
+        }
+      },
+      {
+        id: 'ap-bio-labs',
+        taskTitle: 'Analyze AP Biology experimental data & pathways',
+        icon: 'dna',
+        recommendedToolIds: ['ap-bio-notebooklm', 'ap-bio-hhmi', 'consensus'],
+        explanations: {
+          'ap-bio-notebooklm': 'Grounded exclusively in your uploaded textbook chapters and cellular energetics pathways.',
+          'ap-bio-hhmi': 'Simulates real biological datasets, Hardy-Weinberg population dynamics, and virtual genetics labs.',
+          consensus: 'Searches peer-reviewed papers to confirm biological experimental conclusions with consensus meters.'
+        }
+      },
+      {
+        id: 'ap-apes-data',
+        taskTitle: 'Calculate AP Environmental Science (APES) data',
+        icon: 'line-chart',
+        recommendedToolIds: ['ap-apes-perplexity', 'ap-apes-ourworldindata', 'ap-science-knowt'],
+        explanations: {
+          'ap-apes-perplexity': 'Retrieves verified legislation facts (Clean Air Act, CERCLA) and environmental case studies with citations.',
+          'ap-apes-ourworldindata': 'Master real-world demographic transition pyramids, greenhouse gas emissions, and deforestation data.',
+          'ap-science-knowt': 'Practice APES diagnostic exams and unit-by-unit flashcards aligned directly with the CED.'
+        }
+      },
+      {
         id: 'grade-ap-essays',
         taskTitle: 'Grade DBQ / LEQ against AP rubrics',
         icon: 'award',
@@ -1115,8 +1312,9 @@
 
             {/* QUICK ACTIONS */}
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-3">
+              <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-4 xl:grid-cols-8 gap-3">
                 {[
+                  { id: 'ap-science', label: 'AP Sciences', emoji: '🔬', subtext: 'Chem, Bio, Phys, APES' },
                   { id: 'ap-prep', label: 'AP & Exam Prep', emoji: '🎯', subtext: 'Rubrics, FRQs & CED' },
                   { id: 'research', label: 'Research a Paper', emoji: '📚', subtext: 'Find & cite papers' },
                   { id: 'stem', label: 'Study & Solve', emoji: '🧠', subtext: 'Math, logic & STEM' },

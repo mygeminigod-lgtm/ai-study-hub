@@ -1,6 +1,7 @@
 export type CategoryId = 
   | 'all'
   | 'ap-prep'
+  | 'ap-science'
   | 'research'
   | 'stem'
   | 'writing'

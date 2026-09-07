@@ -45,6 +45,12 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCategory }) => {
               AP & Exams
             </button>
             <button
+              onClick={() => onSelectCategory('ap-science')}
+              className="hover:text-emerald-400 transition"
+            >
+              AP Sciences
+            </button>
+            <button
               onClick={() => onSelectCategory('research')}
               className="hover:text-blue-400 transition"
             >

@@ -2,6 +2,54 @@ import { TaskRecommendation } from '../types';
 
 export const TASK_RECOMMENDATIONS: TaskRecommendation[] = [
   {
+    id: 'ap-chem-frqs',
+    taskTitle: 'Solve AP Chemistry equilibrium & stoichiometry',
+    category: 'ap-science',
+    icon: 'FlaskConical',
+    recommendedToolIds: ['ap-chem-openai', 'ap-chem-phet', 'ap-science-central'],
+    explanations: {
+      'ap-chem-openai': 'Derives equilibrium ICE tables, buffer pH, thermodynamics, and electrochemistry step-by-step.',
+      'ap-chem-phet': 'Simulates acid-base titration curves, Le Chatelier shifts, and gas laws visually before calculations.',
+      'ap-science-central': 'Access official College Board past released AP Chemistry FRQs and grading guidelines.'
+    }
+  },
+  {
+    id: 'ap-physics-frqs',
+    taskTitle: 'Debug AP Physics diagrams & calculus mechanics',
+    category: 'ap-science',
+    icon: 'Atom',
+    recommendedToolIds: ['ap-physics-gemini', 'ap-physics-deepseek', 'ap-chem-phet'],
+    explanations: {
+      'ap-physics-gemini': 'Audits photos of handwritten free-body diagrams, Kirchhoff loop equations, and circuit schematics.',
+      'ap-physics-deepseek': 'Solves calculus-based moment of inertia integrals, damping differential equations, and Gauss’s law.',
+      'ap-chem-phet': 'Builds virtual AC/DC circuits and visualizes projectile motion and wave optics.'
+    }
+  },
+  {
+    id: 'ap-bio-labs',
+    taskTitle: 'Analyze AP Biology experimental data & pathways',
+    category: 'ap-science',
+    icon: 'Dna',
+    recommendedToolIds: ['ap-bio-notebooklm', 'ap-bio-hhmi', 'consensus'],
+    explanations: {
+      'ap-bio-notebooklm': 'Grounded exclusively in your uploaded textbook chapters and cellular energetics pathways.',
+      'ap-bio-hhmi': 'Simulates real biological datasets, Hardy-Weinberg population dynamics, and virtual genetics labs.',
+      consensus: 'Searches peer-reviewed papers to confirm biological experimental conclusions with consensus meters.'
+    }
+  },
+  {
+    id: 'ap-apes-data',
+    taskTitle: 'Calculate AP Environmental Science (APES) data',
+    category: 'ap-science',
+    icon: 'LineChart',
+    recommendedToolIds: ['ap-apes-perplexity', 'ap-apes-ourworldindata', 'ap-science-knowt'],
+    explanations: {
+      'ap-apes-perplexity': 'Retrieves verified legislation facts (Clean Air Act, CERCLA) and environmental case studies with citations.',
+      'ap-apes-ourworldindata': 'Master real-world demographic transition pyramids, greenhouse gas emissions, and deforestation data.',
+      'ap-science-knowt': 'Practice APES diagnostic exams and unit-by-unit flashcards aligned directly with the CED.'
+    }
+  },
+  {
     id: 'grade-ap-essays',
     taskTitle: 'Grade DBQ / LEQ against AP rubrics',
     category: 'ap-prep',
@@ -15,7 +63,7 @@ export const TASK_RECOMMENDATIONS: TaskRecommendation[] = [
   },
   {
     id: 'solve-ap-frqs',
-    taskTitle: 'Solve AP Calculus, Physics & Stats FRQs',
+    taskTitle: 'Solve AP Calculus, Statistics & CS FRQs',
     category: 'ap-prep',
     icon: 'BrainCircuit',
     recommendedToolIds: ['ap-openai', 'ap-deepseek', 'ap-qwen'],
@@ -30,9 +78,9 @@ export const TASK_RECOMMENDATIONS: TaskRecommendation[] = [
     taskTitle: 'Practice AP exams & flashcards',
     category: 'ap-prep',
     icon: 'BookCheck',
-    recommendedToolIds: ['ap-knowt', 'ap-central', 'notebooklm'],
+    recommendedToolIds: ['ap-science-knowt', 'ap-central', 'notebooklm'],
     explanations: {
-      'ap-knowt': 'Provides practice exam rooms and flashcard decks aligned with official College Board CED units.',
+      'ap-science-knowt': 'Provides practice exam rooms and flashcard decks aligned with official College Board CED units.',
       'ap-central': 'The official repository of 15+ years of released past exam FRQs and scoring rubrics.',
       notebooklm: 'Upload your class notes, textbook units, and review sheets for custom Q&A and audio overviews.'
     }

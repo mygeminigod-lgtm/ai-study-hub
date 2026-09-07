@@ -2,11 +2,165 @@ import { Tool } from '../types';
 
 export const TOOLS: Tool[] = [
   // ==========================================
-  // Category 1: AP Coursework & Exam Preparation
+  // Category: AP Sciences (Bio, Chem, Physics & APES)
+  // ==========================================
+  {
+    id: 'ap-chem-phet',
+    name: 'PhET Interactive Simulations',
+    url: 'https://phet.colorado.edu/',
+    category: 'ap-science',
+    categoryName: 'AP Sciences',
+    description: 'Award-winning interactive science simulations for AP Chemistry (acid-base titrations, gas laws, equilibrium) and AP Physics (circuits, projectile motion, optics).',
+    bestFor: ['Acid-base titration curves & buffer zones', 'Visualizing Le Chatelier’s principle', 'Circuit construction kit (DC & AC)', 'Photoelectric effect & optics'],
+    tags: ['AP Chemistry', 'AP Physics', 'Simulations', 'Labs', 'Titration', 'Circuits', 'STEM'],
+    icon: 'FlaskConical',
+    featured: true,
+    pricing: 'Free (CU Boulder)',
+    studentBonus: 'Perform virtual AP Chemistry and Physics lab experiments to understand conceptual FRQ questions before exam day.',
+    toolOfTheDayRationale: 'Crucial for conceptual visual understanding of AP Chemistry equilibrium and AP Physics circuit labs.'
+  },
+  {
+    id: 'ap-chem-openai',
+    name: 'OpenAI o1 & o3-mini (AP Chemistry Solver)',
+    url: 'https://chatgpt.com/',
+    category: 'ap-science',
+    categoryName: 'AP Sciences',
+    description: 'Rigorous chain-of-thought derivations for AP Chemistry equilibrium expressions (Ka, Kb, Ksp), buffer pH calculations, thermodynamics (ΔG, ΔH, ΔS), and electrochemistry.',
+    bestFor: ['Equilibrium & Henderson-Hasselbalch derivations', 'Thermodynamics & Hess’s Law', 'Electrochemistry cell potentials (E°cell)', 'Reaction kinetics & rate laws'],
+    tags: ['AP Chemistry', 'Equilibrium', 'Thermodynamics', 'Kinetics', 'Electrochemistry', 'FRQ', 'Calculations'],
+    icon: 'BrainCircuit',
+    featured: true,
+    pricing: 'Freemium',
+    studentBonus: 'Reasoning models write out complete balanced chemical equations, ICE tables, and units to guarantee full College Board rubric points.',
+    toolOfTheDayRationale: 'The most reliable solver for challenging 10-point AP Chemistry Section II Free Response Questions.'
+  },
+  {
+    id: 'ap-physics-gemini',
+    name: 'Google Gemini (AP Physics Visualizer)',
+    url: 'https://gemini.google.com/',
+    category: 'ap-science',
+    categoryName: 'AP Sciences',
+    description: 'Multimodal homework solver that evaluates photos of handwritten free-body diagrams, circuit schematics, vector components, and optics diagrams to detect errors.',
+    bestFor: ['Auditing handwritten Free-Body Diagrams (FBDs)', 'Kirchhoff’s loop rule & circuit schematics', 'Lenz’s law & magnetic field loops', 'Optics ray diagrams'],
+    tags: ['AP Physics', 'Free-Body Diagrams', 'Circuits', 'Optics', 'Mechanics', 'Multimodal', 'Diagrams'],
+    icon: 'Atom',
+    featured: true,
+    pricing: 'Freemium',
+    studentBonus: 'Upload a picture of your free-body diagram or circuit diagram and ask Gemini to verify arrow lengths, vector directions, and loop equations.',
+    toolOfTheDayRationale: 'Detects vector mistakes in handwritten AP Physics 1 and Physics C mechanics solutions instantly.'
+  },
+  {
+    id: 'ap-physics-deepseek',
+    name: 'DeepSeek-R1 (AP Physics C Mechanics & E&M)',
+    url: 'https://chat.deepseek.com/',
+    category: 'ap-science',
+    categoryName: 'AP Sciences',
+    description: 'Open-weights reasoning model for calculus-based AP Physics C: moment of inertia integrals, differential equations for air resistance/RC circuits, and Gauss’s law.',
+    bestFor: ['Moment of inertia surface & volume integrals', 'Differential equations for damping & terminal velocity', 'Gauss’s Law & Ampère’s Law surface integrals', 'Calculus-based derivations'],
+    tags: ['AP Physics C', 'Calculus', 'Mechanics', 'E&M', 'Integrals', 'Derivations', 'Gauss Law'],
+    icon: 'Binary',
+    featured: true,
+    pricing: 'Free Tier',
+    studentBonus: 'Provides full calculus derivations with step-by-step limits of integration and coordinate system setups.',
+    toolOfTheDayRationale: 'Unsurpassed step-by-step calculus derivations for AP Physics C Mechanics and Electricity & Magnetism.'
+  },
+  {
+    id: 'ap-bio-notebooklm',
+    name: 'Google NotebookLM (AP Biology Source Notebook)',
+    url: 'https://notebooklm.google.com/',
+    category: 'ap-science',
+    categoryName: 'AP Sciences',
+    description: 'AI research assistant grounded in your uploaded Campbell Biology chapters, unit CEDs, cellular energetics pathways, and genetics notes with zero hallucinations.',
+    bestFor: ['Cellular respiration & photosynthesis pathways', 'Mendelian genetics & chi-square analysis', 'Gene expression & operon regulation', 'Generating audio study overviews'],
+    tags: ['AP Biology', 'Cellular Energetics', 'Genetics', 'Ecology', 'Study Guides', 'Notes', 'Podcasts'],
+    icon: 'BookOpen',
+    featured: true,
+    pricing: 'Free',
+    studentBonus: 'Generate interactive podcasts and study flashcards based 100% on your teacher’s AP Bio slide decks and Campbell Biology PDFs.',
+    toolOfTheDayRationale: 'Turn complex biological signaling cascades into clear, question-and-answer study guides.'
+  },
+  {
+    id: 'ap-bio-hhmi',
+    name: 'HHMI BioInteractive',
+    url: 'https://www.biointeractive.org/',
+    category: 'ap-science',
+    categoryName: 'AP Sciences',
+    description: 'Premier scientific education platform offering real biological datasets, interactive click-and-learn virtual labs, pedigree charts, and evolutionary case studies.',
+    bestFor: ['Eukaryotic gene regulation click & learn', 'Hardy-Weinberg population data simulations', 'Gel electrophoresis & CRISPR labs', 'Real-world ecology case studies'],
+    tags: ['AP Biology', 'Virtual Labs', 'Genetics', 'Evolution', 'Hardy-Weinberg', 'Ecology', 'Datasets'],
+    icon: 'Dna',
+    featured: false,
+    pricing: 'Free (HHMI)',
+    studentBonus: 'Frequently used by College Board exam writers as the source material for AP Biology experimental design FRQs.',
+    toolOfTheDayRationale: 'Practice with the exact real-world biological datasets and experiments featured on the AP Biology exam.'
+  },
+  {
+    id: 'ap-apes-perplexity',
+    name: 'Perplexity AI (AP Environmental Science)',
+    url: 'https://www.perplexity.ai/',
+    category: 'ap-science',
+    categoryName: 'AP Sciences',
+    description: 'Conversational engine delivering real-time, cited scientific data on renewable energy efficiency, biogeochemical cycles, atmospheric pollution, and environmental legislation.',
+    bestFor: ['APES environmental legislation (Clean Air Act, CERCLA)', 'Biogeochemical cycle diagrams & stoichiometry', 'Renewable vs. nonrenewable energy trade-offs', 'Trophic energy transfer calculations'],
+    tags: ['APES', 'Environmental Science', 'Legislation', 'Ecology', 'Pollution', 'Climate', 'Data'],
+    icon: 'Compass',
+    featured: false,
+    pricing: 'Freemium',
+    studentBonus: 'Ask for specific historical examples of Clean Water Act, Montreal Protocol, or Endangered Species Act applications for APES FRQs.',
+    toolOfTheDayRationale: 'Instant access to sourced environmental case studies required for AP Environmental Science free-response questions.'
+  },
+  {
+    id: 'ap-apes-ourworldindata',
+    name: 'Our World in Data (APES Empirical Datasets)',
+    url: 'https://ourworldindata.org/',
+    category: 'ap-science',
+    categoryName: 'AP Sciences',
+    description: 'Authoritative global empirical data, interactive charts, and research covering greenhouse gas emissions, energy transitions, deforestation, and human population demographics.',
+    bestFor: ['Demographic transition models & population pyramids', 'Global carbon & greenhouse gas emission trends', 'Water usage & agricultural footprint charts', 'Biodiversity loss statistics'],
+    tags: ['APES', 'Charts', 'Demographics', 'Emissions', 'Energy', 'Biodiversity', 'Empirical Data'],
+    icon: 'LineChart',
+    featured: false,
+    pricing: 'Free (Oxford)',
+    studentBonus: 'Provides the exact type of multi-variable demographic and ecological charts analyzed in APES Section I and Section II.',
+    toolOfTheDayRationale: 'Master reading and interpreting real environmental charts and population models.'
+  },
+  {
+    id: 'ap-science-central',
+    name: 'College Board AP Science Central',
+    url: 'https://apcentral.collegeboard.org/courses/past-exam-questions',
+    category: 'ap-science',
+    categoryName: 'AP Sciences',
+    description: 'Official College Board repository of released past Free Response Questions (FRQs), scoring guidelines, and Chief Reader commentaries across all AP Science courses.',
+    bestFor: ['AP Biology, Chemistry, Physics 1/2/C & APES past FRQs', 'Official scoring guidelines & rubrics', 'Sample student responses with scores', 'Chief Reader common misconception notes'],
+    tags: ['AP Science', 'College Board', 'Released FRQs', 'Scoring Rubrics', 'Chief Reader', 'Official'],
+    icon: 'GraduationCap',
+    featured: true,
+    pricing: 'Free (Official)',
+    studentBonus: 'Direct access to 15+ years of authentic College Board science exam prompts and exact point-scoring criteria.',
+    toolOfTheDayRationale: 'The ultimate benchmark for practicing real AP science lab-based and quantitative free-response questions.'
+  },
+  {
+    id: 'ap-science-knowt',
+    name: 'Knowt (AP Science Practice Rooms)',
+    url: 'https://knowt.com/exams/AP',
+    category: 'ap-science',
+    categoryName: 'AP Sciences',
+    description: 'Free practice exam rooms, diagnostic tests, and flashcards built strictly around official College Board Course and Exam Descriptions (CEDs) for all AP sciences.',
+    bestFor: ['CED unit-by-unit flashcards for AP Bio & Chem', 'AP Physics formula practice modules', 'APES vocabulary & legislation study rooms', 'Spaced repetition testing'],
+    tags: ['AP Science', 'Practice Exams', 'Flashcards', 'CED', 'Study Rooms', 'AP Bio', 'AP Chem', 'AP Physics'],
+    icon: 'BookCheck',
+    featured: true,
+    pricing: 'Free',
+    studentBonus: 'Study every unit of AP Biology, Chemistry, Physics, and APES with curated flashcard rooms completely free.',
+    toolOfTheDayRationale: 'The most comprehensive free flashcard and diagnostic testing resource for AP science students.'
+  },
+
+  // ==========================================
+  // Category: AP Humanities, Math & General Exam Prep
   // ==========================================
   {
     id: 'ap-claude',
-    name: 'Anthropic Claude',
+    name: 'Anthropic Claude (AP Rubric Grader)',
     url: 'https://claude.ai/',
     category: 'ap-prep',
     categoryName: 'AP & Exam Prep',
@@ -21,22 +175,22 @@ export const TOOLS: Tool[] = [
   },
   {
     id: 'ap-openai',
-    name: 'OpenAI o1 & o3-mini',
+    name: 'OpenAI o1 & o3-mini (AP Math & Logic)',
     url: 'https://chatgpt.com/',
     category: 'ap-prep',
     categoryName: 'AP & Exam Prep',
-    description: 'Solves complex AP Calculus, Physics, and Statistics Free Response Questions (FRQs) with rigorous step-by-step chain-of-thought derivations.',
-    bestFor: ['AP Calculus BC/AB FRQs', 'AP Physics 1/C mechanics & E&M', 'AP Statistics probability & tests', 'Multi-step derivations'],
-    tags: ['AP', 'Calculus', 'Physics', 'Statistics', 'FRQ', 'Reasoning', 'STEM', 'Exam Prep'],
+    description: 'Solves complex AP Calculus AB/BC, Statistics, and Micro/Macroeconomics Free Response Questions with step-by-step derivations.',
+    bestFor: ['AP Calculus BC/AB FRQs', 'AP Statistics hypothesis testing', 'Economics supply/demand graphs', 'Multi-step derivations'],
+    tags: ['AP', 'Calculus', 'Statistics', 'FRQ', 'Exam Prep', 'Reasoning', 'STEM'],
     icon: 'BrainCircuit',
     featured: true,
     pricing: 'Freemium',
     studentBonus: 'Deep chain-of-thought mode details every algebraic step, integral evaluation, and justification required to earn full FRQ points.',
-    toolOfTheDayRationale: 'The premier solver for intimidating multi-part math and physics FRQs from previous exam years.'
+    toolOfTheDayRationale: 'The premier solver for intimidating multi-part math and statistics FRQs from previous exam years.'
   },
   {
     id: 'ap-deepseek',
-    name: 'DeepSeek-R1',
+    name: 'DeepSeek-R1 (AP Quantitative Verifier)',
     url: 'https://chat.deepseek.com/',
     category: 'ap-prep',
     categoryName: 'AP & Exam Prep',
@@ -50,49 +204,19 @@ export const TOOLS: Tool[] = [
     toolOfTheDayRationale: 'Check your math and statistics homework against an exhaustive step-by-step deductive solver.'
   },
   {
-    id: 'ap-gemini',
-    name: 'Google Gemini',
-    url: 'https://gemini.google.com/',
-    category: 'ap-prep',
-    categoryName: 'AP & Exam Prep',
-    description: 'Evaluates uploaded photos of handwritten math steps, free-body diagrams, and circuit schematics to pinpoint exactly where errors occurred.',
-    bestFor: ['Handwritten math step auditing', 'Free-body diagram evaluation', 'Circuit schematics debugging', 'Textbook diagram explanations'],
-    tags: ['AP', 'Diagrams', 'Handwritten', 'Physics', 'Circuits', 'Visual Math', 'Multimodal', 'Exam Prep'],
-    icon: 'Image',
-    featured: false,
-    pricing: 'Freemium',
-    studentBonus: 'Snap a picture of your handwritten calculus or physics solution and ask "Which step did I lose points on?"',
-    toolOfTheDayRationale: 'Multimodal vision capabilities allow immediate debugging of handwritten work and physical circuit diagrams.'
-  },
-  {
     id: 'ap-qwen',
-    name: 'Qwen (Qwen-Coder / Qwen-Math)',
+    name: 'Qwen (AP CSA Java Recursion & Logic)',
     url: 'https://chat.qwen.ai/',
     category: 'ap-prep',
     categoryName: 'AP & Exam Prep',
-    description: 'Specialized reasoning model that traces AP Computer Science A Java recursion, array indexing, and proves AP Calculus mechanics.',
+    description: 'Specialized reasoning model that traces AP Computer Science A Java recursion, array indexing, and proves mathematical mechanics.',
     bestFor: ['AP CSA Java recursion tracing', 'Array & ArrayList loops', 'Calculus mechanics proofs', 'Object-oriented logic'],
     tags: ['AP', 'AP CSA', 'Java', 'Recursion', 'Calculus', 'Qwen', 'Coding', 'Exam Prep'],
     icon: 'Code',
     featured: false,
     pricing: 'Free Tier',
     studentBonus: 'Simulates step-by-step Java execution stacks for AP CSA recursion problems that frequently appear on Section I & II.',
-    toolOfTheDayRationale: 'World-class performance on math and coding benchmarks for AP Computer Science A and Calculus students.'
-  },
-  {
-    id: 'ap-knowt',
-    name: 'Knowt',
-    url: 'https://knowt.com/exams/AP',
-    category: 'ap-prep',
-    categoryName: 'AP & Exam Prep',
-    description: 'Provides free practice exam rooms, flashcards, and study modules directly aligned with College Board Course and Exam Descriptions (CEDs).',
-    bestFor: ['CED-aligned study modules', 'Spaced repetition flashcard rooms', 'AP practice exams', 'Community study guides'],
-    tags: ['AP', 'Practice Exams', 'Flashcards', 'CED', 'Study Rooms', 'College Board', 'Exam Prep'],
-    icon: 'BookCheck',
-    featured: true,
-    pricing: 'Free / Freemium',
-    studentBonus: 'Free alternative to paid flashcard apps with full Quizlet import and exam modules built explicitly around official College Board units.',
-    toolOfTheDayRationale: 'Practice with unit-by-unit flashcard rooms built specifically for your exact AP syllabus.'
+    toolOfTheDayRationale: 'World-class performance on math and coding benchmarks for AP Computer Science A students.'
   },
   {
     id: 'ap-central',
@@ -100,7 +224,7 @@ export const TOOLS: Tool[] = [
     url: 'https://apcentral.collegeboard.org/courses/past-exam-questions',
     category: 'ap-prep',
     categoryName: 'AP & Exam Prep',
-    description: 'The official College Board repository containing released FRQs, official scoring guidelines, sample student responses, and Chief Reader commentaries.',
+    description: 'The official College Board repository containing released FRQs, official scoring guidelines, sample student responses, and Chief Reader commentaries across all AP subjects.',
     bestFor: ['Released past exam FRQs', 'Official scoring guidelines', 'Chief Reader commentaries', 'Actual student sample benchmarks'],
     tags: ['AP', 'College Board', 'Released FRQs', 'Scoring Rubrics', 'Chief Reader', 'Official', 'Exam Prep'],
     icon: 'GraduationCap',
@@ -111,7 +235,7 @@ export const TOOLS: Tool[] = [
   },
 
   // ==========================================
-  // Category 2: Academic Research & Paper Writing
+  // Category: Academic Research & Paper Writing
   // ==========================================
   {
     id: 'notebooklm',
@@ -205,7 +329,7 @@ export const TOOLS: Tool[] = [
   },
 
   // ==========================================
-  // Category 3: STEM, Math & Logical Reasoning
+  // Category: STEM, Math & Logical Reasoning
   // ==========================================
   {
     id: 'stem-openai',
@@ -284,7 +408,7 @@ export const TOOLS: Tool[] = [
   },
 
   // ==========================================
-  // Category 4: Writing Essays, Literature Review & Humanities
+  // Category: Writing Essays, Literature Review & Humanities
   // ==========================================
   {
     id: 'writing-claude',
@@ -348,7 +472,7 @@ export const TOOLS: Tool[] = [
   },
 
   // ==========================================
-  // Category 5: Computer Science & Programming Coursework
+  // Category: Computer Science & Programming Coursework
   // ==========================================
   {
     id: 'cursor',
@@ -472,7 +596,7 @@ export const TOOLS: Tool[] = [
   },
 
   // ==========================================
-  // Category 6: Presentations, Diagrams & Visual Projects
+  // Category: Presentations, Diagrams & Visual Projects
   // ==========================================
   {
     id: 'ideogram',
@@ -536,7 +660,7 @@ export const TOOLS: Tool[] = [
   },
 
   // ==========================================
-  // Category 7: Video and Audio Coursework
+  // Category: Video and Audio Coursework
   // ==========================================
   {
     id: 'descript',

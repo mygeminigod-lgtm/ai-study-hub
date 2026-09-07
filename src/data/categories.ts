@@ -5,17 +5,27 @@ export const CATEGORIES: Category[] = [
     id: 'all',
     label: 'All Tools',
     shortLabel: 'All',
-    description: 'Explore the full suite of specialized AI tools for coursework, AP exams, research, and creation.',
+    description: 'Explore the full suite of specialized AI tools for AP courses, sciences, research, and creation.',
     iconName: 'Sparkles',
     color: '#3b82f6',
     gradient: 'from-blue-500/20 via-indigo-500/10 to-transparent',
     badgeColor: 'bg-blue-500/10 text-blue-400 border-blue-500/20'
   },
   {
+    id: 'ap-science',
+    label: 'AP Sciences (Bio, Chem, Physics & APES)',
+    shortLabel: 'AP Sciences',
+    description: 'Specialized solvers, molecular simulations, and FRQ lab analyzers for AP Biology, AP Chemistry, AP Physics 1/2/C, and AP Environmental Science.',
+    iconName: 'Atom',
+    color: '#10b981',
+    gradient: 'from-emerald-500/20 via-teal-500/10 to-transparent',
+    badgeColor: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
+  },
+  {
     id: 'ap-prep',
-    label: 'AP Coursework & Exam Preparation',
+    label: 'AP Humanities, Math & General Exam Prep',
     shortLabel: 'AP & Exams',
-    description: 'Grade DBQs/LEQs against College Board rubrics, solve calculus/physics FRQs, and review past exam questions.',
+    description: 'Grade DBQs/LEQs against College Board rubrics, solve calculus FRQs, and review past exam questions with CED alignment.',
     iconName: 'Award',
     color: '#f59e0b',
     gradient: 'from-amber-500/20 via-orange-500/10 to-transparent',
@@ -57,9 +67,9 @@ export const CATEGORIES: Category[] = [
     shortLabel: 'Coding',
     description: 'Build software, understand code, debug problems, and accelerate programming coursework.',
     iconName: 'Code2',
-    color: '#10b981',
-    gradient: 'from-emerald-500/20 via-teal-500/10 to-transparent',
-    badgeColor: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
+    color: '#38bdf8',
+    gradient: 'from-sky-500/20 via-blue-500/10 to-transparent',
+    badgeColor: 'bg-sky-500/10 text-sky-400 border-sky-500/20'
   },
   {
     id: 'visual',
