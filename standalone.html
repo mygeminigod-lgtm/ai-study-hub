@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Study Hub — Modern AI Launchpad for Students & Researchers</title>
-  <meta name="description" content="AI Study Hub — The curated AI workspace and launchpad for students, researchers, programmers, and creators.">
+  <title>AI Study Hub — Modern AI Launchpad for AP, Students & Researchers</title>
+  <meta name="description" content="AI Study Hub — Curated AI launchpad for AP coursework, exam prep, academic research, STEM, coding, and creative coursework.">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233b82f6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 2L2 7l10 5 10-5-10-5z'/><path d='M2 17l10 5 10-5'/><path d='M2 12l10 5 10-5'/></svg>">
   
   <!-- Fonts -->
@@ -78,6 +78,7 @@
     // --- DATA LAYER ---
     const CATEGORIES = [
       { id: 'all', label: 'All Tools', shortLabel: 'All', icon: 'sparkles' },
+      { id: 'ap-prep', label: 'AP Coursework & Exam Prep', shortLabel: 'AP & Exams', icon: 'award' },
       { id: 'research', label: 'Academic Research & Paper Writing', shortLabel: 'Research', icon: 'graduation-cap' },
       { id: 'stem', label: 'STEM, Math & Logical Reasoning', shortLabel: 'STEM & Math', icon: 'binary' },
       { id: 'writing', label: 'Writing, Essays & Humanities', shortLabel: 'Writing', icon: 'pen-tool' },
@@ -88,21 +89,128 @@
     ];
 
     const TOOLS = [
-      // 1. Research
+      // 1. AP Coursework & Exam Preparation
+      {
+        id: 'ap-claude',
+        name: 'Anthropic Claude',
+        url: 'https://claude.ai/',
+        category: 'ap-prep',
+        categoryName: 'AP & Exam Prep',
+        description: 'Grades DBQs, LEQs, SAQs, and AP Lang/Lit rhetorical analyses directly against official College Board scoring rubrics with line-by-line feedback.',
+        bestFor: ['DBQ & LEQ rubric grading', 'AP Lang/Lit rhetorical analysis', 'SAQ scoring & thesis feedback', 'College Board rubric alignment'],
+        tags: ['AP', 'Rubrics', 'DBQ', 'LEQ', 'SAQ', 'College Board', 'Essays', 'Exam Prep'],
+        icon: 'award',
+        featured: true,
+        pricing: 'Freemium',
+        studentBonus: 'Paste the official rubric alongside your essay to receive exact point breakdowns across Thesis, Evidence, and Sophistication.',
+        toolOfTheDayRationale: 'Essential for AP History (APUSH, AP Euro, AP World) and AP English students aiming for a 5 on free-response sections.'
+      },
+      {
+        id: 'ap-openai',
+        name: 'OpenAI o1 & o3-mini',
+        url: 'https://chatgpt.com/',
+        category: 'ap-prep',
+        categoryName: 'AP & Exam Prep',
+        description: 'Solves complex AP Calculus, Physics, and Statistics Free Response Questions (FRQs) with rigorous step-by-step chain-of-thought derivations.',
+        bestFor: ['AP Calculus BC/AB FRQs', 'AP Physics 1/C mechanics & E&M', 'AP Statistics probability & tests', 'Step-by-step derivations'],
+        tags: ['AP', 'Calculus', 'Physics', 'Statistics', 'FRQ', 'Exam Prep', 'Reasoning'],
+        icon: 'brain-circuit',
+        featured: true,
+        pricing: 'Freemium',
+        studentBonus: 'Deep chain-of-thought mode details every algebraic step and justification required to earn full FRQ points.',
+        toolOfTheDayRationale: 'The premier solver for intimidating multi-part math and physics FRQs from previous exam years.'
+      },
+      {
+        id: 'ap-deepseek',
+        name: 'DeepSeek-R1',
+        url: 'https://chat.deepseek.com/',
+        category: 'ap-prep',
+        categoryName: 'AP & Exam Prep',
+        description: 'Verifies multi-step calculations, statistics distributions, and quantitative problem sets with open chain-of-thought reasoning.',
+        bestFor: ['Multi-step math calculations', 'Statistics distribution proofs', 'Quantitative FRQ auditing', 'Calculus proofs'],
+        tags: ['AP', 'Statistics', 'Math', 'Calculations', 'Reasoning', 'Quantitative', 'Exam Prep'],
+        icon: 'binary',
+        featured: true,
+        pricing: 'Free Tier',
+        studentBonus: 'Fully accessible open-weights reasoning model that displays raw deduction steps to help you catch calculation traps.',
+        toolOfTheDayRationale: 'Check your math and statistics homework against an exhaustive step-by-step deductive solver.'
+      },
+      {
+        id: 'ap-gemini',
+        name: 'Google Gemini',
+        url: 'https://gemini.google.com/',
+        category: 'ap-prep',
+        categoryName: 'AP & Exam Prep',
+        description: 'Evaluates uploaded photos of handwritten math steps, free-body diagrams, and circuit schematics to pinpoint exactly where errors occurred.',
+        bestFor: ['Handwritten math step auditing', 'Free-body diagram evaluation', 'Circuit schematics debugging', 'Textbook diagram explanations'],
+        tags: ['AP', 'Diagrams', 'Handwritten', 'Physics', 'Circuits', 'Visual Math', 'Multimodal', 'Exam Prep'],
+        icon: 'image',
+        featured: false,
+        pricing: 'Freemium',
+        studentBonus: 'Snap a picture of your handwritten calculus or physics solution and ask "Which step did I lose points on?"',
+        toolOfTheDayRationale: 'Multimodal vision capabilities allow immediate debugging of handwritten work and physical circuit diagrams.'
+      },
+      {
+        id: 'ap-qwen',
+        name: 'Qwen (Qwen-Coder / Qwen-Math)',
+        url: 'https://chat.qwen.ai/',
+        category: 'ap-prep',
+        categoryName: 'AP & Exam Prep',
+        description: 'Specialized reasoning model that traces AP Computer Science A Java recursion, array indexing, and proves AP Calculus mechanics.',
+        bestFor: ['AP CSA Java recursion tracing', 'Array & ArrayList loops', 'Calculus mechanics proofs', 'Object-oriented logic'],
+        tags: ['AP', 'AP CSA', 'Java', 'Recursion', 'Calculus', 'Qwen', 'Coding', 'Exam Prep'],
+        icon: 'code',
+        featured: false,
+        pricing: 'Free Tier',
+        studentBonus: 'Simulates step-by-step Java execution stacks for AP CSA recursion problems that frequently appear on Section I & II.',
+        toolOfTheDayRationale: 'World-class performance on math and coding benchmarks for AP Computer Science A and Calculus students.'
+      },
+      {
+        id: 'ap-knowt',
+        name: 'Knowt',
+        url: 'https://knowt.com/exams/AP',
+        category: 'ap-prep',
+        categoryName: 'AP & Exam Prep',
+        description: 'Provides free practice exam rooms, flashcards, and study modules directly aligned with College Board Course and Exam Descriptions (CEDs).',
+        bestFor: ['CED-aligned study modules', 'Spaced repetition flashcard rooms', 'AP practice exams', 'Community study guides'],
+        tags: ['AP', 'Practice Exams', 'Flashcards', 'CED', 'Study Rooms', 'College Board', 'Exam Prep'],
+        icon: 'book-check',
+        featured: true,
+        pricing: 'Free / Freemium',
+        studentBonus: 'Free alternative to paid flashcard apps with full Quizlet import and exam modules built explicitly around official College Board units.',
+        toolOfTheDayRationale: 'Practice with unit-by-unit flashcard rooms built specifically for your exact AP syllabus.'
+      },
+      {
+        id: 'ap-central',
+        name: 'College Board AP Central',
+        url: 'https://apcentral.collegeboard.org/courses/past-exam-questions',
+        category: 'ap-prep',
+        categoryName: 'AP & Exam Prep',
+        description: 'The official College Board repository containing released FRQs, official scoring guidelines, sample student responses, and Chief Reader commentaries.',
+        bestFor: ['Released past exam FRQs', 'Official scoring guidelines', 'Chief Reader commentaries', 'Actual student sample benchmarks'],
+        tags: ['AP', 'College Board', 'Released FRQs', 'Scoring Rubrics', 'Chief Reader', 'Official', 'Exam Prep'],
+        icon: 'graduation-cap',
+        featured: true,
+        pricing: 'Free (Official)',
+        studentBonus: 'Direct access to 15+ years of real exam questions and Chief Reader explanations detailing common student misconceptions.',
+        toolOfTheDayRationale: 'The ultimate source of truth: study directly from the actual questions and scoring guidelines used by official graders.'
+      },
+
+      // 2. Academic Research & Paper Writing
       {
         id: 'notebooklm',
         name: 'Google NotebookLM',
         url: 'https://notebooklm.google.com/',
         category: 'research',
         categoryName: 'Academic Research',
-        description: 'AI research assistant for working with uploaded sources, documents, notes, and research materials with grounded citations and audio overviews.',
-        bestFor: ['Uploaded PDFs & notes', 'Source-grounded synthesis', 'Audio deep dive podcasts', 'Study guides'],
-        tags: ['Research', 'Notes', 'PDFs', 'Sources', 'Study', 'Literature Review'],
+        description: 'AI research assistant for working with uploaded PDFs, lecture notes, and textbook chapters with source-grounded citations and Audio Overviews.',
+        bestFor: ['Uploaded PDFs & notes', 'Source-grounded citations', 'Audio deep dive podcasts', 'Study guides & FAQs'],
+        tags: ['Research', 'Notes', 'PDFs', 'Sources', 'Study', 'Literature Review', 'Summaries'],
         icon: 'book-open',
         featured: true,
         pricing: 'Free',
-        studentBonus: 'Zero cost Google research notebook that anchors answers 100% in your uploaded materials.',
-        toolOfTheDayRationale: 'Perfect for turning 10 dense journal articles into an interactive source-backed Q&A partner and audio summary.'
+        studentBonus: 'Zero-hallucination research notebook that anchors answers 100% in your uploaded materials.',
+        toolOfTheDayRationale: 'Turn dense journal articles into an interactive source-backed Q&A partner and audio summary.'
       },
       {
         id: 'consensus',
@@ -136,11 +244,11 @@
       },
       {
         id: 'scite',
-        name: 'Scite',
+        name: 'Scite.ai',
         url: 'https://scite.ai/',
         category: 'research',
         categoryName: 'Academic Research',
-        description: 'Research platform for analyzing Smart Citations to understand whether scientific papers are supported, contrasted, or mentioned by later works.',
+        description: 'Research platform for analyzing Smart Citations to verify whether scientific papers are supported, contrasted, or mentioned by later works.',
         bestFor: ['Smart citation analysis', 'Validating claims', 'Finding contrasting evidence', 'Checking paper credibility'],
         tags: ['Citations', 'Research', 'Papers', 'Evidence', 'Validation', 'Credibility'],
         icon: 'file-check',
@@ -151,7 +259,7 @@
       },
       {
         id: 'perplexity',
-        name: 'Perplexity',
+        name: 'Perplexity AI',
         url: 'https://www.perplexity.ai/',
         category: 'research',
         categoryName: 'Academic Research',
@@ -164,32 +272,47 @@
         studentBonus: 'Switch focus to "Academic" mode to query exclusively published papers and scholarly articles.',
         toolOfTheDayRationale: 'Replaces traditional search engines with clear, citation-rich summaries backed by live web and academic sources.'
       },
-
-      // 2. STEM
       {
-        id: 'chatgpt',
-        name: 'ChatGPT',
+        id: 'kimi',
+        name: 'Kimi',
+        url: 'https://kimi.ai/',
+        category: 'research',
+        categoryName: 'Academic Research',
+        description: 'Processes full books, large stacks of research papers, and lengthy PDFs via a massive context window for structured summaries and study guides.',
+        bestFor: ['Full book analysis', 'Massive multi-document stacks', 'Lengthy PDF synthesis', 'Structured study guides'],
+        tags: ['Research', 'Long Context', 'PDFs', 'Books', 'Summaries', 'Study Guides', 'Kimi'],
+        icon: 'file-text',
+        featured: true,
+        pricing: 'Free Tier',
+        studentBonus: 'Drop 200-page monographs or complete syllabi in one session to generate structured outlines and thematic indices.',
+        toolOfTheDayRationale: 'Handles extreme context lengths effortlessly, making it ideal for book-length humanities and research papers.'
+      },
+
+      // 3. STEM & Math
+      {
+        id: 'stem-openai',
+        name: 'OpenAI o1 & o3-mini',
         url: 'https://chatgpt.com/',
         category: 'stem',
         categoryName: 'STEM & Math',
-        description: 'Advanced AI platform featuring o1 and o3-mini reasoning models for rigorous step-by-step mathematical proofs, physics, and STEM problem solving.',
-        bestFor: ['Calculus & algebra proofs', 'Physics problem solving', 'Concept step-by-step breakdown', 'Exam preparation'],
+        description: 'Step-by-step logic for advanced mathematics, physics problems, algorithm design, and formal mathematical proofs.',
+        bestFor: ['Calculus & algebra proofs', 'Physics problem solving', 'Algorithm design', 'Formal deductive logic'],
         tags: ['Math', 'STEM', 'Reasoning', 'Explanations', 'Study', 'Physics', 'Logic'],
-        icon: 'cpu',
+        icon: 'brain-circuit',
         featured: true,
         pricing: 'Freemium',
-        studentBonus: 'Use reasoning models (o1/o3-mini) for deep mathematical derivation and error checking in tricky coursework.',
+        studentBonus: 'Reasoning models demonstrate their chain-of-thought verification to catch algebraic edge cases.',
         toolOfTheDayRationale: 'Break down intimidating theorem proofs and differential equations with interactive step-by-step explanations.'
       },
       {
-        id: 'deepseek',
-        name: 'DeepSeek',
+        id: 'stem-deepseek',
+        name: 'DeepSeek-R1',
         url: 'https://chat.deepseek.com/',
         category: 'stem',
         categoryName: 'STEM & Math',
-        description: 'Open-weights reasoning powerhouse (R1) specialized in mathematical deduction, algorithmic problem solving, and complex logical reasoning.',
+        description: 'Open-weights reasoning model specialized in complex quantitative problems, competition mathematics, and code logic.',
         bestFor: ['Complex STEM proofs', 'Algorithmic problem solving', 'Competition math', 'Deep chain-of-thought logic'],
-        tags: ['Reasoning', 'Math', 'Coding', 'STEM', 'Logic', 'Algorithms'],
+        tags: ['Reasoning', 'Math', 'Coding', 'STEM', 'Logic', 'Algorithms', 'DeepSeek'],
         icon: 'binary',
         featured: true,
         pricing: 'Free Tier',
@@ -197,31 +320,61 @@
         toolOfTheDayRationale: 'Remarkable reasoning model that demonstrates its full thought process step-by-step for complex problems.'
       },
       {
-        id: 'gemini',
+        id: 'stem-qwen',
+        name: 'Qwen (Qwen-Math / Qwen Studio)',
+        url: 'https://chat.qwen.ai/',
+        category: 'stem',
+        categoryName: 'STEM & Math',
+        description: 'Step-by-step math reasoning, multilingual scientific analysis, and multimodal problem solving from complex textbook diagrams.',
+        bestFor: ['Step-by-step math reasoning', 'Multilingual scientific analysis', 'Diagram problem solving', 'Scientific proofs'],
+        tags: ['Math', 'STEM', 'Reasoning', 'Diagrams', 'Multilingual', 'Qwen'],
+        icon: 'cpu',
+        featured: false,
+        pricing: 'Free Tier',
+        studentBonus: 'Specialized mathematical weights top open evaluation benchmarks for high-school and undergraduate problem sets.',
+        toolOfTheDayRationale: 'Dedicated math model trained specifically for formula parsing, equation solving, and geometric proof.'
+      },
+      {
+        id: 'stem-gemini',
         name: 'Google Gemini',
         url: 'https://gemini.google.com/',
         category: 'stem',
         categoryName: 'STEM & Math',
-        description: 'Multimodal AI with massive context window capable of analyzing full textbook chapters, scientific diagrams, and research datasets.',
-        bestFor: ['Parsing textbook diagrams', 'Massive context document analysis', 'Quantitative problem solving', 'Google Workspace sync'],
-        tags: ['Reasoning', 'STEM', 'Research', 'Study', 'Multimodal', 'Diagrams'],
+        description: 'Multi-modal homework help, including visual problem solving from textbook photos, charts, and scientific schematics.',
+        bestFor: ['Parsing textbook diagrams', 'Visual homework problem solving', 'Massive context document analysis', 'Quantitative sets'],
+        tags: ['Reasoning', 'STEM', 'Research', 'Study', 'Multimodal', 'Diagrams', 'Gemini'],
         icon: 'layers',
         featured: true,
         pricing: 'Freemium',
         studentBonus: 'Upload entire textbook chapters or lecture recordings to get immediate answers, quizzes, and concept flashcards.',
-        toolOfTheDayRationale: 'Vast 1M+ token context window allows students to drop entire course syllabi, PDFs, and notes in one session.'
+        toolOfTheDayRationale: 'Vast context window allows students to drop entire course syllabi, PDFs, and notes in one session.'
+      },
+      {
+        id: 'stem-chatgpt',
+        name: 'ChatGPT (GPT-4o)',
+        url: 'https://chatgpt.com/',
+        category: 'stem',
+        categoryName: 'STEM & Math',
+        description: 'General homework explanations, step breakdowns, and conversational conceptual tutoring across all technical subjects.',
+        bestFor: ['Conceptual tutoring', 'Homework step breakdowns', 'Fast sanity checks', 'Study flashcard generation'],
+        tags: ['STEM', 'Tutoring', 'Explanations', 'Homework', 'Study', 'ChatGPT'],
+        icon: 'sparkles',
+        featured: false,
+        pricing: 'Freemium',
+        studentBonus: 'Fast voice and conversational interface for quick conceptual explanations while reviewing study notes.',
+        toolOfTheDayRationale: 'The conversational tutor that explains difficult technical concepts in simple, relatable analogies.'
       },
 
-      // 3. Writing
+      // 4. Writing & Humanities
       {
-        id: 'claude',
-        name: 'Claude',
+        id: 'writing-claude',
+        name: 'Claude (Sonnet / Opus)',
         url: 'https://claude.ai/',
         category: 'writing',
-        categoryName: 'Writing & Essays',
-        description: 'Premier AI assistant renowned for articulate, human-like prose, nuanced essay critique, stylistic editing, and philosophical debate.',
+        categoryName: 'Writing & Humanities',
+        description: 'Structured academic writing, tone control, essay drafting, rhetorical critique, and literary text analysis.',
         bestFor: ['Long-form essay drafting', 'Rhetorical structure analysis', 'Grammar and voice refinement', 'Humanities coursework'],
-        tags: ['Essays', 'Writing', 'Editing', 'Analysis', 'Humanities', 'Philosophy', 'Literature Review'],
+        tags: ['Essays', 'Writing', 'Editing', 'Analysis', 'Humanities', 'Philosophy', 'Literature Review', 'Claude'],
         icon: 'pen-tool',
         featured: true,
         pricing: 'Freemium',
@@ -229,31 +382,61 @@
         toolOfTheDayRationale: 'The gold standard for natural academic writing assistance that sounds intelligent without sounding generic.'
       },
       {
-        id: 'mistral-le-chat',
+        id: 'writing-chatgpt',
+        name: 'ChatGPT',
+        url: 'https://chatgpt.com/',
+        category: 'writing',
+        categoryName: 'Writing & Humanities',
+        description: 'Brainstorming outlines, drafting thesis statements, expanding argumentative perspectives, and overcoming writer’s block.',
+        bestFor: ['Brainstorming essay outlines', 'Drafting thesis statements', 'Expanding arguments', 'Counter-argument development'],
+        tags: ['Writing', 'Brainstorming', 'Essays', 'Outlines', 'Thesis', 'Humanities'],
+        icon: 'message-square',
+        featured: false,
+        pricing: 'Freemium',
+        studentBonus: 'Ask it to play devil’s advocate against your thesis statement to discover hidden counter-arguments.',
+        toolOfTheDayRationale: 'Supercharge the brainstorming phase of your paper by exploring multiple outline angles.'
+      },
+      {
+        id: 'writing-mistral',
         name: 'Mistral Le Chat',
         url: 'https://chat.mistral.ai/',
         category: 'writing',
-        categoryName: 'Writing & Essays',
-        description: 'European frontier AI assistant offering transparent, balanced writing, essay brainstorming, literary analysis, and multilingual proficiency.',
-        bestFor: ['Thesis brainstorming', 'Multilingual writing and translation', 'Literary textual analysis', 'Essay structure critique'],
-        tags: ['Writing', 'Research', 'Brainstorming', 'Analysis', 'Multilingual', 'Humanities', 'Essays'],
-        icon: 'message-square',
+        categoryName: 'Writing & Humanities',
+        description: 'European frontier AI assistant for drafting and analyzing texts across multiple languages with balanced reasoning.',
+        bestFor: ['Multilingual writing and translation', 'Literary textual analysis', 'European language humanities', 'Balanced outlines'],
+        tags: ['Writing', 'Research', 'Brainstorming', 'Analysis', 'Multilingual', 'Humanities'],
+        icon: 'globe',
         featured: false,
         pricing: 'Free Tier',
         studentBonus: 'Exceptional capabilities across European languages (French, Spanish, German, Italian) and unconstrained brainstorming.',
         toolOfTheDayRationale: 'Great companion for foreign language humanities coursework and fresh thesis brainstorming.'
       },
+      {
+        id: 'writing-kimi',
+        name: 'Kimi',
+        url: 'https://kimi.ai/',
+        category: 'writing',
+        categoryName: 'Writing & Humanities',
+        description: 'Synthesizing long narrative sources, historical archives, and organizing multi-document humanities research materials.',
+        bestFor: ['Multi-document humanities synthesis', 'Synthesizing historical archives', 'Long narrative tracking', 'Character & theme mapping'],
+        tags: ['Humanities', 'Literature Review', 'Long Context', 'History', 'Synthesis', 'Writing'],
+        icon: 'library',
+        featured: false,
+        pricing: 'Free Tier',
+        studentBonus: 'Analyze an entire novel or historical manuscript collection at once to track thematic motifs across chapters.',
+        toolOfTheDayRationale: 'Unsurpassed capacity for handling voluminous historical documents and literary texts.'
+      },
 
-      // 4. Coding
+      // 5. Computer Science & Programming
       {
         id: 'cursor',
         name: 'Cursor',
         url: 'https://www.cursor.com/',
         category: 'coding',
         categoryName: 'Coding & CS',
-        description: 'AI-first code editor fork of VS Code built with deep codebase indexing, multi-file edits, and autonomous terminal execution.',
+        description: 'AI-first code editor for navigating, searching, and editing entire programming project directories and multi-file codebases.',
         bestFor: ['Full repository navigation', 'Multi-file refactoring', 'Debugging compiler errors', 'Coding assignments'],
-        tags: ['Coding', 'IDE', 'Programming', 'Debugging', 'Software Development', 'Terminal'],
+        tags: ['Coding', 'IDE', 'Programming', 'Debugging', 'Software Development', 'Terminal', 'Cursor'],
         icon: 'code',
         featured: true,
         pricing: 'Freemium',
@@ -261,12 +444,27 @@
         toolOfTheDayRationale: 'The editor of choice for CS students building complex course projects and multi-file codebases.'
       },
       {
+        id: 'coding-qwen',
+        name: 'Qwen (Qwen-Coder)',
+        url: 'https://chat.qwen.ai/',
+        category: 'coding',
+        categoryName: 'Coding & CS',
+        description: 'Code generation, debugging, and terminal-level programming logic across open competitive programming benchmarks.',
+        bestFor: ['Algorithmic code generation', 'Terminal programming logic', 'Open benchmark excellence', 'Syntax debugging'],
+        tags: ['Coding', 'Programming', 'Debugging', 'Qwen', 'Algorithms', 'Open Source'],
+        icon: 'terminal',
+        featured: false,
+        pricing: 'Free Tier',
+        studentBonus: 'Trained on massive code corpuses, rivaling commercial models for Python, Java, C++, and SQL assignments.',
+        toolOfTheDayRationale: 'Powerful coding assistant optimized for algorithm construction and technical coursework.'
+      },
+      {
         id: 'github-copilot',
         name: 'GitHub Copilot',
         url: 'https://github.com/features/copilot',
         category: 'coding',
         categoryName: 'Coding & CS',
-        description: 'The industry-standard AI pair programmer providing inline autocomplete, test generation, and pull request explanations directly in VS Code and JetBrains.',
+        description: 'Real-time code completions, inline chat, and test generation inside standard development environments like VS Code.',
         bestFor: ['Real-time code autocomplete', 'Writing unit tests', 'Syntax & documentation lookup', 'IDE workflow acceleration'],
         tags: ['Coding', 'Programming', 'GitHub', 'Software Development', 'Autocomplete', 'Testing'],
         icon: 'git-pull-request',
@@ -281,7 +479,7 @@
         url: 'https://codeium.com/windsurf',
         category: 'coding',
         categoryName: 'Coding & CS',
-        description: 'Agentic code editor by Codeium featuring Cascade and Flows for cohesive multi-file editing and collaborative terminal actions.',
+        description: 'AI-assisted workflow for full-stack programming tasks with Cascade for deep contextual code understanding.',
         bestFor: ['Agentic code workflows', 'Multi-file debugging', 'Context-aware code generation', 'Modern IDE workspace'],
         tags: ['Coding', 'IDE', 'Programming', 'AI Coding', 'Agents', 'Debugging'],
         icon: 'terminal',
@@ -296,9 +494,9 @@
         url: 'https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview',
         category: 'coding',
         categoryName: 'Coding & CS',
-        description: 'Anthropic’s agentic command line tool that operates directly in your terminal to understand repos, edit files, and execute test suites.',
+        description: 'Terminal-based code assistance and automated repository debugging operating directly inside your command line.',
         bestFor: ['Terminal-driven development', 'Automated git refactors', 'Running tests & fixing failures', 'CLI workflows'],
-        tags: ['Coding', 'CLI', 'Software Development', 'Agents', 'Terminal'],
+        tags: ['Coding', 'CLI', 'Software Development', 'Agents', 'Terminal', 'Anthropic'],
         icon: 'terminal',
         featured: false,
         pricing: 'Paid / API',
@@ -311,7 +509,7 @@
         url: 'https://aider.chat/',
         category: 'coding',
         categoryName: 'Coding & CS',
-        description: 'Open-source command-line AI pair programmer that automatically creates sensible git commits as it modifies your codebase.',
+        description: 'Git-integrated terminal coding tool that automatically creates sensible git commits as it modifies your codebase.',
         bestFor: ['Local CLI pair programming', 'Automatic sensible git commits', 'Multi-file project edits', 'Local model flexibility'],
         tags: ['Coding', 'Git', 'Programming', 'CLI', 'Terminal', 'Open Source'],
         icon: 'git-commit',
@@ -326,7 +524,7 @@
         url: 'https://replit.com/',
         category: 'coding',
         categoryName: 'Coding & CS',
-        description: 'Cloud collaborative IDE and deployment platform with integrated AI assistant, instant database provisioning, and one-click sharing.',
+        description: 'Generates full web applications in the browser without local environment setup, with cloud hosting included.',
         bestFor: ['Instant zero-setup coding', 'Collaborative group projects', 'Full-stack web prototyping', 'One-click web deployments'],
         tags: ['Coding', 'Web Development', 'Projects', 'Programming', 'Cloud IDE', 'Collaboration'],
         icon: 'cloud',
@@ -341,7 +539,7 @@
         url: 'https://v0.dev/',
         category: 'coding',
         categoryName: 'Coding & CS',
-        description: 'Generative UI system by Vercel that transforms natural language prompts into production-ready React, Tailwind CSS, and Shadcn UI components.',
+        description: 'Front-end user interface generation using modern web frameworks like React, Tailwind CSS, and Shadcn UI.',
         bestFor: ['Frontend UI generation', 'Rapid web design prototyping', 'React & Tailwind components', 'Design-to-code workflow'],
         tags: ['UI', 'Web Development', 'React', 'Frontend', 'Tailwind', 'Design'],
         icon: 'layout',
@@ -351,14 +549,14 @@
         toolOfTheDayRationale: 'Turn visual ideas into gorgeous, fully responsive React & Tailwind code in seconds.'
       },
 
-      // 5. Visual
+      // 6. Presentations, Diagrams & Visual Projects
       {
         id: 'ideogram',
         name: 'Ideogram',
         url: 'https://ideogram.ai/',
         category: 'visual',
         categoryName: 'Visuals & Design',
-        description: 'AI image generation engine renowned for photorealistic graphic design, crystal-clear typography, logos, and presentation poster art.',
+        description: 'Generates images containing clear, legible typography for academic posters, infographics, and presentation graphics.',
         bestFor: ['Crisp text inside images', 'Poster and slide graphics', 'Logo & branding concepts', 'Infographic visuals'],
         tags: ['Images', 'Design', 'Typography', 'Visuals', 'Presentations', 'Posters'],
         icon: 'type',
@@ -373,7 +571,7 @@
         url: 'https://www.midjourney.com/',
         category: 'visual',
         categoryName: 'Visuals & Design',
-        description: 'State-of-the-art artistic and photorealistic image generator delivering breathtaking aesthetics, lighting, and creative mood boards.',
+        description: 'High-resolution conceptual art and creative project illustrations delivering breathtaking aesthetic fidelity.',
         bestFor: ['High-impact presentation slides', 'Concept artwork', 'Visual storytelling', 'Art & architecture aesthetics'],
         tags: ['Images', 'Art', 'Design', 'Creative', 'Photorealism', 'Presentations'],
         icon: 'sparkles',
@@ -388,7 +586,7 @@
         url: 'https://firefly.adobe.com/',
         category: 'visual',
         categoryName: 'Visuals & Design',
-        description: 'Commercially safe, ethical generative AI model by Adobe designed for vector graphics, transparent assets, and creative design exploration.',
+        description: 'Graphic asset generation integrated with graphic editing software, optimized for vector graphics and transparent assets.',
         bestFor: ['Vector illustration generation', 'Transparent PNG graphics', 'Generative fill & photo expansion', 'Ethical image sourcing'],
         tags: ['Images', 'Design', 'Adobe', 'Creative', 'Vectors', 'Illustration'],
         icon: 'palette',
@@ -398,12 +596,12 @@
         toolOfTheDayRationale: 'Create transparent vector badges, icons, and illustrations ready to drop into presentation decks.'
       },
       {
-        id: 'black-forest-labs-flux',
-        name: 'Black Forest Labs — FLUX',
+        id: 'flux',
+        name: 'Flux',
         url: 'https://blackforestlabs.ai/',
         category: 'visual',
         categoryName: 'Visuals & Design',
-        description: 'Next-generation open-weight image synthesis models (FLUX.1) setting new standards for prompt adherence, anatomy, and photorealism.',
+        description: 'Photorealistic image generation for creative media assignments with superior prompt adherence and anatomy accuracy.',
         bestFor: ['Hyper-realistic photography', 'Accurate human anatomy', 'Complex multi-object prompts', 'Open-source visual AI'],
         tags: ['Images', 'Generative AI', 'Visuals', 'Photorealism', 'FLUX', 'Open Source'],
         icon: 'image',
@@ -413,14 +611,14 @@
         toolOfTheDayRationale: 'State-of-the-art image synthesis model with pinpoint prompt following and flawless detail.'
       },
 
-      // 6. Video & Audio
+      // 7. Video and Audio Coursework
       {
         id: 'descript',
         name: 'Descript',
-        url: 'https://www.descript.com/',
+        url: 'https://descript.com/',
         category: 'video-audio',
         categoryName: 'Video & Audio',
-        description: 'Revolutionary text-based video and audio editor that lets you edit recorded lectures, presentations, and podcasts as easily as a Word doc.',
+        description: 'Text-based audio and video editing for school presentations and podcasts with automatic transcription and filler word removal.',
         bestFor: ['Editing recorded presentations', 'Automatic lecture transcription', 'Removing "um"s and filler words', 'Studio sound enhancement'],
         tags: ['Video', 'Audio', 'Editing', 'Transcription', 'Podcasts', 'Presentations'],
         icon: 'file-video',
@@ -435,7 +633,7 @@
         url: 'https://elevenlabs.io/',
         category: 'video-audio',
         categoryName: 'Video & Audio',
-        description: 'The world’s most natural AI voice generator with lifelike intonation, emotional depth, multi-language speech, and audio narration.',
+        description: 'Realistic voiceovers for media projects and study-guide narrations with natural intonation and multi-language speech.',
         bestFor: ['Professional voiceovers for slides', 'Listening to research papers', 'Accessible audio coursework', 'Multilingual narration'],
         tags: ['Voice', 'Audio', 'Text-to-Speech', 'Narration', 'Accessibility'],
         icon: 'mic',
@@ -450,7 +648,7 @@
         url: 'https://deepmind.google/technologies/veo/',
         category: 'video-audio',
         categoryName: 'Video & Audio',
-        description: 'Google’s state-of-the-art generative video model producing high-definition 1080p clips with cinematic camera motion and physics coherence.',
+        description: 'High-definition video generation for multimedia coursework with cinematic camera motion and physics coherence.',
         bestFor: ['Cinematic B-roll generation', 'Scientific visual concepts', 'High-definition video clips', 'Creative multimedia projects'],
         tags: ['Video', 'Generative Video', 'AI Video', 'DeepMind', 'Cinematic'],
         icon: 'video',
@@ -465,7 +663,7 @@
         url: 'https://runwayml.com/',
         category: 'video-audio',
         categoryName: 'Video & Audio',
-        description: 'Multimodal generative video pioneer (Gen-3 Alpha) offering video-to-video transformations, camera motion control, and VFX tools.',
+        description: 'Video generation and visual effects for student projects with Gen-3 Alpha, motion brush, and video-to-video transforms.',
         bestFor: ['Generative video sequences', 'Motion brush effects', 'Presentation background loops', 'Film & media arts'],
         tags: ['Video', 'Editing', 'Generative Video', 'Motion', 'VFX', 'Creative'],
         icon: 'clapperboard',
@@ -480,7 +678,7 @@
         url: 'https://klingai.com/',
         category: 'video-audio',
         categoryName: 'Video & Audio',
-        description: 'Next-gen generative video model with realistic physical simulation, long-duration clip generation, and dynamic 3D camera angles.',
+        description: 'High-motion video generation with realistic physical simulation, camera motion controls, and extended clip duration.',
         bestFor: ['Realistic physical motion', 'Extended video duration', 'Dynamic cinematic sequences', 'Visual effects'],
         tags: ['Video', 'Generative Video', 'Creative', 'Physics', 'Motion'],
         icon: 'film',
@@ -495,7 +693,7 @@
         url: 'https://suno.com/',
         category: 'video-audio',
         categoryName: 'Video & Audio',
-        description: 'Transform any text description or coursework concept into full-length songs with vocals, instruments, and polished studio production.',
+        description: 'Original music generation from text prompts with complete songs, vocals, instruments, and polished studio production.',
         bestFor: ['Coursework audio aids & mnemonics', 'Background music for videos', 'Creative music composition', 'Fun study songs'],
         tags: ['Music', 'Audio', 'Song Generation', 'Vocals', 'Creativity'],
         icon: 'music',
@@ -507,10 +705,10 @@
       {
         id: 'udio',
         name: 'Udio',
-        url: 'https://www.udio.com/',
+        url: 'https://udio.com/',
         category: 'video-audio',
         categoryName: 'Video & Audio',
-        description: 'Studio-fidelity generative music platform producing rich multi-genre tracks, complex musical arrangements, and instrumentals.',
+        description: 'Audio and music production for background scores, multi-genre arrangements, and studio-grade instrumentals.',
         bestFor: ['Studio-quality soundtracks', 'Instrumental presentation scores', 'Multi-genre audio production', 'Podcast intro themes'],
         tags: ['Music', 'Audio', 'Song Generation', 'Soundtrack', 'Production'],
         icon: 'disc',
@@ -522,6 +720,39 @@
     ];
 
     const TASK_RECOMMENDATIONS = [
+      {
+        id: 'grade-ap-essays',
+        taskTitle: 'Grade DBQ / LEQ against AP rubrics',
+        icon: 'award',
+        recommendedToolIds: ['ap-claude', 'writing-chatgpt', 'ap-central'],
+        explanations: {
+          'ap-claude': 'Evaluates DBQs, LEQs, and rhetorical analyses directly against College Board rubrics with point breakdowns.',
+          'writing-chatgpt': 'Suggests counter-arguments, thesis adjustments, and additional historical evidence.',
+          'ap-central': 'Access official released scoring guidelines and Chief Reader commentary to calibrate scoring.'
+        }
+      },
+      {
+        id: 'solve-ap-frqs',
+        taskTitle: 'Solve AP Calculus, Physics & Stats FRQs',
+        icon: 'brain-circuit',
+        recommendedToolIds: ['ap-openai', 'ap-deepseek', 'ap-qwen'],
+        explanations: {
+          'ap-openai': 'o1 and o3-mini models detail every step and justification needed to secure full College Board points.',
+          'ap-deepseek': 'Verifies multi-step calculations, probability distributions, and quantitative homework sets.',
+          'ap-qwen': 'Proves mechanics steps and traces AP Computer Science A Java recursion logic.'
+        }
+      },
+      {
+        id: 'ap-practice-exams',
+        taskTitle: 'Practice AP exams & flashcards',
+        icon: 'book-check',
+        recommendedToolIds: ['ap-knowt', 'ap-central', 'notebooklm'],
+        explanations: {
+          'ap-knowt': 'Provides practice exam rooms and flashcard decks aligned with official College Board CED units.',
+          'ap-central': 'The official repository of 15+ years of released past exam FRQs and scoring rubrics.',
+          notebooklm: 'Upload your class notes, textbook units, and review sheets for custom Q&A and audio overviews.'
+        }
+      },
       {
         id: 'find-papers',
         taskTitle: 'Find research papers',
@@ -535,13 +766,13 @@
       },
       {
         id: 'understand-paper',
-        taskTitle: 'Understand a paper',
+        taskTitle: 'Understand a complex paper / book',
         icon: 'book-open',
-        recommendedToolIds: ['notebooklm', 'claude', 'gemini'],
+        recommendedToolIds: ['notebooklm', 'kimi', 'writing-claude'],
         explanations: {
           notebooklm: 'Grounds all answers exclusively in your uploaded PDF without hallucinations, plus generates audio discussions.',
-          claude: 'Excels at breaking down dense academic jargon, methodologies, and philosophical nuance.',
-          gemini: 'Large context window allows uploading the entire paper plus supplementary data and figures for full analysis.'
+          kimi: 'Vast context window allows dropping full books and stacks of papers for structured summaries.',
+          'writing-claude': 'Excels at breaking down dense academic jargon, methodologies, and philosophical nuance.'
         }
       },
       {
@@ -557,7 +788,7 @@
       },
       {
         id: 'check-citations',
-        taskTitle: 'Check citations',
+        taskTitle: 'Check & validate citations',
         icon: 'check-circle',
         recommendedToolIds: ['scite', 'consensus', 'perplexity'],
         explanations: {
@@ -568,18 +799,18 @@
       },
       {
         id: 'solve-math',
-        taskTitle: 'Solve math',
+        taskTitle: 'Solve math & STEM problems',
         icon: 'binary',
-        recommendedToolIds: ['chatgpt', 'deepseek', 'gemini'],
+        recommendedToolIds: ['stem-openai', 'stem-deepseek', 'stem-qwen'],
         explanations: {
-          chatgpt: 'o1 and o3-mini models deliver rigorous step-by-step mathematical reasoning and proofs.',
-          deepseek: 'R1 reasoning model excels in complex competitive math, formal logic, and Olympiad-level equations.',
-          gemini: 'Understands handwritten formulas, diagrams, and complex scientific plots from images.'
+          'stem-openai': 'o1 and o3-mini models deliver rigorous step-by-step mathematical reasoning and proofs.',
+          'stem-deepseek': 'R1 reasoning model excels in complex competitive math, formal logic, and Olympiad-level equations.',
+          'stem-qwen': 'Specialized math reasoning model that solves equations and geometric proofs with high precision.'
         }
       },
       {
         id: 'learn-programming',
-        taskTitle: 'Learn programming',
+        taskTitle: 'Learn programming concepts',
         icon: 'graduation-cap',
         recommendedToolIds: ['github-copilot', 'cursor', 'replit'],
         explanations: {
@@ -590,18 +821,18 @@
       },
       {
         id: 'debug-code',
-        taskTitle: 'Debug code',
+        taskTitle: 'Debug code & fix errors',
         icon: 'bug',
-        recommendedToolIds: ['cursor', 'windsurf', 'claude-code'],
+        recommendedToolIds: ['cursor', 'coding-qwen', 'claude-code'],
         explanations: {
           cursor: 'Indexes your entire repository to trace bugs across files and compiler error traces.',
-          windsurf: 'Cascade flow automatically tracks variable dependencies and fixes logic errors across multi-file projects.',
+          'coding-qwen': 'Specialized open coding model that catches syntax, algorithmic, and terminal logic errors.',
           'claude-code': 'Runs directly in your terminal, executes test suites, and autonomously patches broken code.'
         }
       },
       {
         id: 'build-website',
-        taskTitle: 'Build a website',
+        taskTitle: 'Build a web project / UI',
         icon: 'layout',
         recommendedToolIds: ['v0', 'replit', 'cursor'],
         explanations: {
@@ -612,18 +843,18 @@
       },
       {
         id: 'create-image',
-        taskTitle: 'Create an image',
+        taskTitle: 'Create an image or graphic',
         icon: 'image',
-        recommendedToolIds: ['midjourney', 'ideogram', 'black-forest-labs-flux'],
+        recommendedToolIds: ['midjourney', 'ideogram', 'flux'],
         explanations: {
           midjourney: 'Industry-leading aesthetic fidelity and photorealism for presentation hero visuals.',
           ideogram: 'Renders flawless, crisp typography and text banners directly inside generated graphic art.',
-          'black-forest-labs-flux': 'Superior prompt adherence and anatomically accurate figures with open flexibility.'
+          flux: 'Superior prompt adherence and anatomically accurate figures with open flexibility.'
         }
       },
       {
         id: 'create-presentation',
-        taskTitle: 'Create a presentation',
+        taskTitle: 'Create presentation visuals',
         icon: 'presentation',
         recommendedToolIds: ['ideogram', 'adobe-firefly', 'midjourney'],
         explanations: {
@@ -634,7 +865,7 @@
       },
       {
         id: 'generate-video',
-        taskTitle: 'Generate a video',
+        taskTitle: 'Generate video clips',
         icon: 'video',
         recommendedToolIds: ['google-veo', 'runway', 'kling-ai'],
         explanations: {
@@ -645,7 +876,7 @@
       },
       {
         id: 'generate-voice',
-        taskTitle: 'Generate a voice',
+        taskTitle: 'Generate voiceovers / narration',
         icon: 'mic',
         recommendedToolIds: ['elevenlabs', 'descript', 'suno'],
         explanations: {
@@ -656,7 +887,7 @@
       },
       {
         id: 'make-music',
-        taskTitle: 'Make music',
+        taskTitle: 'Make background music / audio',
         icon: 'music',
         recommendedToolIds: ['suno', 'udio', 'descript'],
         explanations: {
@@ -668,24 +899,24 @@
     ];
 
     const SEARCH_EXAMPLES = [
+      'Grade my AP DBQ',
+      'Solve AP Calculus FRQ',
+      'AP practice exams',
       'Find academic papers',
       'Write a literature review',
-      'Solve a calculus problem',
       'Code my assignment',
       'Create a presentation',
-      'Generate an image',
-      'Make a video',
-      'Create a voiceover'
+      'Analyze full book with Kimi'
     ];
 
     // --- MAIN APP COMPONENT ---
     function App() {
       const [favoriteIds, setFavoriteIds] = useState(() => {
         try {
-          const saved = localStorage.getItem('ai_study_hub_favs');
-          return saved ? JSON.parse(saved) : ['notebooklm', 'consensus', 'cursor', 'claude'];
+          const saved = localStorage.getItem('ai_study_hub_favs_v2');
+          return saved ? JSON.parse(saved) : ['ap-claude', 'ap-openai', 'ap-knowt', 'notebooklm', 'consensus', 'cursor'];
         } catch(e) {
-          return ['notebooklm', 'consensus', 'cursor', 'claude'];
+          return ['ap-claude', 'ap-openai', 'ap-knowt', 'notebooklm', 'consensus', 'cursor'];
         }
       });
 
@@ -693,12 +924,12 @@
       const [selectedCategory, setSelectedCategory] = useState('all');
       const [sortBy, setSortBy] = useState('featured');
       const [viewMode, setViewMode] = useState('grid');
-      const [activeTaskId, setActiveTaskId] = useState('literature-review');
+      const [activeTaskId, setActiveTaskId] = useState('grade-ap-essays');
       const [modalTool, setModalTool] = useState(null);
 
       useEffect(() => {
         try {
-          localStorage.setItem('ai_study_hub_favs', JSON.stringify(favoriteIds));
+          localStorage.setItem('ai_study_hub_favs_v2', JSON.stringify(favoriteIds));
         } catch(e) {}
       }, [favoriteIds]);
 
@@ -762,7 +993,7 @@
       const activeTask = TASK_RECOMMENDATIONS.find(t => t.id === activeTaskId) || TASK_RECOMMENDATIONS[0];
       const recommendedTools = activeTask.recommendedToolIds.map(id => TOOLS.find(t => t.id === id)).filter(Boolean);
 
-      const toolOfTheDay = TOOLS.find(t => t.id === 'notebooklm') || TOOLS[0];
+      const toolOfTheDay = TOOLS.find(t => t.id === 'ap-claude') || TOOLS[0];
 
       return (
         <div className="min-h-screen bg-[#07090e] text-slate-100 flex flex-col font-sans">
@@ -778,9 +1009,9 @@
                 <div>
                   <div className="flex items-center gap-2">
                     <span className="text-lg font-bold tracking-tight text-white">AI Study Hub</span>
-                    <span className="px-1.5 py-0.5 text-[10px] font-semibold bg-blue-500/10 text-blue-400 border border-blue-500/30 rounded-md">PRO</span>
+                    <span className="px-1.5 py-0.5 text-[10px] font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/30 rounded-md">AP Edition</span>
                   </div>
-                  <p className="text-[11px] text-slate-400 hidden sm:block">Academic & Creator Launchpad</p>
+                  <p className="text-[11px] text-slate-400 hidden sm:block">AP, Academic & Creator Launchpad</p>
                 </div>
               </button>
 
@@ -828,8 +1059,8 @@
             <section className="relative pt-8 pb-12 sm:pt-12 sm:pb-16 text-center max-w-4xl mx-auto px-4">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/80 border border-slate-700/60 shadow-inner mb-6">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span className="text-xs font-medium text-slate-300">Verified Launchpad for Students & Researchers</span>
-                <span className="text-[11px] font-mono text-blue-400 font-semibold pl-1 border-l border-slate-700">28 Tools</span>
+                <span className="text-xs font-medium text-slate-300">Verified Launchpad for AP Courses, University & Research</span>
+                <span className="text-[11px] font-mono text-amber-400 font-semibold pl-1 border-l border-slate-700">{TOOLS.length} Tools</span>
               </div>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-4 leading-tight">
@@ -840,7 +1071,7 @@
               </h1>
 
               <p className="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto mb-8">
-                Research, study, write, code, design, and create faster with the best AI tools in one place.
+                Master AP courses, grade DBQs, solve calculus FRQs, conduct research, write, code, and create faster with verified official AI tools.
               </p>
 
               {/* SEARCH BAR */}
@@ -851,7 +1082,7 @@
                     type="text"
                     value={searchQuery}
                     onChange={e => setSearchQuery(e.target.value)}
-                    placeholder="What are you trying to do? (e.g. literature review, solve calculus, code...)"
+                    placeholder="What are you trying to do? (e.g. grade DBQ, AP Calculus FRQ, literature review, code...)"
                     className="w-full bg-transparent text-white placeholder-slate-400 text-sm sm:text-base focus:outline-none"
                   />
                   {searchQuery && (
@@ -884,8 +1115,9 @@
 
             {/* QUICK ACTIONS */}
             <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-3">
                 {[
+                  { id: 'ap-prep', label: 'AP & Exam Prep', emoji: '🎯', subtext: 'Rubrics, FRQs & CED' },
                   { id: 'research', label: 'Research a Paper', emoji: '📚', subtext: 'Find & cite papers' },
                   { id: 'stem', label: 'Study & Solve', emoji: '🧠', subtext: 'Math, logic & STEM' },
                   { id: 'writing', label: 'Write & Edit', emoji: '✍️', subtext: 'Essays & critique' },
@@ -901,7 +1133,7 @@
                     }}
                     className={`p-3.5 rounded-xl border text-left transition flex flex-col justify-between ${
                       selectedCategory === action.id
-                        ? 'bg-slate-800 border-blue-500 ring-1 ring-blue-500/50'
+                        ? 'bg-slate-800 border-blue-500 ring-1 ring-blue-500/50 shadow-lg'
                         : 'bg-slate-900/50 hover:bg-slate-900 border-slate-800'
                     }`}
                   >
@@ -919,8 +1151,8 @@
             <section id="task-advisor" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 scroll-mt-24">
               <div className="rounded-2xl bg-gradient-to-b from-slate-900/90 to-[#0c121d]/90 border border-slate-800 p-6 sm:p-8 shadow-2xl">
                 <div className="mb-6 pb-6 border-b border-slate-800">
-                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-blue-500/10 text-blue-400 border border-blue-500/20 text-xs font-semibold uppercase tracking-wider mb-2">
-                    <i data-lucide="sparkles" className="w-3.5 h-3.5 text-blue-400 mr-1"></i> Matchmaker
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-semibold uppercase tracking-wider mb-2">
+                    <i data-lucide="sparkles" className="w-3.5 h-3.5 text-amber-400 mr-1"></i> Matchmaker
                   </div>
                   <h2 className="text-2xl sm:text-3xl font-bold text-white">What do you need help with?</h2>
                   <p className="text-sm text-slate-400 mt-1">Select your immediate goal below to view the top 3 recommended AI tools with clear academic rationale.</p>
@@ -1045,7 +1277,7 @@
                 <div className="max-w-md mx-auto py-16 text-center">
                   <i data-lucide="search-x" className="w-12 h-12 text-slate-500 mx-auto mb-3"></i>
                   <h3 className="text-xl font-bold text-white mb-1">No AI tools found</h3>
-                  <p className="text-sm text-slate-400 mb-4">Try searching for "research", "coding", "math", or "video".</p>
+                  <p className="text-sm text-slate-400 mb-4">Try searching for "AP", "research", "coding", "math", or "video".</p>
                   <button
                     onClick={() => { setSelectedCategory('all'); setSearchQuery(''); }}
                     className="px-4 py-2 rounded-xl bg-blue-600 text-white text-xs font-semibold"
@@ -1164,7 +1396,7 @@
 
                 {modalTool.studentBonus && (
                   <div className="p-3 rounded-xl bg-blue-950/40 border border-blue-800/40 text-xs text-blue-300 mb-4">
-                    <span className="font-semibold text-blue-200 block mb-0.5">Student & Researcher Advantage:</span>
+                    <span className="font-semibold text-blue-200 block mb-0.5">Student & Exam Advantage:</span>
                     {modalTool.studentBonus}
                   </div>
                 )}
@@ -1214,14 +1446,14 @@
               <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-6 border-b border-slate-800/60">
                 <div className="flex items-center gap-2">
                   <i data-lucide="graduation-cap" className="w-4 h-4 text-cyan-400"></i>
-                  <span className="text-base font-bold text-white">AI Study Hub</span>
+                  <span className="text-base font-bold text-white">AI Study Hub — AP & Coursework Edition</span>
                 </div>
                 <p className="text-slate-400">
-                  “Your gateway to the best AI tools for studying, research, coding, and creative work.”
+                  “Your gateway to the best AI tools for AP exams, studying, research, coding, and creative work.”
                 </p>
               </div>
               <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500">
-                <p>AI Study Hub is an independent tool directory and is not affiliated with the listed services.</p>
+                <p>AI Study Hub is an independent tool directory and is not affiliated with the listed services or the College Board.</p>
                 <p>Built for students, researchers, and creators worldwide.</p>
               </div>
             </div>

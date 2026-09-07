@@ -2,6 +2,42 @@ import { TaskRecommendation } from '../types';
 
 export const TASK_RECOMMENDATIONS: TaskRecommendation[] = [
   {
+    id: 'grade-ap-essays',
+    taskTitle: 'Grade DBQ / LEQ against AP rubrics',
+    category: 'ap-prep',
+    icon: 'Award',
+    recommendedToolIds: ['ap-claude', 'writing-chatgpt', 'ap-central'],
+    explanations: {
+      'ap-claude': 'Evaluates DBQs, LEQs, and rhetorical analyses directly against College Board rubrics with point breakdowns.',
+      'writing-chatgpt': 'Suggests counter-arguments, thesis adjustments, and additional historical evidence.',
+      'ap-central': 'Access official released scoring guidelines and Chief Reader commentary to calibrate scoring.'
+    }
+  },
+  {
+    id: 'solve-ap-frqs',
+    taskTitle: 'Solve AP Calculus, Physics & Stats FRQs',
+    category: 'ap-prep',
+    icon: 'BrainCircuit',
+    recommendedToolIds: ['ap-openai', 'ap-deepseek', 'ap-qwen'],
+    explanations: {
+      'ap-openai': 'o1 and o3-mini models detail every step and justification needed to secure full College Board points.',
+      'ap-deepseek': 'Verifies multi-step calculations, probability distributions, and quantitative homework sets.',
+      'ap-qwen': 'Proves mechanics steps and traces AP Computer Science A Java recursion logic.'
+    }
+  },
+  {
+    id: 'ap-practice-exams',
+    taskTitle: 'Practice AP exams & flashcards',
+    category: 'ap-prep',
+    icon: 'BookCheck',
+    recommendedToolIds: ['ap-knowt', 'ap-central', 'notebooklm'],
+    explanations: {
+      'ap-knowt': 'Provides practice exam rooms and flashcard decks aligned with official College Board CED units.',
+      'ap-central': 'The official repository of 15+ years of released past exam FRQs and scoring rubrics.',
+      notebooklm: 'Upload your class notes, textbook units, and review sheets for custom Q&A and audio overviews.'
+    }
+  },
+  {
     id: 'find-papers',
     taskTitle: 'Find research papers',
     category: 'research',
@@ -15,14 +51,14 @@ export const TASK_RECOMMENDATIONS: TaskRecommendation[] = [
   },
   {
     id: 'understand-paper',
-    taskTitle: 'Understand a complex paper',
+    taskTitle: 'Understand a complex paper / book',
     category: 'research',
     icon: 'BookOpen',
-    recommendedToolIds: ['notebooklm', 'claude', 'gemini'],
+    recommendedToolIds: ['notebooklm', 'kimi', 'writing-claude'],
     explanations: {
       notebooklm: 'Grounds all answers exclusively in your uploaded PDF without hallucinations, plus generates audio discussions.',
-      claude: 'Excels at breaking down dense academic jargon, methodologies, and philosophical nuance.',
-      gemini: 'Large context window allows uploading the entire paper plus supplementary data and figures for full analysis.'
+      kimi: 'Vast context window allows dropping full books and stacks of papers for structured summaries.',
+      'writing-claude': 'Excels at breaking down dense academic jargon, methodologies, and philosophical nuance.'
     }
   },
   {
@@ -54,11 +90,11 @@ export const TASK_RECOMMENDATIONS: TaskRecommendation[] = [
     taskTitle: 'Solve math & STEM problems',
     category: 'stem',
     icon: 'Binary',
-    recommendedToolIds: ['chatgpt', 'deepseek', 'gemini'],
+    recommendedToolIds: ['stem-openai', 'stem-deepseek', 'stem-qwen'],
     explanations: {
-      chatgpt: 'o1 and o3-mini models deliver rigorous step-by-step mathematical reasoning and proofs.',
-      deepseek: 'R1 reasoning model excels in complex competitive math, formal logic, and Olympiad-level equations.',
-      gemini: 'Understands handwritten formulas, diagrams, and complex scientific plots from images.'
+      'stem-openai': 'o1 and o3-mini models deliver rigorous step-by-step mathematical reasoning and proofs.',
+      'stem-deepseek': 'R1 reasoning model excels in complex competitive math, formal logic, and Olympiad-level equations.',
+      'stem-qwen': 'Specialized math reasoning model that solves equations and geometric proofs with high precision.'
     }
   },
   {
@@ -78,10 +114,10 @@ export const TASK_RECOMMENDATIONS: TaskRecommendation[] = [
     taskTitle: 'Debug code & fix errors',
     category: 'coding',
     icon: 'Bug',
-    recommendedToolIds: ['cursor', 'windsurf', 'claude-code'],
+    recommendedToolIds: ['cursor', 'coding-qwen', 'claude-code'],
     explanations: {
       cursor: 'Indexes your entire repository to trace bugs across files and compiler error traces.',
-      windsurf: 'Cascade flow automatically tracks variable dependencies and fixes logic errors across multi-file projects.',
+      'coding-qwen': 'Specialized open coding model that catches syntax, algorithmic, and terminal logic errors.',
       'claude-code': 'Runs directly in your terminal, executes test suites, and autonomously patches broken code.'
     }
   },
@@ -102,11 +138,11 @@ export const TASK_RECOMMENDATIONS: TaskRecommendation[] = [
     taskTitle: 'Create an image or graphic',
     category: 'visual',
     icon: 'Image',
-    recommendedToolIds: ['midjourney', 'ideogram', 'black-forest-labs-flux'],
+    recommendedToolIds: ['midjourney', 'ideogram', 'flux'],
     explanations: {
       midjourney: 'Industry-leading aesthetic fidelity and photorealism for presentation hero visuals.',
       ideogram: 'Renders flawless, crisp typography and text banners directly inside generated graphic art.',
-      'black-forest-labs-flux': 'Superior prompt adherence and anatomically accurate figures with open flexibility.'
+      flux: 'Superior prompt adherence and anatomically accurate figures with open flexibility.'
     }
   },
   {

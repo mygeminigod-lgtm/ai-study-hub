@@ -1,5 +1,6 @@
 export type CategoryId = 
   | 'all'
+  | 'ap-prep'
   | 'research'
   | 'stem'
   | 'writing'
@@ -30,7 +31,7 @@ export interface Tool {
   tags: string[];
   icon: string; // Lucide icon identifier
   featured?: boolean;
-  pricing?: 'Free' | 'Freemium' | 'Paid' | 'Free Tier' | 'Free for Students' | 'Free / Open Source' | 'Paid / API' | 'Freemium / API' | 'Preview' | string;
+  pricing?: string;
   studentBonus?: string;
   toolOfTheDayRationale?: string;
 }

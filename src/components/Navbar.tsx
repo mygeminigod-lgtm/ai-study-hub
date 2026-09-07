@@ -7,6 +7,7 @@ import {
   Menu,
   X,
   Compass,
+  Award,
   Code2,
   Binary,
   PenTool,
@@ -43,6 +44,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   const navItems: { id: CategoryId; label: string; icon: React.FC<{ className?: string }> }[] = [
     { id: 'all', label: 'All Tools', icon: Compass },
+    { id: 'ap-prep', label: 'AP & Exams', icon: Award },
     { id: 'research', label: 'Academic Research', icon: GraduationCap },
     { id: 'stem', label: 'STEM & Math', icon: Binary },
     { id: 'writing', label: 'Writing', icon: PenTool },
