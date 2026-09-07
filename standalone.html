@@ -1,0 +1,1901 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Study Hub — Modern AI Launchpad for AP, Students & Researchers</title>
+  <meta name="description" content="AI Study Hub — Curated AI launchpad for AP coursework, exam prep, academic research, STEM, coding, and creative coursework.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%233b82f6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 2L2 7l10 5 10-5-10-5z'/><path d='M2 17l10 5 10-5'/><path d='M2 12l10 5 10-5'/></svg>">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            dark: {
+              950: '#07090e',
+              900: '#0c1017',
+              850: '#111722',
+              800: '#17202e',
+              700: '#233045',
+              600: '#334460'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons & React Scripts -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    body {
+      background-color: #07090e;
+      color: #f1f5f9;
+      font-family: 'Inter', sans-serif;
+    }
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: #0c1017; }
+    ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #334155; }
+    .glass-nav {
+      background: rgba(7, 9, 14, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    @keyframes heartBeat {
+      0% { transform: scale(1); }
+      25% { transform: scale(1.3); }
+      50% { transform: scale(0.95); }
+      100% { transform: scale(1); }
+    }
+    .heart-animated { animation: heartBeat 0.35s ease-in-out; }
+  </style>
+</head>
+<body class="bg-[#07090e] text-slate-100 min-h-screen selection:bg-blue-500/30 selection:text-blue-200 antialiased overflow-x-hidden">
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect, useMemo, useRef, useCallback } = React;
+
+    // --- DATA LAYER ---
+    const CATEGORIES = [
+      { id: 'all', label: 'All Tools', shortLabel: 'All', icon: 'sparkles' },
+      { id: 'ap-science', label: 'AP Sciences (Physics, Chemistry, Biology, APES, Psych & CS)', shortLabel: 'AP Sciences', icon: 'atom' },
+      { id: 'ap-prep', label: 'AP Coursework & Exam Prep', shortLabel: 'AP & Exams', icon: 'award' },
+      { id: 'research', label: 'Academic Research & Paper Writing', shortLabel: 'Research', icon: 'graduation-cap' },
+      { id: 'stem', label: 'STEM, Math & Logical Reasoning', shortLabel: 'STEM & Math', icon: 'binary' },
+      { id: 'writing', label: 'Writing, Essays & Humanities', shortLabel: 'Writing', icon: 'pen-tool' },
+      { id: 'coding', label: 'Computer Science & Programming', shortLabel: 'Coding', icon: 'code' },
+      { id: 'visual', label: 'Presentations & Visual Projects', shortLabel: 'Visual', icon: 'palette' },
+      { id: 'video-audio', label: 'Video & Audio', shortLabel: 'Video & Audio', icon: 'video' },
+      { id: 'favorites', label: 'Favorites', shortLabel: 'Favorites', icon: 'heart' }
+    ];
+
+    const TOOLS = [
+      // 0. AP Sciences (Physics, Chemistry, Biology, APES, Psych & CS)
+      // --- AP Physics ---
+      {
+        id: 'ap-chem-phet',
+        name: 'PhET Interactive Simulations',
+        url: 'https://phet.colorado.edu/',
+        category: 'ap-science',
+        categoryName: 'AP Sciences',
+        description: 'Interactive science simulations for AP Physics (circuits, projectile motion, Faraday’s law, optics) and AP Chemistry (acid-base titrations, gas laws, equilibrium).',
+        bestFor: ['Acid-base titration curves & buffer zones', 'Visualizing Le Chatelier’s principle', 'Circuit construction kit (DC & AC)', 'Photoelectric effect & optics'],
+        tags: ['AP Physics', 'AP Chemistry', 'Simulations', 'Labs', 'Titration', 'Circuits', 'STEM', 'Virtual Labs'],
+        icon: 'flask-conical',
+        featured: true,
+        pricing: 'Free (CU Boulder)',
+        studentBonus: 'Perform virtual AP Chemistry and Physics lab experiments to understand conceptual FRQ questions before exam day.',
+        toolOfTheDayRationale: 'Crucial for conceptual visual understanding of AP Chemistry equilibrium and AP Physics circuit labs.'
+      },
+      {
+        id: 'ap-physics-gemini',
+        name: 'Google Gemini (AP Physics Visualizer)',
+        url: 'https://gemini.google.com/',
+        category: 'ap-science',
+        categoryName: 'AP Sciences',
+        description: 'Multimodal homework solver that evaluates photos of handwritten free-body diagrams, circuit schematics, vector components, and optics diagrams to detect errors.',
+        bestFor: ['Auditing handwritten Free-Body Diagrams (FBDs)', 'Kirchhoff’s loop rule & circuit schematics', 'Lenz’s law & magnetic field loops', 'Optics ray diagrams'],
+        tags: ['AP Physics', 'Free-Body Diagrams', 'Circuits', 'Optics', 'Mechanics', 'Multimodal', 'Diagrams'],
+        icon: 'atom',
+        featured: true,
+        pricing: 'Freemium',
+        studentBonus: 'Upload a picture of your free-body diagram or circuit diagram and ask Gemini to verify arrow lengths, vector directions, and loop equations.',
+        toolOfTheDayRationale: 'Detects vector mistakes in handwritten AP Physics 1 and Physics C mechanics solutions instantly.'
+      },
+      {
+        id: 'ap-physics-deepseek',
+        name: 'DeepSeek-R1 (AP Physics C Mechanics & E&M)',
+        url: 'https://chat.deepseek.com/',
+        category: 'ap-science',
+        categoryName: 'AP Sciences',
+        description: 'Open-weights reasoning model for calculus-based AP Physics C: moment of inertia integrals, differential equations for air resistance/RC circuits, and Gauss’s law.',
+        bestFor: ['Moment of inertia surface & volume integrals', 'Differential equations for damping & terminal velocity', 'Gauss’s Law & Ampère’s Law surface integrals', 'Calculus-based derivations'],
+        tags: ['AP Physics', 'AP Physics C', 'Calculus', 'Mechanics', 'E&M', 'Integrals', 'Derivations', 'Gauss Law'],
+        icon: 'binary',
+        featured: true,
+        pricing: 'Free Tier',
+        studentBonus: 'Provides full calculus derivations with step-by-step limits of integration and coordinate system setups.',
+        toolOfTheDayRationale: 'Unsurpassed step-by-step calculus derivations for AP Physics C Mechanics and Electricity & Magnetism.'
+      },
+      {
+        id: 'ap-physics-wolfram',
+        name: 'WolframAlpha (Physics & Science Engine)',
+        url: 'https://www.wolframalpha.com/',
+        category: 'ap-science',
+        categoryName: 'AP Sciences',
+        description: 'Computational science intelligence engine that computes step-by-step solutions for kinematics, projectile trajectories, thermodynamic PV work cycles, RC circuit mesh equations, and vector calculus cross/dot products.',
+        bestFor: ['Kinematics & projectile trajectory steps', 'Thermodynamic PV work integrals', 'Vector cross & dot products', 'Exact physical constants & unit conversions'],
+        tags: ['AP Physics', 'Physics', 'Mechanics', 'Calculus', 'Thermodynamics', 'Wolfram', 'Calculations'],
+        icon: 'binary',
+        featured: false,
+        pricing: 'Freemium',
+        studentBonus: 'Type raw physics expressions to receive step-by-step solutions, unit conversions, and formula plots.',
+        toolOfTheDayRationale: 'The ultimate computational engine for verifying multi-variable physics calculations.'
+      },
+      {
+        id: 'ap-physics-flipping',
+        name: 'Flipping Physics (AP Physics 1, 2 & C)',
+        url: 'https://www.flippingphysics.com/',
+        category: 'ap-science',
+        categoryName: 'AP Sciences',
+        description: 'Renowned video lecture and derivation library strictly aligned with College Board AP Physics 1, Physics 2, and Physics C unit guides, featuring real-world lab demonstrations and pacing guides.',
+        bestFor: ['AP Physics 1 & 2 unit walkthroughs', 'Physics C calculus derivations', 'Real-world visual lab demos', 'FRQ step-by-step problem sets'],
+        tags: ['AP Physics', 'Physics', 'Mechanics', 'E&M', 'Video Lessons', 'Labs', 'Derivations'],
+        icon: 'video',
+        featured: false,
+        pricing: 'Free',
+        studentBonus: 'Provides concise, humorous review videos and derivation sheets keyed directly to the official College Board AP Physics CED units.',
+        toolOfTheDayRationale: 'The most popular video review resource for AP Physics students nationwide.'
+      },
+
+      // --- AP Chemistry ---
+      {
+        id: 'ap-chem-openai',
+        name: 'OpenAI o1 & o3-mini (AP Chemistry Solver)',
+        url: 'https://chatgpt.com/',
+        category: 'ap-science',
+        categoryName: 'AP Sciences',
+        description: 'Rigorous chain-of-thought derivations for AP Chemistry equilibrium expressions (Ka, Kb, Ksp), buffer pH calculations, thermodynamics (ΔG, ΔH, ΔS), and electrochemistry.',
+        bestFor: ['Equilibrium & Henderson-Hasselbalch derivations', 'Thermodynamics & Hess’s Law', 'Electrochemistry cell potentials (E°cell)', 'Reaction kinetics & rate laws'],
+        tags: ['AP Chemistry', 'Equilibrium', 'Thermodynamics', 'Kinetics', 'Electrochemistry', 'FRQ', 'Calculations'],
+        icon: 'brain-circuit',
+        featured: true,
+        pricing: 'Freemium',
+        studentBonus: 'Reasoning models write out complete balanced chemical equations, ICE tables, and units to guarantee full College Board rubric points.',
+        toolOfTheDayRationale: 'The most reliable solver for challenging 10-point AP Chemistry Section II Free Response Questions.'
+      },
+      {
+        id: 'ap-chem-molview',
+        name: 'MolView (3D Interactive Molecular Modeler)',
+        url: 'https://molview.org/',
+        category: 'ap-science',
+        categoryName: 'AP Sciences',
+        description: 'Interactive 3D chemical modeling suite for sketching Lewis structures, visualizing VSEPR 3D geometries, calculating bond dipole moments, orbital hybridizations, and organic functional groups.',
+        bestFor: ['Visualizing VSEPR 3D geometries (octahedral, trigonal bipyramidal)', 'Lewis dot structures & formal charge', 'Dipole moments & polarity vectors', 'Organic functional group identification'],
+        tags: ['AP Chemistry', 'Chemistry', '3D Models', 'VSEPR', 'Molecules', 'Lewis Structures', 'Simulations', 'Virtual Labs'],
+        icon: 'atom',
+        featured: false,
+        pricing: 'Free',
+        studentBonus: 'Rotate molecules in 3D space to immediately grasp bond angles, molecular polarity, and steric numbers required for AP Chem Unit 2.',
+        toolOfTheDayRationale: 'Essential for mastering VSEPR molecular geometry and intermolecular dipole interactions.'
+      },
+      {
+        id: 'ap-chem-chemcollective',
+        name: 'ChemCollective Virtual Chemistry Laboratory',
+        url: 'http://chemcollective.org/vlabs',
+        category: 'ap-science',
+        categoryName: 'AP Sciences',
+        description: 'Online chemistry stockroom and laboratory bench for conducting realistic acid-base titrations, solubility equilibrium Ksp experiments, buffer solution preparation, and calorimetry without physical lab constraints.',
+        bestFor: ['Virtual acid-base titration experiments', 'Buffer preparation & Henderson-Hasselbalch', 'Calorimetry & enthalpy of reaction', 'Gravimetric analysis & stoichiometry'],
+        tags: ['AP Chemistry', 'Chemistry', 'Virtual Labs', 'Titration', 'Buffers', 'Simulations'],
+        icon: 'flask-conical',
+        featured: false,
+        pricing: 'Free (Carnegie Mellon)',
+        studentBonus: 'Mix solutions from an authentic stockroom and read virtual pH meters and analytical balances to solve AP Chem experimental design FRQs.',
+        toolOfTheDayRationale: 'Simulates realistic lab experiments and analytical techniques tested on AP Chemistry Section II.'
+      },
+
+      // --- AP Biology ---
+      {
+        id: 'ap-bio-notebooklm',
+        name: 'Google NotebookLM (AP Biology Source Notebook)',
+        url: 'https://notebooklm.google.com/',
+        category: 'ap-science',
+        categoryName: 'AP Sciences',
+        description: 'AI research assistant grounded in your uploaded Campbell Biology chapters, unit CEDs, cellular energetics pathways, and genetics notes with zero hallucinations.',
+        bestFor: ['Cellular respiration & photosynthesis pathways', 'Mendelian genetics & chi-square analysis', 'Gene expression & operon regulation', 'Generating audio study overviews'],
+        tags: ['AP Biology', 'Cellular Energetics', 'Genetics', 'Ecology', 'Study Guides', 'Notes', 'Podcasts'],
+        icon: 'book-open',
+        featured: true,
+        pricing: 'Free',
+        studentBonus: 'Generate interactive podcasts and study flashcards based 100% on your teacher’s AP Bio slide decks and Campbell Biology PDFs.',
+        toolOfTheDayRationale: 'Turn complex biological signaling cascades into clear, question-and-answer study guides.'
+      },
+      {
+        id: 'ap-bio-hhmi',
+        name: 'HHMI BioInteractive (Virtual Labs & Datasets)',
+        url: 'https://www.biointeractive.org/',
+        category: 'ap-science',
+        categoryName: 'AP Sciences',
+        description: 'Premier scientific education platform offering real biological datasets, interactive click-and-learn virtual labs, pedigree charts, and evolutionary case studies.',
+        bestFor: ['Eukaryotic gene regulation click & learn', 'Hardy-Weinberg population data simulations', 'Gel electrophoresis & CRISPR labs', 'Real-world ecology case studies'],
+        tags: ['AP Biology', 'Virtual Labs', 'Genetics', 'Evolution', 'Hardy-Weinberg', 'Ecology', 'Datasets', 'Simulations'],
+        icon: 'dna',
+        featured: false,
+        pricing: 'Free (HHMI)',
+        studentBonus: 'Frequently used by College Board exam writers as the source material for AP Biology experimental design FRQs.',
+        toolOfTheDayRationale: 'Practice with the exact real-world biological datasets and experiments featured on the AP Biology exam.'
+      },
+      {
+        id: 'ap-bio-rcsb',
+        name: 'RCSB Protein Data Bank (3D Biomolecules)',
+        url: 'https://www.rcsb.org/',
+        category: 'ap-science',
+        categoryName: 'AP Sciences',
+        description: 'Global repository of 3D macromolecular structures allowing students to explore real crystallographic structures of proteins, enzyme-substrate active sites, DNA replication helicase complexes, and cell membrane receptors.',
+        bestFor: ['3D protein folding & tertiary structure', 'Enzyme-substrate active site visualization', 'DNA double helix & replication fork', 'Cellular membrane receptor channels'],
+        tags: ['AP Biology', 'Biology', '3D Models', 'Proteins', 'Enzymes', 'Genetics', 'Macromolecules', 'Simulations'],
+        icon: 'dna',
+        featured: false,
+        pricing: 'Free',
+        studentBonus: 'Explore interactive 3D ribbon diagrams of DNA polymerase, hemoglobin, and aquaporins to understand structure-function relationships.',
+        toolOfTheDayRationale: 'Brings macromolecular biochemistry to life for AP Biology Units 1 and 2.'
+      },
+
+      // --- AP Environmental Science (APES) ---
+      {
+        id: 'ap-apes-perplexity',
+        name: 'Perplexity AI (AP Environmental Science)',
+        url: 'https://www.perplexity.ai/',
+        category: 'ap-science',
+        categoryName: 'AP Sciences',
+        description: 'Conversational engine delivering real-time, cited scientific data on renewable energy efficiency, biogeochemical cycles, atmospheric pollution, and environmental legislation.',
+        bestFor: ['APES environmental legislation (Clean Air Act, CERCLA)', 'Biogeochemical cycle diagrams & stoichiometry', 'Renewable vs. nonrenewable energy trade-offs', 'Trophic energy transfer calculations'],
+        tags: ['APES', 'Environmental Science', 'Legislation', 'Ecology', 'Pollution', 'Climate', 'Data'],
+        icon: 'compass',
+        featured: false,
+        pricing: 'Freemium',
+        studentBonus: 'Ask for specific historical examples of Clean Water Act, Montreal Protocol, or Endangered Species Act applications for APES FRQs.',
+        toolOfTheDayRationale: 'Instant access to sourced environmental case studies required for AP Environmental Science free-response questions.'
+      },
+      {
+        id: 'ap-apes-ourworldindata',
+        name: 'Our World in Data (APES Empirical Datasets)',
+        url: 'https://ourworldindata.org/',
+        category: 'ap-science',
+        categoryName: 'AP Sciences',
+        description: 'Authoritative global empirical data, interactive charts, and research covering greenhouse gas emissions, energy transitions, deforestation, and human population demographics.',
+        bestFor: ['Demographic transition models & population pyramids', 'Global carbon & greenhouse gas emission trends', 'Water usage & agricultural footprint charts', 'Biodiversity loss statistics'],
+        tags: ['APES', 'Charts', 'Demographics', 'Emissions', 'Energy', 'Biodiversity', 'Empirical Data'],
+        icon: 'line-chart',
+        featured: false,
+        pricing: 'Free (Oxford)',
+        studentBonus: 'Provides the exact type of multi-variable demographic and ecological charts analyzed in APES Section I and Section II.',
+        toolOfTheDayRationale: 'Master reading and interpreting real environmental charts and population models.'
+      },
+
+      // --- AP Psychology (Brain & Behavioral Science) ---
+      {
+        id: 'ap-psych-brainfacts',
+        name: 'BrainFacts.org (3D Interactive Brain Explorer)',
+        url: 'https://www.brainfacts.org/3d-brain',
+        category: 'ap-science',
+        categoryName: 'AP Sciences',
+        description: 'Interactive 3D neurological model of the human brain mapping the cerebral cortex lobes, limbic system (amygdala, hippocampus, hypothalamus), neuron action potentials, and neurotransmitter synaptic pathways for AP Psychology.',
+        bestFor: ['3D brain lobes & cerebral cortex anatomy', 'Limbic system (amygdala, hippocampus) mapping', 'Synaptic transmission & neurotransmitter pathways', 'Brain scan interpretations (fMRI, EEG, PET)'],
+        tags: ['AP Psychology', 'Psychology', 'Neuroscience', 'Brain', '3D Models', 'Biology', 'STEM', 'Simulations'],
+        icon: 'brain',
+        featured: true,
+        pricing: 'Free (SfN)',
+        studentBonus: 'Rotate and slice 3D brain regions to master the biological bases of behavior tested heavily in AP Psychology Unit 2.',
+        toolOfTheDayRationale: 'The premier visual tool for memorizing brain structures, lobes, and nervous system anatomy.'
+      },
+      {
+        id: 'ap-psych-claude',
+        name: 'Anthropic Claude (AP Psychology Experiment & Rubric Solver)',
+        url: 'https://claude.ai/',
+        category: 'ap-science',
+        categoryName: 'AP Sciences',
+        description: 'Evaluates AP Psychology Free Response Questions on experimental design, identifying independent/dependent variables, operational definitions, confounding factors, statistical significance (p-values), and ethical standards.',
+        bestFor: ['Psychology experimental design FRQs', 'Operational definitions & variable control', 'Classical vs. operant conditioning analysis', 'Statistical significance & p-value interpretation'],
+        tags: ['AP Psychology', 'Psychology', 'FRQ', 'Rubrics', 'Behavioral Science', 'Exam Prep'],
+        icon: 'award',
+        featured: false,
+        pricing: 'Freemium',
+        studentBonus: 'Paste your practice FRQ answers alongside the College Board prompt to verify whether you met the criteria for operational definitions and confounding variables.',
+        toolOfTheDayRationale: 'Guarantees mastery over the research methods question on AP Psychology Section II.'
+      },
+
+      // --- AP Computer Science (Computational & Algorithmic Science) ---
+      {
+        id: 'ap-csa-qwen',
+        name: 'Qwen (AP CSA Java Recursion & Algorithm Solver)',
+        url: 'https://chat.qwen.ai/',
+        category: 'ap-science',
+        categoryName: 'AP Sciences',
+        description: 'Specialized programming reasoning model that simulates step-by-step Java execution call stacks for AP Computer Science A recursion, 2D array traversals, ArrayList manipulations, and OOP polymorphism.',
+        bestFor: ['Java recursive method tracing & stack frames', '2D array nested loop algorithms', 'ArrayList manipulation & index traps', 'Polymorphism & class hierarchy FRQs'],
+        tags: ['AP Computer Science', 'Computer Science', 'Java', 'Recursion', 'Coding', 'Algorithms', 'AP CSA'],
+        icon: 'code',
+        featured: true,
+        pricing: 'Free Tier',
+        studentBonus: 'Simulates step-by-step Java execution stacks for AP CSA recursion problems that frequently appear on Section I & II.',
+        toolOfTheDayRationale: 'World-class performance on Java coding benchmarks for AP Computer Science A students.'
+      },
+      {
+        id: 'ap-cs-pythontutor',
+        name: 'Java & Python Tutor (Execution Stack Visualizer)',
+        url: 'https://pythontutor.com/java.html',
+        category: 'ap-science',
+        categoryName: 'AP Sciences',
+        description: 'Interactive code visualizer that renders Java and Python execution step-by-step, showing heap memory objects, pointer references, stack frames, and array state changes in real time.',
+        bestFor: ['Visualizing Java call stacks during recursion', 'Tracking object references and memory heap', 'Seeing 2D array matrix memory in real-time', 'Debugging off-by-one loop errors'],
+        tags: ['AP Computer Science', 'Computer Science', 'Java', 'Visualizer', 'Debugging', 'Simulations'],
+        icon: 'terminal',
+        featured: false,
+        pricing: 'Free',
+        studentBonus: 'Paste any tricky AP CSA code snippet to see exact heap and stack frames step-by-step.',
+        toolOfTheDayRationale: 'The best visual aid for demystifying Java references and recursive call trees.'
+      },
+
+      // --- Universal AP Science Repositories ---
+      {
+        id: 'ap-science-central',
+        name: 'College Board AP Science Central',
+        url: 'https://apcentral.collegeboard.org/courses/past-exam-questions',
+        category: 'ap-science',
+        categoryName: 'AP Sciences',
+        description: 'Official College Board repository of released past Free Response Questions (FRQs), scoring guidelines, and Chief Reader commentaries across all AP Science courses (Bio, Chem, Phys 1/2/C, APES, Psych, CSA).',
+        bestFor: ['AP Biology, Chemistry, Physics 1/2/C, APES, Psych & CSA past FRQs', 'Official scoring guidelines & rubrics', 'Sample student responses with scores', 'Chief Reader common misconception notes'],
+        tags: ['AP Science', 'College Board', 'Released FRQs', 'Scoring Rubrics', 'Chief Reader', 'Official'],
+        icon: 'graduation-cap',
+        featured: true,
+        pricing: 'Free (Official)',
+        studentBonus: 'Direct access to 15+ years of authentic College Board science exam prompts and exact point-scoring criteria.',
+        toolOfTheDayRationale: 'The ultimate benchmark for practicing real AP science lab-based and quantitative free-response questions.'
+      },
+      {
+        id: 'ap-science-knowt',
+        name: 'Knowt (AP Science Practice Rooms)',
+        url: 'https://knowt.com/exams/AP',
+        category: 'ap-science',
+        categoryName: 'AP Sciences',
+        description: 'Free practice exam rooms, diagnostic tests, and flashcards built strictly around official College Board Course and Exam Descriptions (CEDs) for all AP sciences.',
+        bestFor: ['CED unit-by-unit flashcards for all AP sciences', 'AP Physics & Chem formula practice modules', 'APES & AP Psych vocabulary study rooms', 'Spaced repetition testing'],
+        tags: ['AP Science', 'Practice Exams', 'Flashcards', 'CED', 'Study Rooms', 'AP Bio', 'AP Chem', 'AP Physics', 'AP Psych'],
+        icon: 'book-check',
+        featured: true,
+        pricing: 'Free',
+        studentBonus: 'Study every unit of AP Biology, Chemistry, Physics, APES, and Psychology with curated flashcard rooms completely free.',
+        toolOfTheDayRationale: 'The most comprehensive free flashcard and diagnostic testing resource for AP science students.'
+      },
+
+      // 1. AP Coursework & Exam Preparation
+      {
+        id: 'ap-claude',
+        name: 'Anthropic Claude',
+        url: 'https://claude.ai/',
+        category: 'ap-prep',
+        categoryName: 'AP & Exam Prep',
+        description: 'Grades DBQs, LEQs, SAQs, and AP Lang/Lit rhetorical analyses directly against official College Board scoring rubrics with line-by-line feedback.',
+        bestFor: ['DBQ & LEQ rubric grading', 'AP Lang/Lit rhetorical analysis', 'SAQ scoring & thesis feedback', 'College Board rubric alignment'],
+        tags: ['AP', 'Rubrics', 'DBQ', 'LEQ', 'SAQ', 'College Board', 'Essays', 'Exam Prep'],
+        icon: 'award',
+        featured: true,
+        pricing: 'Freemium',
+        studentBonus: 'Paste the official rubric alongside your essay to receive exact point breakdowns across Thesis, Evidence, and Sophistication.',
+        toolOfTheDayRationale: 'Essential for AP History (APUSH, AP Euro, AP World) and AP English students aiming for a 5 on free-response sections.'
+      },
+      {
+        id: 'ap-openai',
+        name: 'OpenAI o1 & o3-mini',
+        url: 'https://chatgpt.com/',
+        category: 'ap-prep',
+        categoryName: 'AP & Exam Prep',
+        description: 'Solves complex AP Calculus, Physics, and Statistics Free Response Questions (FRQs) with rigorous step-by-step chain-of-thought derivations.',
+        bestFor: ['AP Calculus BC/AB FRQs', 'AP Physics 1/C mechanics & E&M', 'AP Statistics probability & tests', 'Step-by-step derivations'],
+        tags: ['AP', 'Calculus', 'Physics', 'Statistics', 'FRQ', 'Exam Prep', 'Reasoning'],
+        icon: 'brain-circuit',
+        featured: true,
+        pricing: 'Freemium',
+        studentBonus: 'Deep chain-of-thought mode details every algebraic step and justification required to earn full FRQ points.',
+        toolOfTheDayRationale: 'The premier solver for intimidating multi-part math and physics FRQs from previous exam years.'
+      },
+      {
+        id: 'ap-deepseek',
+        name: 'DeepSeek-R1',
+        url: 'https://chat.deepseek.com/',
+        category: 'ap-prep',
+        categoryName: 'AP & Exam Prep',
+        description: 'Verifies multi-step calculations, statistics distributions, and quantitative problem sets with open chain-of-thought reasoning.',
+        bestFor: ['Multi-step math calculations', 'Statistics distribution proofs', 'Quantitative FRQ auditing', 'Calculus proofs'],
+        tags: ['AP', 'Statistics', 'Math', 'Calculations', 'Reasoning', 'Quantitative', 'Exam Prep'],
+        icon: 'binary',
+        featured: true,
+        pricing: 'Free Tier',
+        studentBonus: 'Fully accessible open-weights reasoning model that displays raw deduction steps to help you catch calculation traps.',
+        toolOfTheDayRationale: 'Check your math and statistics homework against an exhaustive step-by-step deductive solver.'
+      },
+      {
+        id: 'ap-gemini',
+        name: 'Google Gemini',
+        url: 'https://gemini.google.com/',
+        category: 'ap-prep',
+        categoryName: 'AP & Exam Prep',
+        description: 'Evaluates uploaded photos of handwritten math steps, free-body diagrams, and circuit schematics to pinpoint exactly where errors occurred.',
+        bestFor: ['Handwritten math step auditing', 'Free-body diagram evaluation', 'Circuit schematics debugging', 'Textbook diagram explanations'],
+        tags: ['AP', 'Diagrams', 'Handwritten', 'Physics', 'Circuits', 'Visual Math', 'Multimodal', 'Exam Prep'],
+        icon: 'image',
+        featured: false,
+        pricing: 'Freemium',
+        studentBonus: 'Snap a picture of your handwritten calculus or physics solution and ask "Which step did I lose points on?"',
+        toolOfTheDayRationale: 'Multimodal vision capabilities allow immediate debugging of handwritten work and physical circuit diagrams.'
+      },
+      {
+        id: 'ap-qwen',
+        name: 'Qwen (Qwen-Coder / Qwen-Math)',
+        url: 'https://chat.qwen.ai/',
+        category: 'ap-prep',
+        categoryName: 'AP & Exam Prep',
+        description: 'Specialized reasoning model that traces AP Computer Science A Java recursion, array indexing, and proves AP Calculus mechanics.',
+        bestFor: ['AP CSA Java recursion tracing', 'Array & ArrayList loops', 'Calculus mechanics proofs', 'Object-oriented logic'],
+        tags: ['AP', 'AP CSA', 'Java', 'Recursion', 'Calculus', 'Qwen', 'Coding', 'Exam Prep'],
+        icon: 'code',
+        featured: false,
+        pricing: 'Free Tier',
+        studentBonus: 'Simulates step-by-step Java execution stacks for AP CSA recursion problems that frequently appear on Section I & II.',
+        toolOfTheDayRationale: 'World-class performance on math and coding benchmarks for AP Computer Science A and Calculus students.'
+      },
+      {
+        id: 'ap-knowt',
+        name: 'Knowt',
+        url: 'https://knowt.com/exams/AP',
+        category: 'ap-prep',
+        categoryName: 'AP & Exam Prep',
+        description: 'Provides free practice exam rooms, flashcards, and study modules directly aligned with College Board Course and Exam Descriptions (CEDs).',
+        bestFor: ['CED-aligned study modules', 'Spaced repetition flashcard rooms', 'AP practice exams', 'Community study guides'],
+        tags: ['AP', 'Practice Exams', 'Flashcards', 'CED', 'Study Rooms', 'College Board', 'Exam Prep'],
+        icon: 'book-check',
+        featured: true,
+        pricing: 'Free / Freemium',
+        studentBonus: 'Free alternative to paid flashcard apps with full Quizlet import and exam modules built explicitly around official College Board units.',
+        toolOfTheDayRationale: 'Practice with unit-by-unit flashcard rooms built specifically for your exact AP syllabus.'
+      },
+      {
+        id: 'ap-central',
+        name: 'College Board AP Central',
+        url: 'https://apcentral.collegeboard.org/courses/past-exam-questions',
+        category: 'ap-prep',
+        categoryName: 'AP & Exam Prep',
+        description: 'The official College Board repository containing released FRQs, official scoring guidelines, sample student responses, and Chief Reader commentaries.',
+        bestFor: ['Released past exam FRQs', 'Official scoring guidelines', 'Chief Reader commentaries', 'Actual student sample benchmarks'],
+        tags: ['AP', 'College Board', 'Released FRQs', 'Scoring Rubrics', 'Chief Reader', 'Official', 'Exam Prep'],
+        icon: 'graduation-cap',
+        featured: true,
+        pricing: 'Free (Official)',
+        studentBonus: 'Direct access to 15+ years of real exam questions and Chief Reader explanations detailing common student misconceptions.',
+        toolOfTheDayRationale: 'The ultimate source of truth: study directly from the actual questions and scoring guidelines used by official graders.'
+      },
+
+      // 2. Academic Research & Paper Writing
+      {
+        id: 'notebooklm',
+        name: 'Google NotebookLM',
+        url: 'https://notebooklm.google.com/',
+        category: 'research',
+        categoryName: 'Academic Research',
+        description: 'AI research assistant for working with uploaded PDFs, lecture notes, and textbook chapters with source-grounded citations and Audio Overviews.',
+        bestFor: ['Uploaded PDFs & notes', 'Source-grounded citations', 'Audio deep dive podcasts', 'Study guides & FAQs'],
+        tags: ['Research', 'Notes', 'PDFs', 'Sources', 'Study', 'Literature Review', 'Summaries'],
+        icon: 'book-open',
+        featured: true,
+        pricing: 'Free',
+        studentBonus: 'Zero-hallucination research notebook that anchors answers 100% in your uploaded materials.',
+        toolOfTheDayRationale: 'Turn dense journal articles into an interactive source-backed Q&A partner and audio summary.'
+      },
+      {
+        id: 'consensus',
+        name: 'Consensus',
+        url: 'https://consensus.app/',
+        category: 'research',
+        categoryName: 'Academic Research',
+        description: 'AI-powered academic search engine that extracts findings and consensus directly from 200M+ peer-reviewed scientific papers.',
+        bestFor: ['Evidence gathering', 'Consensus meter on claims', 'Scientific paper discovery', 'Systematic literature review'],
+        tags: ['Research', 'Papers', 'Evidence', 'Literature Review', 'Citations', 'Science'],
+        icon: 'search',
+        featured: true,
+        pricing: 'Freemium',
+        studentBonus: 'Provides an instant Consensus Meter indicating whether scientific consensus agrees with your thesis statement.',
+        toolOfTheDayRationale: 'Cut hours off literature search by seeing directly what published science concludes about any question.'
+      },
+      {
+        id: 'elicit',
+        name: 'Elicit',
+        url: 'https://elicit.com/',
+        category: 'research',
+        categoryName: 'Academic Research',
+        description: 'Research assistant designed to help discover papers, extract key variables, synthesize findings, and organize literature research.',
+        bestFor: ['Systematic literature reviews', 'Extracting custom data tables', 'Finding empirical studies', 'Paper synthesis'],
+        tags: ['Research', 'Literature Review', 'Papers', 'Extraction', 'Study', 'Academic'],
+        icon: 'library',
+        featured: true,
+        pricing: 'Freemium',
+        studentBonus: 'Extracts sample sizes, methodologies, and outcomes across dozens of papers into clean comparison tables.',
+        toolOfTheDayRationale: 'Automate tedious literature review matrices and data extraction in minutes.'
+      },
+      {
+        id: 'scite',
+        name: 'Scite.ai',
+        url: 'https://scite.ai/',
+        category: 'research',
+        categoryName: 'Academic Research',
+        description: 'Research platform for analyzing Smart Citations to verify whether scientific papers are supported, contrasted, or mentioned by later works.',
+        bestFor: ['Smart citation analysis', 'Validating claims', 'Finding contrasting evidence', 'Checking paper credibility'],
+        tags: ['Citations', 'Research', 'Papers', 'Evidence', 'Validation', 'Credibility'],
+        icon: 'file-check',
+        featured: false,
+        pricing: 'Freemium',
+        studentBonus: 'Instantly alerts you if a paper you cited has been refuted or contested by subsequent peer studies.',
+        toolOfTheDayRationale: 'Never cite an outdated or debunked study again with Smart Citations.'
+      },
+      {
+        id: 'perplexity',
+        name: 'Perplexity AI',
+        url: 'https://www.perplexity.ai/',
+        category: 'research',
+        categoryName: 'Academic Research',
+        description: 'Conversational answer engine delivering real-time, sourced answers with inline clickable citations and academic filter toggle.',
+        bestFor: ['Sourced topic research', 'Literature discovery with citations', 'Deep research workflows', 'Fact verification'],
+        tags: ['Research', 'Search', 'Sources', 'Questions', 'Study', 'Citations', 'Academic'],
+        icon: 'compass',
+        featured: true,
+        pricing: 'Freemium',
+        studentBonus: 'Switch focus to "Academic" mode to query exclusively published papers and scholarly articles.',
+        toolOfTheDayRationale: 'Replaces traditional search engines with clear, citation-rich summaries backed by live web and academic sources.'
+      },
+      {
+        id: 'kimi',
+        name: 'Kimi',
+        url: 'https://kimi.ai/',
+        category: 'research',
+        categoryName: 'Academic Research',
+        description: 'Processes full books, large stacks of research papers, and lengthy PDFs via a massive context window for structured summaries and study guides.',
+        bestFor: ['Full book analysis', 'Massive multi-document stacks', 'Lengthy PDF synthesis', 'Structured study guides'],
+        tags: ['Research', 'Long Context', 'PDFs', 'Books', 'Summaries', 'Study Guides', 'Kimi'],
+        icon: 'file-text',
+        featured: true,
+        pricing: 'Free Tier',
+        studentBonus: 'Drop 200-page monographs or complete syllabi in one session to generate structured outlines and thematic indices.',
+        toolOfTheDayRationale: 'Handles extreme context lengths effortlessly, making it ideal for book-length humanities and research papers.'
+      },
+
+      // 3. STEM & Math
+      {
+        id: 'stem-openai',
+        name: 'OpenAI o1 & o3-mini',
+        url: 'https://chatgpt.com/',
+        category: 'stem',
+        categoryName: 'STEM & Math',
+        description: 'Step-by-step logic for advanced mathematics, physics problems, algorithm design, and formal mathematical proofs.',
+        bestFor: ['Calculus & algebra proofs', 'Physics problem solving', 'Algorithm design', 'Formal deductive logic'],
+        tags: ['Math', 'STEM', 'Reasoning', 'Explanations', 'Study', 'Physics', 'Logic'],
+        icon: 'brain-circuit',
+        featured: true,
+        pricing: 'Freemium',
+        studentBonus: 'Reasoning models demonstrate their chain-of-thought verification to catch algebraic edge cases.',
+        toolOfTheDayRationale: 'Break down intimidating theorem proofs and differential equations with interactive step-by-step explanations.'
+      },
+      {
+        id: 'stem-deepseek',
+        name: 'DeepSeek-R1',
+        url: 'https://chat.deepseek.com/',
+        category: 'stem',
+        categoryName: 'STEM & Math',
+        description: 'Open-weights reasoning model specialized in complex quantitative problems, competition mathematics, and code logic.',
+        bestFor: ['Complex STEM proofs', 'Algorithmic problem solving', 'Competition math', 'Deep chain-of-thought logic'],
+        tags: ['Reasoning', 'Math', 'Coding', 'STEM', 'Logic', 'Algorithms', 'DeepSeek'],
+        icon: 'binary',
+        featured: true,
+        pricing: 'Free Tier',
+        studentBonus: 'Completely accessible chain-of-thought reasoning mode ideal for Olympiad-level mathematics and algorithms.',
+        toolOfTheDayRationale: 'Remarkable reasoning model that demonstrates its full thought process step-by-step for complex problems.'
+      },
+      {
+        id: 'stem-qwen',
+        name: 'Qwen (Qwen-Math / Qwen Studio)',
+        url: 'https://chat.qwen.ai/',
+        category: 'stem',
+        categoryName: 'STEM & Math',
+        description: 'Step-by-step math reasoning, multilingual scientific analysis, and multimodal problem solving from complex textbook diagrams.',
+        bestFor: ['Step-by-step math reasoning', 'Multilingual scientific analysis', 'Diagram problem solving', 'Scientific proofs'],
+        tags: ['Math', 'STEM', 'Reasoning', 'Diagrams', 'Multilingual', 'Qwen'],
+        icon: 'cpu',
+        featured: false,
+        pricing: 'Free Tier',
+        studentBonus: 'Specialized mathematical weights top open evaluation benchmarks for high-school and undergraduate problem sets.',
+        toolOfTheDayRationale: 'Dedicated math model trained specifically for formula parsing, equation solving, and geometric proof.'
+      },
+      {
+        id: 'stem-gemini',
+        name: 'Google Gemini',
+        url: 'https://gemini.google.com/',
+        category: 'stem',
+        categoryName: 'STEM & Math',
+        description: 'Multi-modal homework help, including visual problem solving from textbook photos, charts, and scientific schematics.',
+        bestFor: ['Parsing textbook diagrams', 'Visual homework problem solving', 'Massive context document analysis', 'Quantitative sets'],
+        tags: ['Reasoning', 'STEM', 'Research', 'Study', 'Multimodal', 'Diagrams', 'Gemini'],
+        icon: 'layers',
+        featured: true,
+        pricing: 'Freemium',
+        studentBonus: 'Upload entire textbook chapters or lecture recordings to get immediate answers, quizzes, and concept flashcards.',
+        toolOfTheDayRationale: 'Vast context window allows students to drop entire course syllabi, PDFs, and notes in one session.'
+      },
+      {
+        id: 'stem-chatgpt',
+        name: 'ChatGPT (GPT-4o)',
+        url: 'https://chatgpt.com/',
+        category: 'stem',
+        categoryName: 'STEM & Math',
+        description: 'General homework explanations, step breakdowns, and conversational conceptual tutoring across all technical subjects.',
+        bestFor: ['Conceptual tutoring', 'Homework step breakdowns', 'Fast sanity checks', 'Study flashcard generation'],
+        tags: ['STEM', 'Tutoring', 'Explanations', 'Homework', 'Study', 'ChatGPT'],
+        icon: 'sparkles',
+        featured: false,
+        pricing: 'Freemium',
+        studentBonus: 'Fast voice and conversational interface for quick conceptual explanations while reviewing study notes.',
+        toolOfTheDayRationale: 'The conversational tutor that explains difficult technical concepts in simple, relatable analogies.'
+      },
+
+      // 4. Writing & Humanities
+      {
+        id: 'writing-claude',
+        name: 'Claude (Sonnet / Opus)',
+        url: 'https://claude.ai/',
+        category: 'writing',
+        categoryName: 'Writing & Humanities',
+        description: 'Structured academic writing, tone control, essay drafting, rhetorical critique, and literary text analysis.',
+        bestFor: ['Long-form essay drafting', 'Rhetorical structure analysis', 'Grammar and voice refinement', 'Humanities coursework'],
+        tags: ['Essays', 'Writing', 'Editing', 'Analysis', 'Humanities', 'Philosophy', 'Literature Review', 'Claude'],
+        icon: 'pen-tool',
+        featured: true,
+        pricing: 'Freemium',
+        studentBonus: 'Excels at providing constructive feedback on essay outlines, thesis defense, and academic flow.',
+        toolOfTheDayRationale: 'The gold standard for natural academic writing assistance that sounds intelligent without sounding generic.'
+      },
+      {
+        id: 'writing-chatgpt',
+        name: 'ChatGPT',
+        url: 'https://chatgpt.com/',
+        category: 'writing',
+        categoryName: 'Writing & Humanities',
+        description: 'Brainstorming outlines, drafting thesis statements, expanding argumentative perspectives, and overcoming writer’s block.',
+        bestFor: ['Brainstorming essay outlines', 'Drafting thesis statements', 'Expanding arguments', 'Counter-argument development'],
+        tags: ['Writing', 'Brainstorming', 'Essays', 'Outlines', 'Thesis', 'Humanities'],
+        icon: 'message-square',
+        featured: false,
+        pricing: 'Freemium',
+        studentBonus: 'Ask it to play devil’s advocate against your thesis statement to discover hidden counter-arguments.',
+        toolOfTheDayRationale: 'Supercharge the brainstorming phase of your paper by exploring multiple outline angles.'
+      },
+      {
+        id: 'writing-mistral',
+        name: 'Mistral Le Chat',
+        url: 'https://chat.mistral.ai/',
+        category: 'writing',
+        categoryName: 'Writing & Humanities',
+        description: 'European frontier AI assistant for drafting and analyzing texts across multiple languages with balanced reasoning.',
+        bestFor: ['Multilingual writing and translation', 'Literary textual analysis', 'European language humanities', 'Balanced outlines'],
+        tags: ['Writing', 'Research', 'Brainstorming', 'Analysis', 'Multilingual', 'Humanities'],
+        icon: 'globe',
+        featured: false,
+        pricing: 'Free Tier',
+        studentBonus: 'Exceptional capabilities across European languages (French, Spanish, German, Italian) and unconstrained brainstorming.',
+        toolOfTheDayRationale: 'Great companion for foreign language humanities coursework and fresh thesis brainstorming.'
+      },
+      {
+        id: 'writing-kimi',
+        name: 'Kimi',
+        url: 'https://kimi.ai/',
+        category: 'writing',
+        categoryName: 'Writing & Humanities',
+        description: 'Synthesizing long narrative sources, historical archives, and organizing multi-document humanities research materials.',
+        bestFor: ['Multi-document humanities synthesis', 'Synthesizing historical archives', 'Long narrative tracking', 'Character & theme mapping'],
+        tags: ['Humanities', 'Literature Review', 'Long Context', 'History', 'Synthesis', 'Writing'],
+        icon: 'library',
+        featured: false,
+        pricing: 'Free Tier',
+        studentBonus: 'Analyze an entire novel or historical manuscript collection at once to track thematic motifs across chapters.',
+        toolOfTheDayRationale: 'Unsurpassed capacity for handling voluminous historical documents and literary texts.'
+      },
+
+      // 5. Computer Science & Programming
+      {
+        id: 'cursor',
+        name: 'Cursor',
+        url: 'https://www.cursor.com/',
+        category: 'coding',
+        categoryName: 'Coding & CS',
+        description: 'AI-first code editor for navigating, searching, and editing entire programming project directories and multi-file codebases.',
+        bestFor: ['Full repository navigation', 'Multi-file refactoring', 'Debugging compiler errors', 'Coding assignments'],
+        tags: ['Coding', 'IDE', 'Programming', 'Debugging', 'Software Development', 'Terminal', 'Cursor'],
+        icon: 'code',
+        featured: true,
+        pricing: 'Freemium',
+        studentBonus: 'Index your entire project repository so the AI understands all imports, functions, and files simultaneously.',
+        toolOfTheDayRationale: 'The editor of choice for CS students building complex course projects and multi-file codebases.'
+      },
+      {
+        id: 'coding-qwen',
+        name: 'Qwen (Qwen-Coder)',
+        url: 'https://chat.qwen.ai/',
+        category: 'coding',
+        categoryName: 'Coding & CS',
+        description: 'Code generation, debugging, and terminal-level programming logic across open competitive programming benchmarks.',
+        bestFor: ['Algorithmic code generation', 'Terminal programming logic', 'Open benchmark excellence', 'Syntax debugging'],
+        tags: ['Coding', 'Programming', 'Debugging', 'Qwen', 'Algorithms', 'Open Source'],
+        icon: 'terminal',
+        featured: false,
+        pricing: 'Free Tier',
+        studentBonus: 'Trained on massive code corpuses, rivaling commercial models for Python, Java, C++, and SQL assignments.',
+        toolOfTheDayRationale: 'Powerful coding assistant optimized for algorithm construction and technical coursework.'
+      },
+      {
+        id: 'github-copilot',
+        name: 'GitHub Copilot',
+        url: 'https://github.com/features/copilot',
+        category: 'coding',
+        categoryName: 'Coding & CS',
+        description: 'Real-time code completions, inline chat, and test generation inside standard development environments like VS Code.',
+        bestFor: ['Real-time code autocomplete', 'Writing unit tests', 'Syntax & documentation lookup', 'IDE workflow acceleration'],
+        tags: ['Coding', 'Programming', 'GitHub', 'Software Development', 'Autocomplete', 'Testing'],
+        icon: 'git-pull-request',
+        featured: true,
+        pricing: 'Free for Students',
+        studentBonus: '100% Free through the GitHub Student Developer Pack with verified school email (.edu).',
+        toolOfTheDayRationale: 'Free for all verified students—essential companion for typing syntax and learning new programming languages.'
+      },
+      {
+        id: 'windsurf',
+        name: 'Windsurf',
+        url: 'https://codeium.com/windsurf',
+        category: 'coding',
+        categoryName: 'Coding & CS',
+        description: 'AI-assisted workflow for full-stack programming tasks with Cascade for deep contextual code understanding.',
+        bestFor: ['Agentic code workflows', 'Multi-file debugging', 'Context-aware code generation', 'Modern IDE workspace'],
+        tags: ['Coding', 'IDE', 'Programming', 'AI Coding', 'Agents', 'Debugging'],
+        icon: 'terminal',
+        featured: false,
+        pricing: 'Freemium',
+        studentBonus: 'Generous free tier with real-time agentic collaboration across all file dependencies.',
+        toolOfTheDayRationale: 'Experience next-level agentic coding that navigates your project architecture seamlessly.'
+      },
+      {
+        id: 'claude-code',
+        name: 'Claude Code',
+        url: 'https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview',
+        category: 'coding',
+        categoryName: 'Coding & CS',
+        description: 'Terminal-based code assistance and automated repository debugging operating directly inside your command line.',
+        bestFor: ['Terminal-driven development', 'Automated git refactors', 'Running tests & fixing failures', 'CLI workflows'],
+        tags: ['Coding', 'CLI', 'Software Development', 'Agents', 'Terminal', 'Anthropic'],
+        icon: 'terminal',
+        featured: false,
+        pricing: 'Paid / API',
+        studentBonus: 'Operates in your actual terminal environment, running git status, lint, and test scripts directly.',
+        toolOfTheDayRationale: 'Allows power users to automate terminal debugging and git refactoring via natural language.'
+      },
+      {
+        id: 'aider',
+        name: 'Aider',
+        url: 'https://aider.chat/',
+        category: 'coding',
+        categoryName: 'Coding & CS',
+        description: 'Git-integrated terminal coding tool that automatically creates sensible git commits as it modifies your codebase.',
+        bestFor: ['Local CLI pair programming', 'Automatic sensible git commits', 'Multi-file project edits', 'Local model flexibility'],
+        tags: ['Coding', 'Git', 'Programming', 'CLI', 'Terminal', 'Open Source'],
+        icon: 'git-commit',
+        featured: false,
+        pricing: 'Free / Open Source',
+        studentBonus: 'Works seamlessly with your favorite LLMs and your existing terminal workflow with automatic git versioning.',
+        toolOfTheDayRationale: 'Clean git commits generated automatically with every AI change in your local repository.'
+      },
+      {
+        id: 'replit',
+        name: 'Replit',
+        url: 'https://replit.com/',
+        category: 'coding',
+        categoryName: 'Coding & CS',
+        description: 'Generates full web applications in the browser without local environment setup, with cloud hosting included.',
+        bestFor: ['Instant zero-setup coding', 'Collaborative group projects', 'Full-stack web prototyping', 'One-click web deployments'],
+        tags: ['Coding', 'Web Development', 'Projects', 'Programming', 'Cloud IDE', 'Collaboration'],
+        icon: 'cloud',
+        featured: false,
+        pricing: 'Freemium',
+        studentBonus: 'Code in any language from any laptop, tablet, or browser without installing Node, Python, or local compilers.',
+        toolOfTheDayRationale: 'The ultimate zero-configuration cloud IDE for collaborative class projects and quick prototypes.'
+      },
+      {
+        id: 'v0',
+        name: 'v0 by Vercel',
+        url: 'https://v0.dev/',
+        category: 'coding',
+        categoryName: 'Coding & CS',
+        description: 'Front-end user interface generation using modern web frameworks like React, Tailwind CSS, and Shadcn UI.',
+        bestFor: ['Frontend UI generation', 'Rapid web design prototyping', 'React & Tailwind components', 'Design-to-code workflow'],
+        tags: ['UI', 'Web Development', 'React', 'Frontend', 'Tailwind', 'Design'],
+        icon: 'layout',
+        featured: true,
+        pricing: 'Freemium',
+        studentBonus: 'Copy and paste ready-to-run React components directly into course web projects and personal portfolios.',
+        toolOfTheDayRationale: 'Turn visual ideas into gorgeous, fully responsive React & Tailwind code in seconds.'
+      },
+
+      // 6. Presentations, Diagrams & Visual Projects
+      {
+        id: 'ideogram',
+        name: 'Ideogram',
+        url: 'https://ideogram.ai/',
+        category: 'visual',
+        categoryName: 'Visuals & Design',
+        description: 'Generates images containing clear, legible typography for academic posters, infographics, and presentation graphics.',
+        bestFor: ['Crisp text inside images', 'Poster and slide graphics', 'Logo & branding concepts', 'Infographic visuals'],
+        tags: ['Images', 'Design', 'Typography', 'Visuals', 'Presentations', 'Posters'],
+        icon: 'type',
+        featured: false,
+        pricing: 'Freemium',
+        studentBonus: 'Solves the classic AI problem of scrambled text—renders titles and text banners cleanly in generated images.',
+        toolOfTheDayRationale: 'Best tool for creating academic poster graphics, title headers, and presentation title cards.'
+      },
+      {
+        id: 'midjourney',
+        name: 'Midjourney',
+        url: 'https://www.midjourney.com/',
+        category: 'visual',
+        categoryName: 'Visuals & Design',
+        description: 'High-resolution conceptual art and creative project illustrations delivering breathtaking aesthetic fidelity.',
+        bestFor: ['High-impact presentation slides', 'Concept artwork', 'Visual storytelling', 'Art & architecture aesthetics'],
+        tags: ['Images', 'Art', 'Design', 'Creative', 'Photorealism', 'Presentations'],
+        icon: 'sparkles',
+        featured: true,
+        pricing: 'Paid',
+        studentBonus: 'Unmatched aesthetic quality for hero visuals in academic capstone presentations and design portfolios.',
+        toolOfTheDayRationale: 'Creates jaw-dropping presentation visuals and cinematic concept illustrations.'
+      },
+      {
+        id: 'adobe-firefly',
+        name: 'Adobe Firefly',
+        url: 'https://firefly.adobe.com/',
+        category: 'visual',
+        categoryName: 'Visuals & Design',
+        description: 'Graphic asset generation integrated with graphic editing software, optimized for vector graphics and transparent assets.',
+        bestFor: ['Vector illustration generation', 'Transparent PNG graphics', 'Generative fill & photo expansion', 'Ethical image sourcing'],
+        tags: ['Images', 'Design', 'Adobe', 'Creative', 'Vectors', 'Illustration'],
+        icon: 'palette',
+        featured: false,
+        pricing: 'Freemium',
+        studentBonus: 'Trained exclusively on Adobe Stock and public domain content, ensuring safe academic and professional use.',
+        toolOfTheDayRationale: 'Create transparent vector badges, icons, and illustrations ready to drop into presentation decks.'
+      },
+      {
+        id: 'flux',
+        name: 'Flux',
+        url: 'https://blackforestlabs.ai/',
+        category: 'visual',
+        categoryName: 'Visuals & Design',
+        description: 'Photorealistic image generation for creative media assignments with superior prompt adherence and anatomy accuracy.',
+        bestFor: ['Hyper-realistic photography', 'Accurate human anatomy', 'Complex multi-object prompts', 'Open-source visual AI'],
+        tags: ['Images', 'Generative AI', 'Visuals', 'Photorealism', 'FLUX', 'Open Source'],
+        icon: 'image',
+        featured: false,
+        pricing: 'Freemium / API',
+        studentBonus: 'Created by the original team behind Stable Diffusion, offering cutting-edge image realism and precision.',
+        toolOfTheDayRationale: 'State-of-the-art image synthesis model with pinpoint prompt following and flawless detail.'
+      },
+
+      // 7. Video and Audio Coursework
+      {
+        id: 'descript',
+        name: 'Descript',
+        url: 'https://descript.com/',
+        category: 'video-audio',
+        categoryName: 'Video & Audio',
+        description: 'Text-based audio and video editing for school presentations and podcasts with automatic transcription and filler word removal.',
+        bestFor: ['Editing recorded presentations', 'Automatic lecture transcription', 'Removing "um"s and filler words', 'Studio sound enhancement'],
+        tags: ['Video', 'Audio', 'Editing', 'Transcription', 'Podcasts', 'Presentations'],
+        icon: 'file-video',
+        featured: true,
+        pricing: 'Freemium',
+        studentBonus: 'Edit audio/video by simply deleting words in the transcript. Automatically eliminates filler words with one click.',
+        toolOfTheDayRationale: 'Effortlessly clean up recorded class presentations, group project videos, and interviews.'
+      },
+      {
+        id: 'elevenlabs',
+        name: 'ElevenLabs',
+        url: 'https://elevenlabs.io/',
+        category: 'video-audio',
+        categoryName: 'Video & Audio',
+        description: 'Realistic voiceovers for media projects and study-guide narrations with natural intonation and multi-language speech.',
+        bestFor: ['Professional voiceovers for slides', 'Listening to research papers', 'Accessible audio coursework', 'Multilingual narration'],
+        tags: ['Voice', 'Audio', 'Text-to-Speech', 'Narration', 'Accessibility'],
+        icon: 'mic',
+        featured: true,
+        pricing: 'Freemium',
+        studentBonus: 'Create studio-quality narration for course videos or convert 20-page reading assignments into lifelike audiobooks.',
+        toolOfTheDayRationale: 'Give your project presentations a broadcast-quality voiceover in dozens of accents and languages.'
+      },
+      {
+        id: 'google-veo',
+        name: 'Google DeepMind Veo',
+        url: 'https://deepmind.google/technologies/veo/',
+        category: 'video-audio',
+        categoryName: 'Video & Audio',
+        description: 'High-definition video generation for multimedia coursework with cinematic camera motion and physics coherence.',
+        bestFor: ['Cinematic B-roll generation', 'Scientific visual concepts', 'High-definition video clips', 'Creative multimedia projects'],
+        tags: ['Video', 'Generative Video', 'AI Video', 'DeepMind', 'Cinematic'],
+        icon: 'video',
+        featured: false,
+        pricing: 'Preview',
+        studentBonus: 'Generates cinematic sequences with physics accuracy for science demonstrations and film coursework.',
+        toolOfTheDayRationale: 'DeepMind’s premier generative video research model delivering exceptional cinematic fidelity.'
+      },
+      {
+        id: 'runway',
+        name: 'Runway',
+        url: 'https://runwayml.com/',
+        category: 'video-audio',
+        categoryName: 'Video & Audio',
+        description: 'Video generation and visual effects for student projects with Gen-3 Alpha, motion brush, and video-to-video transforms.',
+        bestFor: ['Generative video sequences', 'Motion brush effects', 'Presentation background loops', 'Film & media arts'],
+        tags: ['Video', 'Editing', 'Generative Video', 'Motion', 'VFX', 'Creative'],
+        icon: 'clapperboard',
+        featured: false,
+        pricing: 'Freemium',
+        studentBonus: 'Direct camera pan, zoom, and motion brush controls to create engaging video clips for any presentation.',
+        toolOfTheDayRationale: 'Comprehensive creative suite for students exploring filmmaking, animation, and multimedia.'
+      },
+      {
+        id: 'kling-ai',
+        name: 'Kling AI',
+        url: 'https://klingai.com/',
+        category: 'video-audio',
+        categoryName: 'Video & Audio',
+        description: 'High-motion video generation with realistic physical simulation, camera motion controls, and extended clip duration.',
+        bestFor: ['Realistic physical motion', 'Extended video duration', 'Dynamic cinematic sequences', 'Visual effects'],
+        tags: ['Video', 'Generative Video', 'Creative', 'Physics', 'Motion'],
+        icon: 'film',
+        featured: false,
+        pricing: 'Freemium',
+        studentBonus: 'Renowned for realistic liquid, fabric, and physics simulations that look natural on screen.',
+        toolOfTheDayRationale: 'Generate realistic video motions that accurately follow physical real-world dynamics.'
+      },
+      {
+        id: 'suno',
+        name: 'Suno',
+        url: 'https://suno.com/',
+        category: 'video-audio',
+        categoryName: 'Video & Audio',
+        description: 'Original music generation from text prompts with complete songs, vocals, instruments, and polished studio production.',
+        bestFor: ['Coursework audio aids & mnemonics', 'Background music for videos', 'Creative music composition', 'Fun study songs'],
+        tags: ['Music', 'Audio', 'Song Generation', 'Vocals', 'Creativity'],
+        icon: 'music',
+        featured: false,
+        pricing: 'Freemium',
+        studentBonus: 'Turn dry study formulas and historical timelines into memorable catchy songs to study for exams.',
+        toolOfTheDayRationale: 'Create custom background music or turn exam concepts into catchy memory-aid songs.'
+      },
+      {
+        id: 'udio',
+        name: 'Udio',
+        url: 'https://udio.com/',
+        category: 'video-audio',
+        categoryName: 'Video & Audio',
+        description: 'Audio and music production for background scores, multi-genre arrangements, and studio-grade instrumentals.',
+        bestFor: ['Studio-quality soundtracks', 'Instrumental presentation scores', 'Multi-genre audio production', 'Podcast intro themes'],
+        tags: ['Music', 'Audio', 'Song Generation', 'Soundtrack', 'Production'],
+        icon: 'disc',
+        featured: false,
+        pricing: 'Freemium',
+        studentBonus: 'Creates nuanced jazz, classical, electronic, or lo-fi beats to score your video projects and podcast intros.',
+        toolOfTheDayRationale: 'Studio-grade audio fidelity for students needing original background scores without copyright flags.'
+      }
+    ];
+
+    const TASK_RECOMMENDATIONS = [
+      {
+        id: 'ap-chem-frqs',
+        taskTitle: 'Solve AP Chemistry equilibrium & stoichiometry',
+        icon: 'flask-conical',
+        recommendedToolIds: ['ap-chem-openai', 'ap-chem-phet', 'ap-science-central'],
+        explanations: {
+          'ap-chem-openai': 'Derives equilibrium ICE tables, buffer pH, thermodynamics, and electrochemistry step-by-step.',
+          'ap-chem-phet': 'Simulates acid-base titration curves, Le Chatelier shifts, and gas laws visually before calculations.',
+          'ap-science-central': 'Access official College Board past released AP Chemistry FRQs and grading guidelines.'
+        }
+      },
+      {
+        id: 'ap-physics-frqs',
+        taskTitle: 'Debug AP Physics diagrams & calculus mechanics',
+        icon: 'atom',
+        recommendedToolIds: ['ap-physics-gemini', 'ap-physics-deepseek', 'ap-chem-phet'],
+        explanations: {
+          'ap-physics-gemini': 'Audits photos of handwritten free-body diagrams, Kirchhoff loop equations, and circuit schematics.',
+          'ap-physics-deepseek': 'Solves calculus-based moment of inertia integrals, damping differential equations, and Gauss’s law.',
+          'ap-chem-phet': 'Builds virtual AC/DC circuits and visualizes projectile motion and wave optics.'
+        }
+      },
+      {
+        id: 'ap-bio-labs',
+        taskTitle: 'Analyze AP Biology experimental data & pathways',
+        icon: 'dna',
+        recommendedToolIds: ['ap-bio-notebooklm', 'ap-bio-hhmi', 'consensus'],
+        explanations: {
+          'ap-bio-notebooklm': 'Grounded exclusively in your uploaded textbook chapters and cellular energetics pathways.',
+          'ap-bio-hhmi': 'Simulates real biological datasets, Hardy-Weinberg population dynamics, and virtual genetics labs.',
+          consensus: 'Searches peer-reviewed papers to confirm biological experimental conclusions with consensus meters.'
+        }
+      },
+      {
+        id: 'ap-apes-data',
+        taskTitle: 'Calculate AP Environmental Science (APES) data',
+        icon: 'line-chart',
+        recommendedToolIds: ['ap-apes-perplexity', 'ap-apes-ourworldindata', 'ap-science-knowt'],
+        explanations: {
+          'ap-apes-perplexity': 'Retrieves verified legislation facts (Clean Air Act, CERCLA) and environmental case studies with citations.',
+          'ap-apes-ourworldindata': 'Master real-world demographic transition pyramids, greenhouse gas emissions, and deforestation data.',
+          'ap-science-knowt': 'Practice APES diagnostic exams and unit-by-unit flashcards aligned directly with the CED.'
+        }
+      },
+      {
+        id: 'ap-psych-brain',
+        taskTitle: 'Master AP Psychology brain anatomy & experiment design',
+        icon: 'brain',
+        recommendedToolIds: ['ap-psych-brainfacts', 'ap-psych-claude', 'ap-science-knowt'],
+        explanations: {
+          'ap-psych-brainfacts': 'Rotate and slice 3D brain lobes, limbic structures, and neurotransmitter pathways for Unit 2.',
+          'ap-psych-claude': 'Evaluates experimental design FRQs, operational definitions, confounding variables, and ethics.',
+          'ap-science-knowt': 'Practice CED-aligned AP Psychology flashcard rooms and diagnostic tests.'
+        }
+      },
+      {
+        id: 'ap-csa-recursion',
+        taskTitle: 'Trace AP Computer Science A Java recursion & OOP',
+        icon: 'code',
+        recommendedToolIds: ['ap-csa-qwen', 'ap-cs-pythontutor', 'ap-science-knowt'],
+        explanations: {
+          'ap-csa-qwen': 'Simulates step-by-step Java execution stacks for recursion, 2D arrays, and class polymorphism.',
+          'ap-cs-pythontutor': 'Visualizes live heap memory, object pointers, and stack frame mutations line-by-line.',
+          'ap-science-knowt': 'Complete AP CSA unit-by-unit practice rooms and Java multiple choice diagnostics.'
+        }
+      },
+      {
+        id: 'ap-science-3d-labs',
+        taskTitle: 'Model 3D chemical structures & virtual labs',
+        icon: 'layers',
+        recommendedToolIds: ['ap-chem-molview', 'ap-chem-chemcollective', 'ap-bio-rcsb'],
+        explanations: {
+          'ap-chem-molview': 'Visualize 3D VSEPR geometries, bond dipole moments, and organic functional groups.',
+          'ap-chem-chemcollective': 'Perform virtual acid-base titrations, buffer preparations, and thermochemistry experiments.',
+          'ap-bio-rcsb': 'Explore 3D crystalline structures of proteins, enzyme active sites, and DNA replication forks.'
+        }
+      },
+      {
+        id: 'grade-ap-essays',
+        taskTitle: 'Grade DBQ / LEQ against AP rubrics',
+        icon: 'award',
+        recommendedToolIds: ['ap-claude', 'writing-chatgpt', 'ap-central'],
+        explanations: {
+          'ap-claude': 'Evaluates DBQs, LEQs, and rhetorical analyses directly against College Board rubrics with point breakdowns.',
+          'writing-chatgpt': 'Suggests counter-arguments, thesis adjustments, and additional historical evidence.',
+          'ap-central': 'Access official released scoring guidelines and Chief Reader commentary to calibrate scoring.'
+        }
+      },
+      {
+        id: 'solve-ap-frqs',
+        taskTitle: 'Solve AP Calculus, Physics & Stats FRQs',
+        icon: 'brain-circuit',
+        recommendedToolIds: ['ap-openai', 'ap-deepseek', 'ap-qwen'],
+        explanations: {
+          'ap-openai': 'o1 and o3-mini models detail every step and justification needed to secure full College Board points.',
+          'ap-deepseek': 'Verifies multi-step calculations, probability distributions, and quantitative homework sets.',
+          'ap-qwen': 'Proves mechanics steps and traces AP Computer Science A Java recursion logic.'
+        }
+      },
+      {
+        id: 'ap-practice-exams',
+        taskTitle: 'Practice AP exams & flashcards',
+        icon: 'book-check',
+        recommendedToolIds: ['ap-knowt', 'ap-central', 'notebooklm'],
+        explanations: {
+          'ap-knowt': 'Provides practice exam rooms and flashcard decks aligned with official College Board CED units.',
+          'ap-central': 'The official repository of 15+ years of released past exam FRQs and scoring rubrics.',
+          notebooklm: 'Upload your class notes, textbook units, and review sheets for custom Q&A and audio overviews.'
+        }
+      },
+      {
+        id: 'find-papers',
+        taskTitle: 'Find research papers',
+        icon: 'search',
+        recommendedToolIds: ['consensus', 'elicit', 'perplexity'],
+        explanations: {
+          consensus: 'Searches 200M+ peer-reviewed papers and provides a Consensus Meter on your question.',
+          elicit: 'Discovers relevant empirical studies and automatically extracts key outcomes into structured tables.',
+          perplexity: 'Gives direct conversational answers backed by academic sources with inline clickable links.'
+        }
+      },
+      {
+        id: 'understand-paper',
+        taskTitle: 'Understand a complex paper / book',
+        icon: 'book-open',
+        recommendedToolIds: ['notebooklm', 'kimi', 'writing-claude'],
+        explanations: {
+          notebooklm: 'Grounds all answers exclusively in your uploaded PDF without hallucinations, plus generates audio discussions.',
+          kimi: 'Vast context window allows dropping full books and stacks of papers for structured summaries.',
+          'writing-claude': 'Excels at breaking down dense academic jargon, methodologies, and philosophical nuance.'
+        }
+      },
+      {
+        id: 'literature-review',
+        taskTitle: 'Write a literature review',
+        icon: 'file-text',
+        recommendedToolIds: ['elicit', 'consensus', 'scite'],
+        explanations: {
+          elicit: 'Systematically compares study methodologies, sample sizes, and findings across multiple papers in minutes.',
+          consensus: 'Synthesizes scientific consensus across hundreds of studies for your thesis statement.',
+          scite: 'Validates that the studies you include are well-supported and not refuted by subsequent research.'
+        }
+      },
+      {
+        id: 'check-citations',
+        taskTitle: 'Check & validate citations',
+        icon: 'check-circle',
+        recommendedToolIds: ['scite', 'consensus', 'perplexity'],
+        explanations: {
+          scite: 'Uses Smart Citations to show whether each cited study was supported, contrasted, or just mentioned.',
+          consensus: 'Finds verified peer-reviewed publications confirming specific scientific or factual claims.',
+          perplexity: 'Verifies claims with real-time web and academic citations to avoid hallucinated references.'
+        }
+      },
+      {
+        id: 'solve-math',
+        taskTitle: 'Solve math & STEM problems',
+        icon: 'binary',
+        recommendedToolIds: ['stem-openai', 'stem-deepseek', 'stem-qwen'],
+        explanations: {
+          'stem-openai': 'o1 and o3-mini models deliver rigorous step-by-step mathematical reasoning and proofs.',
+          'stem-deepseek': 'R1 reasoning model excels in complex competitive math, formal logic, and Olympiad-level equations.',
+          'stem-qwen': 'Specialized math reasoning model that solves equations and geometric proofs with high precision.'
+        }
+      },
+      {
+        id: 'learn-programming',
+        taskTitle: 'Learn programming concepts',
+        icon: 'graduation-cap',
+        recommendedToolIds: ['github-copilot', 'cursor', 'replit'],
+        explanations: {
+          'github-copilot': 'Free for verified students; offers inline hints, explanations, and syntax examples as you type.',
+          cursor: 'Allows you to highlight any confusing code block and ask for clear, interactive explanations.',
+          replit: 'Zero-setup browser environment lets you practice Python, C++, Java, or JS immediately with AI guidance.'
+        }
+      },
+      {
+        id: 'debug-code',
+        taskTitle: 'Debug code & fix errors',
+        icon: 'bug',
+        recommendedToolIds: ['cursor', 'coding-qwen', 'claude-code'],
+        explanations: {
+          cursor: 'Indexes your entire repository to trace bugs across files and compiler error traces.',
+          'coding-qwen': 'Specialized open coding model that catches syntax, algorithmic, and terminal logic errors.',
+          'claude-code': 'Runs directly in your terminal, executes test suites, and autonomously patches broken code.'
+        }
+      },
+      {
+        id: 'build-website',
+        taskTitle: 'Build a web project / UI',
+        icon: 'layout',
+        recommendedToolIds: ['v0', 'replit', 'cursor'],
+        explanations: {
+          v0: 'Generates responsive modern React and Tailwind CSS components instantly from natural language prompts.',
+          replit: 'Full-stack cloud environment that writes code and hosts your live web application with a shareable URL.',
+          cursor: 'Ideal editor for stitching together frontend components, APIs, and state management locally.'
+        }
+      },
+      {
+        id: 'create-image',
+        taskTitle: 'Create an image or graphic',
+        icon: 'image',
+        recommendedToolIds: ['midjourney', 'ideogram', 'flux'],
+        explanations: {
+          midjourney: 'Industry-leading aesthetic fidelity and photorealism for presentation hero visuals.',
+          ideogram: 'Renders flawless, crisp typography and text banners directly inside generated graphic art.',
+          flux: 'Superior prompt adherence and anatomically accurate figures with open flexibility.'
+        }
+      },
+      {
+        id: 'create-presentation',
+        taskTitle: 'Create presentation visuals',
+        icon: 'presentation',
+        recommendedToolIds: ['ideogram', 'adobe-firefly', 'midjourney'],
+        explanations: {
+          ideogram: 'Perfect for slide title designs, infographics, and poster visuals with readable headings.',
+          'adobe-firefly': 'Generates transparent assets and vector-style graphics that fit cleanly into PowerPoint/Keynote.',
+          midjourney: 'Produces cinematic background concepts and mood-setting slide illustrations.'
+        }
+      },
+      {
+        id: 'generate-video',
+        taskTitle: 'Generate video clips',
+        icon: 'video',
+        recommendedToolIds: ['google-veo', 'runway', 'kling-ai'],
+        explanations: {
+          'google-veo': 'Produces high-definition 1080p clips with coherent physics and cinematic camera direction.',
+          runway: 'Gen-3 Alpha offers motion brush, camera controls, and video-to-video creative styling.',
+          'kling-ai': 'Simulates realistic physical motion and generates extended duration video sequences.'
+        }
+      },
+      {
+        id: 'generate-voice',
+        taskTitle: 'Generate voiceovers / narration',
+        icon: 'mic',
+        recommendedToolIds: ['elevenlabs', 'descript', 'suno'],
+        explanations: {
+          elevenlabs: 'Most lifelike voice synthesis with natural human inflections in dozens of languages.',
+          descript: 'Record and edit your own voiceovers with automatic studio-sound cleanup and transcript editing.',
+          suno: 'Can create catchy vocal hooks and spoken intro jingles for multimedia projects.'
+        }
+      },
+      {
+        id: 'make-music',
+        taskTitle: 'Make background music / audio',
+        icon: 'music',
+        recommendedToolIds: ['suno', 'udio', 'descript'],
+        explanations: {
+          suno: 'Generates complete songs and catchy musical tracks from simple descriptive prompts in any genre.',
+          udio: 'Delivers studio-mastered instrumentals, complex musical arrangements, and custom soundtracks.',
+          descript: 'Provides professional multitrack mixing, audio leveling, and background noise removal.'
+        }
+      }
+    ];
+
+    const SEARCH_EXAMPLES = [
+      'Grade my AP DBQ',
+      'Solve AP Calculus FRQ',
+      'AP practice exams',
+      'Find academic papers',
+      'Write a literature review',
+      'Code my assignment',
+      'Create a presentation',
+      'Analyze full book with Kimi'
+    ];
+
+    // --- MAIN APP COMPONENT ---
+    function App() {
+      const [favoriteIds, setFavoriteIds] = useState(() => {
+        try {
+          const saved = localStorage.getItem('ai_study_hub_favs_v2');
+          return saved ? JSON.parse(saved) : ['ap-claude', 'ap-openai', 'ap-knowt', 'notebooklm', 'consensus', 'cursor'];
+        } catch(e) {
+          return ['ap-claude', 'ap-openai', 'ap-knowt', 'notebooklm', 'consensus', 'cursor'];
+        }
+      });
+
+      const [searchQuery, setSearchQuery] = useState('');
+      const [selectedCategory, setSelectedCategory] = useState('all');
+      const [selectedTag, setSelectedTag] = useState(null);
+      const [sortBy, setSortBy] = useState('featured');
+      const [viewMode, setViewMode] = useState('grid');
+      const [activeTaskId, setActiveTaskId] = useState('grade-ap-essays');
+      const [modalTool, setModalTool] = useState(null);
+
+      useEffect(() => {
+        try {
+          localStorage.setItem('ai_study_hub_favs_v2', JSON.stringify(favoriteIds));
+        } catch(e) {}
+      }, [favoriteIds]);
+
+      useEffect(() => {
+        if (window.lucide) {
+          window.lucide.createIcons();
+        }
+      });
+
+      const toggleFavorite = (id) => {
+        setFavoriteIds(prev => 
+          prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
+        );
+      };
+
+      const isFav = (id) => favoriteIds.includes(id);
+
+      // Filtered tools
+      const filteredTools = useMemo(() => {
+        let list = [...TOOLS];
+        if (selectedCategory === 'favorites') {
+          list = list.filter(t => favoriteIds.includes(t.id));
+        } else if (selectedCategory !== 'all') {
+          list = list.filter(t => t.category === selectedCategory);
+        }
+
+        if (selectedTag) {
+          const lowerTag = selectedTag.toLowerCase();
+          list = list.filter(t => t.tags.some(tag => tag.toLowerCase() === lowerTag));
+        }
+
+        if (searchQuery.trim()) {
+          const q = searchQuery.toLowerCase().trim();
+          const terms = q.split(/\s+/).filter(Boolean);
+          list = list.filter(tool => {
+            const name = tool.name.toLowerCase();
+            const desc = tool.description.toLowerCase();
+            const cat = tool.categoryName.toLowerCase();
+            const tags = tool.tags.map(t => t.toLowerCase());
+            const best = tool.bestFor.map(b => b.toLowerCase());
+            return terms.every(term => 
+              name.includes(term) || desc.includes(term) || cat.includes(term) ||
+              tags.some(t => t.includes(term)) || best.some(b => b.includes(term))
+            );
+          });
+        }
+
+        if (sortBy === 'featured') {
+          list.sort((a, b) => {
+            const aFav = favoriteIds.includes(a.id) ? 1 : 0;
+            const bFav = favoriteIds.includes(b.id) ? 1 : 0;
+            if ((a.featured ? 1 : 0) !== (b.featured ? 1 : 0)) {
+              return (b.featured ? 1 : 0) - (a.featured ? 1 : 0);
+            }
+            if (aFav !== bFav) return bFav - aFav;
+            return a.name.localeCompare(b.name);
+          });
+        } else if (sortBy === 'name') {
+          list.sort((a, b) => a.name.localeCompare(b.name));
+        } else if (sortBy === 'category') {
+          list.sort((a, b) => a.categoryName.localeCompare(b.categoryName) || a.name.localeCompare(b.name));
+        }
+        return list;
+      }, [selectedCategory, searchQuery, favoriteIds, sortBy]);
+
+      const activeTask = TASK_RECOMMENDATIONS.find(t => t.id === activeTaskId) || TASK_RECOMMENDATIONS[0];
+      const recommendedTools = activeTask.recommendedToolIds.map(id => TOOLS.find(t => t.id === id)).filter(Boolean);
+
+      const toolOfTheDay = TOOLS.find(t => t.id === 'ap-claude') || TOOLS[0];
+
+      return (
+        <div className="min-h-screen bg-[#07090e] text-slate-100 flex flex-col font-sans">
+          {/* STICKY NAVBAR */}
+          <header className="sticky top-0 z-40 bg-[#07090e]/90 backdrop-blur-md border-b border-slate-800/80 py-3 shadow-lg shadow-black/40">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+              <button onClick={() => { setSelectedCategory('all'); setSearchQuery(''); }} className="flex items-center gap-3 text-left">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-cyan-400 p-[1px] shadow-lg shadow-blue-500/20">
+                  <div className="w-full h-full bg-[#0c1017] rounded-[11px] flex items-center justify-center">
+                    <i data-lucide="graduation-cap" className="w-5 h-5 text-cyan-400"></i>
+                  </div>
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-lg font-bold tracking-tight text-white">AI Study Hub</span>
+                    <span className="px-1.5 py-0.5 text-[10px] font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/30 rounded-md">AP Edition</span>
+                  </div>
+                  <p className="text-[11px] text-slate-400 hidden sm:block">AP, Academic & Creator Launchpad</p>
+                </div>
+              </button>
+
+              {/* Desktop Nav */}
+              <nav className="hidden lg:flex items-center gap-1 bg-slate-900/70 p-1 rounded-xl border border-slate-800/80 text-xs font-medium">
+                {CATEGORIES.map(cat => (
+                  <button
+                    key={cat.id}
+                    onClick={() => {
+                      setSelectedCategory(cat.id);
+                      document.getElementById('catalog')?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg transition-all ${
+                      selectedCategory === cat.id
+                        ? 'bg-blue-600 text-white font-semibold shadow-sm shadow-blue-500/30'
+                        : 'text-slate-300 hover:text-white hover:bg-slate-800'
+                    }`}
+                  >
+                    <i data-lucide={cat.icon} className={`w-3.5 h-3.5 ${cat.id === 'favorites' && favoriteIds.length > 0 ? 'text-red-400' : ''}`}></i>
+                    <span>{cat.shortLabel}</span>
+                    {cat.id === 'favorites' && (
+                      <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-slate-800 text-slate-300 border border-slate-700 ml-0.5">
+                        {favoriteIds.length}
+                      </span>
+                    )}
+                  </button>
+                ))}
+              </nav>
+
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => document.getElementById('task-advisor')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/30 text-blue-300 transition-all"
+                >
+                  <i data-lucide="sparkles" className="w-3.5 h-3.5 text-blue-400"></i>
+                  <span className="hidden sm:inline">Task Advisor</span>
+                </button>
+              </div>
+            </div>
+          </header>
+
+          {/* MAIN CONTENT */}
+          <main className="flex-1">
+            {/* HERO */}
+            <section className="relative pt-8 pb-12 sm:pt-12 sm:pb-16 text-center max-w-4xl mx-auto px-4">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/80 border border-slate-700/60 shadow-inner mb-6">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span className="text-xs font-medium text-slate-300">Verified Launchpad for AP Courses, University & Research</span>
+                <span className="text-[11px] font-mono text-amber-400 font-semibold pl-1 border-l border-slate-700">{TOOLS.length} Tools</span>
+              </div>
+
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-4 leading-tight">
+                All the AI tools you need.{' '}
+                <span className="bg-gradient-to-r from-blue-400 via-indigo-300 to-cyan-300 bg-clip-text text-transparent">
+                  One workspace.
+                </span>
+              </h1>
+
+              <p className="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto mb-8">
+                Master AP courses, grade DBQs, solve calculus FRQs, conduct research, write, code, and create faster with verified official AI tools.
+              </p>
+
+              {/* SEARCH BAR */}
+              <div className="relative max-w-2xl mx-auto mb-5">
+                <div className="flex items-center bg-[#0c111c] border border-slate-700/80 focus-within:border-blue-500/80 rounded-2xl shadow-2xl px-4 py-3.5 transition-all">
+                  <i data-lucide="search" className="w-5 h-5 text-slate-400 mr-3"></i>
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={e => setSearchQuery(e.target.value)}
+                    placeholder="What are you trying to do? (e.g. grade DBQ, AP Calculus FRQ, literature review, code...)"
+                    className="w-full bg-transparent text-white placeholder-slate-400 text-sm sm:text-base focus:outline-none"
+                  />
+                  {searchQuery && (
+                    <button onClick={() => setSearchQuery('')} className="text-slate-400 hover:text-white p-1">
+                      <i data-lucide="x" className="w-4 h-4"></i>
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              {/* SEARCH PILLS */}
+              <div className="flex flex-wrap items-center justify-center gap-1.5 max-w-3xl mx-auto text-xs">
+                <span className="text-slate-400 mr-1 flex items-center gap-1">
+                  <i data-lucide="zap" className="w-3 h-3 text-amber-400"></i> Try:
+                </span>
+                {SEARCH_EXAMPLES.map(ex => (
+                  <button
+                    key={ex}
+                    onClick={() => {
+                      setSearchQuery(ex);
+                      document.getElementById('catalog')?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    className="px-2.5 py-1 rounded-full bg-slate-900/80 hover:bg-blue-900/30 text-slate-300 hover:text-blue-300 border border-slate-800 hover:border-blue-500/40 transition text-[11px] sm:text-xs"
+                  >
+                    "{ex}"
+                  </button>
+                ))}
+              </div>
+            </section>
+
+            {/* QUICK ACTIONS */}
+            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+              <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-4 xl:grid-cols-8 gap-3">
+                {[
+                  { id: 'ap-science', label: 'AP Sciences', emoji: '🔬', subtext: 'Chem, Bio, Phys, APES' },
+                  { id: 'ap-prep', label: 'AP & Exam Prep', emoji: '🎯', subtext: 'Rubrics, FRQs & CED' },
+                  { id: 'research', label: 'Research a Paper', emoji: '📚', subtext: 'Find & cite papers' },
+                  { id: 'stem', label: 'Study & Solve', emoji: '🧠', subtext: 'Math, logic & STEM' },
+                  { id: 'writing', label: 'Write & Edit', emoji: '✍️', subtext: 'Essays & critique' },
+                  { id: 'coding', label: 'Code', emoji: '💻', subtext: 'Build, debug & git' },
+                  { id: 'visual', label: 'Create Visuals', emoji: '🎨', subtext: 'Images & posters' },
+                  { id: 'video-audio', label: 'Create Video & Audio', emoji: '🎬', subtext: 'Video, voice & songs' }
+                ].map(action => (
+                  <button
+                    key={action.id}
+                    onClick={() => {
+                      setSelectedCategory(action.id);
+                      document.getElementById('catalog')?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    className={`p-3.5 rounded-xl border text-left transition flex flex-col justify-between ${
+                      selectedCategory === action.id
+                        ? 'bg-slate-800 border-blue-500 ring-1 ring-blue-500/50 shadow-lg'
+                        : 'bg-slate-900/50 hover:bg-slate-900 border-slate-800'
+                    }`}
+                  >
+                    <span className="text-xl mb-2">{action.emoji}</span>
+                    <div>
+                      <h3 className="text-xs sm:text-sm font-semibold text-white truncate">{action.label}</h3>
+                      <p className="text-[11px] text-slate-400 truncate">{action.subtext}</p>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </section>
+
+            {/* TASK ADVISOR */}
+            <section id="task-advisor" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 scroll-mt-24">
+              <div className="rounded-2xl bg-gradient-to-b from-slate-900/90 to-[#0c121d]/90 border border-slate-800 p-6 sm:p-8 shadow-2xl">
+                <div className="mb-6 pb-6 border-b border-slate-800">
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-semibold uppercase tracking-wider mb-2">
+                    <i data-lucide="sparkles" className="w-3.5 h-3.5 text-amber-400 mr-1"></i> Matchmaker
+                  </div>
+                  <h2 className="text-2xl sm:text-3xl font-bold text-white">What do you need help with?</h2>
+                  <p className="text-sm text-slate-400 mt-1">Select your immediate goal below to view the top 3 recommended AI tools with clear academic rationale.</p>
+                </div>
+
+                {/* Task Chips */}
+                <div className="flex flex-wrap gap-2 mb-8">
+                  {TASK_RECOMMENDATIONS.map(task => (
+                    <button
+                      key={task.id}
+                      onClick={() => setActiveTaskId(task.id)}
+                      className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-medium transition ${
+                        activeTaskId === task.id
+                          ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/20'
+                          : 'bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-800'
+                      }`}
+                    >
+                      <i data-lucide={task.icon} className="w-3.5 h-3.5"></i>
+                      <span>{task.taskTitle}</span>
+                    </button>
+                  ))}
+                </div>
+
+                {/* Top 3 Cards */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {recommendedTools.map((tool, idx) => (
+                    <div key={tool.id} className="flex flex-col justify-between rounded-xl bg-slate-950/70 border border-slate-800 p-5">
+                      <div>
+                        <div className="flex items-center justify-between mb-3">
+                          <div className="flex items-center gap-2">
+                            <span className="w-5 h-5 rounded-full bg-blue-500/20 text-blue-400 text-[11px] font-mono font-bold flex items-center justify-center border border-blue-500/30">
+                              #{idx + 1}
+                            </span>
+                            <span className="font-bold text-base text-white">{tool.name}</span>
+                          </div>
+                          <button onClick={() => toggleFavorite(tool.id)} className="text-slate-400 hover:text-red-400">
+                            <i data-lucide="heart" className={`w-4 h-4 ${isFav(tool.id) ? 'fill-red-400 text-red-400' : ''}`}></i>
+                          </button>
+                        </div>
+
+                        <div className="text-xs text-blue-300/90 bg-blue-950/40 border border-blue-900/50 rounded-lg p-2.5 mb-3 leading-relaxed">
+                          <span className="font-semibold text-blue-200 block mb-0.5">Why it's best for this:</span>
+                          {activeTask.explanations[tool.id] || tool.description}
+                        </div>
+
+                        <div className="flex flex-wrap gap-1 mb-4">
+                          {tool.tags.slice(0, 3).map(tag => (
+                            <span key={tag} className="text-[10px] px-2 py-0.5 rounded bg-slate-900 text-slate-400 border border-slate-800">
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-2 pt-3 border-t border-slate-900">
+                        <button
+                          onClick={() => setModalTool(tool)}
+                          className="px-3 py-2 text-xs text-slate-300 hover:text-white bg-slate-900 border border-slate-800 rounded-lg transition"
+                        >
+                          Details
+                        </button>
+                        <a
+                          href={tool.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-500 rounded-lg transition"
+                        >
+                          <span>Open {tool.name}</span>
+                          <i data-lucide="external-link" className="w-3.5 h-3.5"></i>
+                        </a>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            {/* CATALOG TOOLBAR */}
+            <div id="catalog" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 scroll-mt-24">
+              <div className="flex items-center gap-1.5 flex-wrap mb-4">
+                {CATEGORIES.map(category => (
+                  <button
+                    key={category.id}
+                    onClick={() => { setSelectedCategory(category.id); setSelectedTag(null); }}
+                    className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold transition ${
+                      selectedCategory === category.id
+                        ? 'bg-blue-600 text-white shadow-md'
+                        : 'bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-slate-800'
+                    }`}
+                  >
+                    <i data-lucide={category.icon} className={`w-3.5 h-3.5 ${category.id === 'favorites' && favoriteIds.length > 0 ? 'text-red-400' : ''}`}></i>
+                    <span>{category.shortLabel}</span>
+                    {category.id === 'favorites' && (
+                      <span className="text-[10px] px-1.5 py-0.2 rounded-full bg-slate-800 text-slate-300">
+                        {favoriteIds.length}
+                      </span>
+                    )}
+                  </button>
+                ))}
+              </div>
+
+              {/* Science Disciplines & Branches Sub-Filter Bar */}
+              {selectedCategory === 'ap-science' && (
+                <div className="mb-4 p-2.5 sm:p-3 rounded-2xl bg-gradient-to-r from-emerald-950/40 via-teal-950/20 to-slate-900/60 border border-emerald-500/20 backdrop-blur-sm shadow-inner">
+                  <div className="flex items-center justify-between gap-2 mb-2 px-1">
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-1.5">
+                      <i data-lucide="atom" className="w-3.5 h-3.5 text-emerald-400"></i>
+                      <span>Explore All Science Disciplines & Subjects:</span>
+                    </span>
+                    {selectedTag && (
+                      <button
+                        onClick={() => setSelectedTag(null)}
+                        className="text-[11px] text-slate-400 hover:text-white transition underline"
+                      >
+                        Clear Filter
+                      </button>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-1.5 overflow-x-auto pb-1 no-scrollbar">
+                    {[
+                      { id: 'all-sci', label: 'All Sciences', icon: 'sparkles', tag: null },
+                      { id: 'physics', label: 'Physics (1, 2, C)', icon: 'atom', tag: 'AP Physics' },
+                      { id: 'chemistry', label: 'Chemistry', icon: 'flask-conical', tag: 'AP Chemistry' },
+                      { id: 'biology', label: 'Biology', icon: 'dna', tag: 'AP Biology' },
+                      { id: 'apes', label: 'Environmental (APES)', icon: 'globe', tag: 'APES' },
+                      { id: 'psychology', label: 'Psychology & Brain', icon: 'brain', tag: 'AP Psychology' },
+                      { id: 'cs', label: 'Computer Science', icon: 'code', tag: 'AP Computer Science' },
+                      { id: 'sims', label: 'Virtual Labs & 3D', icon: 'layers', tag: 'Simulations' }
+                    ].map(branch => {
+                      const isActive = (branch.tag === null && selectedTag === null) || (branch.tag !== null && selectedTag === branch.tag);
+                      return (
+                        <button
+                          key={branch.id}
+                          onClick={() => setSelectedTag(branch.tag)}
+                          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-all ${
+                            isActive
+                              ? 'bg-emerald-500 text-slate-950 shadow-md shadow-emerald-500/30'
+                              : 'bg-slate-900/90 hover:bg-slate-800 text-slate-300 hover:text-emerald-300 border border-slate-800/80'
+                          }`}
+                        >
+                          <i data-lucide={branch.icon} className="w-3.5 h-3.5"></i>
+                          <span>{branch.label}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              <div className="flex items-center justify-between pt-3 border-t border-slate-800 text-xs text-slate-400">
+                <div>Showing <span className="font-semibold text-white">{filteredTools.length}</span> of {TOOLS.length} tools</div>
+                <div className="flex items-center gap-2">
+                  <span>Sort:</span>
+                  <select
+                    value={sortBy}
+                    onChange={e => setSortBy(e.target.value)}
+                    className="bg-slate-900 border border-slate-800 rounded-lg px-2 py-1 text-slate-200 text-xs"
+                  >
+                    <option value="featured">Featured</option>
+                    <option value="name">Name (A-Z)</option>
+                    <option value="category">Category</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            {/* TOOLS GRID */}
+            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
+              {filteredTools.length === 0 ? (
+                <div className="max-w-md mx-auto py-16 text-center">
+                  <i data-lucide="search-x" className="w-12 h-12 text-slate-500 mx-auto mb-3"></i>
+                  <h3 className="text-xl font-bold text-white mb-1">No AI tools found</h3>
+                  <p className="text-sm text-slate-400 mb-4">Try searching for "AP", "research", "coding", "math", or "video".</p>
+                  <button
+                    onClick={() => { setSelectedCategory('all'); setSearchQuery(''); }}
+                    className="px-4 py-2 rounded-xl bg-blue-600 text-white text-xs font-semibold"
+                  >
+                    Browse All Tools
+                  </button>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+                  {filteredTools.map(tool => (
+                    <div
+                      key={tool.id}
+                      onClick={() => setModalTool(tool)}
+                      className="group flex flex-col justify-between p-5 rounded-2xl bg-slate-900/60 hover:bg-[#0f172a] border border-slate-800 hover:border-blue-500/40 shadow-sm hover:shadow-xl transition-all cursor-pointer hover:-translate-y-1"
+                    >
+                      <div>
+                        <div className="flex items-start justify-between gap-3 mb-3">
+                          <div className="flex items-center gap-3">
+                            <div className="p-2.5 rounded-xl bg-slate-800 border border-slate-700">
+                              <i data-lucide={tool.icon} className="w-5 h-5 text-cyan-400"></i>
+                            </div>
+                            <div>
+                              <h3 className="font-bold text-base text-white group-hover:text-blue-300 transition">
+                                {tool.name}
+                              </h3>
+                              <span className="text-[11px] font-medium text-slate-400">
+                                {tool.categoryName}
+                              </span>
+                            </div>
+                          </div>
+
+                          <button
+                            onClick={e => { e.stopPropagation(); toggleFavorite(tool.id); }}
+                            className={`p-2 rounded-xl border transition ${
+                              isFav(tool.id)
+                                ? 'bg-red-500/10 border-red-500/30 text-red-400'
+                                : 'bg-slate-950 border-slate-800 text-slate-400 hover:text-white'
+                            }`}
+                          >
+                            <i data-lucide="heart" className={`w-4 h-4 ${isFav(tool.id) ? 'fill-red-400 text-red-400' : ''}`}></i>
+                          </button>
+                        </div>
+
+                        <p className="text-xs text-slate-300 line-clamp-2 leading-relaxed mb-4">
+                          {tool.description}
+                        </p>
+
+                        <div className="mb-4">
+                          <span className="text-[10px] font-semibold tracking-wider uppercase text-slate-400 block mb-1">
+                            Best for:
+                          </span>
+                          <p className="text-xs text-slate-300 leading-snug">
+                            {tool.bestFor.slice(0, 3).join(' • ')}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="pt-3 border-t border-slate-800/70 flex items-center justify-between gap-2">
+                        <button
+                          onClick={e => { e.stopPropagation(); setModalTool(tool); }}
+                          className="text-xs font-medium text-slate-400 hover:text-white px-2 py-1.5 rounded-lg"
+                        >
+                          Learn More
+                        </button>
+
+                        <a
+                          href={tool.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={e => e.stopPropagation()}
+                          className="flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-500 rounded-xl transition shadow-md shadow-blue-600/20"
+                        >
+                          <span>Open {tool.name.split(' ')[0]}</span>
+                          <i data-lucide="arrow-right" className="w-3.5 h-3.5"></i>
+                        </a>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </section>
+          </main>
+
+          {/* DETAIL MODAL */}
+          {modalTool && (
+            <div
+              className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-md"
+              onClick={() => setModalTool(null)}
+            >
+              <div
+                className="relative w-full max-w-lg bg-[#0d121c] border border-slate-700 rounded-2xl p-6 sm:p-7 shadow-2xl"
+                onClick={e => e.stopPropagation()}
+              >
+                <button
+                  onClick={() => setModalTool(null)}
+                  className="absolute top-5 right-5 p-2 rounded-xl text-slate-400 hover:text-white bg-slate-900 border border-slate-800"
+                >
+                  <i data-lucide="x" className="w-4 h-4"></i>
+                </button>
+
+                <div className="flex items-start gap-4 mb-4">
+                  <div className="p-3 rounded-2xl bg-slate-800 border border-slate-700">
+                    <i data-lucide={modalTool.icon} className="w-7 h-7 text-cyan-400"></i>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-white">{modalTool.name}</h3>
+                    <span className="text-xs px-2.5 py-0.5 rounded-md bg-blue-500/10 text-blue-400 border border-blue-500/30">
+                      {modalTool.categoryName}
+                    </span>
+                  </div>
+                </div>
+
+                <p className="text-sm text-slate-300 leading-relaxed mb-4">
+                  {modalTool.description}
+                </p>
+
+                {modalTool.studentBonus && (
+                  <div className="p-3 rounded-xl bg-blue-950/40 border border-blue-800/40 text-xs text-blue-300 mb-4">
+                    <span className="font-semibold text-blue-200 block mb-0.5">Student & Exam Advantage:</span>
+                    {modalTool.studentBonus}
+                  </div>
+                )}
+
+                <div className="mb-4">
+                  <h4 className="text-xs font-semibold uppercase text-slate-400 mb-2">Best For</h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-xs text-slate-200">
+                    {modalTool.bestFor.map((item, i) => (
+                      <div key={i} className="flex items-center gap-1.5 p-1.5 rounded bg-slate-900 border border-slate-800">
+                        <span className="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+                        <span>{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3 pt-4 border-t border-slate-800">
+                  <button
+                    onClick={() => toggleFavorite(modalTool.id)}
+                    className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border text-xs font-semibold ${
+                      isFav(modalTool.id)
+                        ? 'bg-red-500/10 border-red-500/40 text-red-400'
+                        : 'bg-slate-900 border-slate-800 text-slate-300 hover:text-white'
+                    }`}
+                  >
+                    <i data-lucide="heart" className={`w-4 h-4 ${isFav(modalTool.id) ? 'fill-red-400' : ''}`}></i>
+                    <span>{isFav(modalTool.id) ? 'Favorited' : 'Add to Favorites'}</span>
+                  </button>
+
+                  <a
+                    href={modalTool.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold shadow-lg shadow-blue-600/30"
+                  >
+                    <span>Open {modalTool.name}</span>
+                    <i data-lucide="external-link" className="w-4 h-4"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* FOOTER */}
+          <footer className="mt-20 border-t border-slate-800 bg-[#07090e] pt-10 pb-12 text-slate-400 text-xs">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:text-left">
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pb-6 border-b border-slate-800/60">
+                <div className="flex items-center gap-2">
+                  <i data-lucide="graduation-cap" className="w-4 h-4 text-cyan-400"></i>
+                  <span className="text-base font-bold text-white">AI Study Hub — AP & Coursework Edition</span>
+                </div>
+                <p className="text-slate-400">
+                  “Your gateway to the best AI tools for AP exams, studying, research, coding, and creative work.”
+                </p>
+              </div>
+              <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500">
+                <p>AI Study Hub is an independent tool directory and is not affiliated with the listed services or the College Board.</p>
+                <p>Built for students, researchers, and creators worldwide.</p>
+              </div>
+            </div>
+          </footer>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>
