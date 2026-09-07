@@ -1,0 +1,84 @@
+import { Category } from '../types';
+
+export const CATEGORIES: Category[] = [
+  {
+    id: 'all',
+    label: 'All Tools',
+    shortLabel: 'All',
+    description: 'Explore the full suite of specialized AI tools for research, coursework, and creation.',
+    iconName: 'Sparkles',
+    color: '#3b82f6',
+    gradient: 'from-blue-500/20 via-indigo-500/10 to-transparent',
+    badgeColor: 'bg-blue-500/10 text-blue-400 border-blue-500/20'
+  },
+  {
+    id: 'research',
+    label: 'Academic Research & Paper Writing',
+    shortLabel: 'Research',
+    description: 'Find papers, analyze research, discover evidence, and improve academic writing.',
+    iconName: 'GraduationCap',
+    color: '#06b6d4',
+    gradient: 'from-cyan-500/20 via-blue-500/10 to-transparent',
+    badgeColor: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20'
+  },
+  {
+    id: 'stem',
+    label: 'STEM, Math & Logical Reasoning',
+    shortLabel: 'STEM & Math',
+    description: 'Solve difficult problems, understand concepts, and explore technical subjects.',
+    iconName: 'Binary',
+    color: '#8b5cf6',
+    gradient: 'from-purple-500/20 via-violet-500/10 to-transparent',
+    badgeColor: 'bg-purple-500/10 text-purple-400 border-purple-500/20'
+  },
+  {
+    id: 'writing',
+    label: 'Writing, Essays & Humanities',
+    shortLabel: 'Writing',
+    description: 'Brainstorm, structure, edit, analyze, and improve essays and humanities coursework.',
+    iconName: 'PenTool',
+    color: '#ec4899',
+    gradient: 'from-pink-500/20 via-rose-500/10 to-transparent',
+    badgeColor: 'bg-pink-500/10 text-pink-400 border-pink-500/20'
+  },
+  {
+    id: 'coding',
+    label: 'Computer Science & Programming',
+    shortLabel: 'Coding',
+    description: 'Build software, understand code, debug problems, and accelerate programming coursework.',
+    iconName: 'Code2',
+    color: '#10b981',
+    gradient: 'from-emerald-500/20 via-teal-500/10 to-transparent',
+    badgeColor: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
+  },
+  {
+    id: 'visual',
+    label: 'Presentations, Diagrams & Visual Projects',
+    shortLabel: 'Visual',
+    description: 'Create images, visual concepts, diagrams, and presentation assets.',
+    iconName: 'Palette',
+    color: '#f59e0b',
+    gradient: 'from-amber-500/20 via-orange-500/10 to-transparent',
+    badgeColor: 'bg-amber-500/10 text-amber-400 border-amber-500/20'
+  },
+  {
+    id: 'video-audio',
+    label: 'Video & Audio',
+    shortLabel: 'Video & Audio',
+    description: 'Create video, voiceovers, audio, music, and multimedia coursework.',
+    iconName: 'Video',
+    color: '#f43f5e',
+    gradient: 'from-rose-500/20 via-red-500/10 to-transparent',
+    badgeColor: 'bg-rose-500/10 text-rose-400 border-rose-500/20'
+  },
+  {
+    id: 'favorites',
+    label: 'Favorites',
+    shortLabel: 'Favorites',
+    description: 'Your pinned tools for quick access during research and study sessions.',
+    iconName: 'Heart',
+    color: '#ef4444',
+    gradient: 'from-red-500/20 via-rose-500/10 to-transparent',
+    badgeColor: 'bg-red-500/10 text-red-400 border-red-500/20'
+  }
+];
