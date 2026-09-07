@@ -9,14 +9,15 @@ interface HeroSectionProps {
 }
 
 const SEARCH_EXAMPLES = [
+  'AP Physics diagrams & circuits',
+  'AP Chemistry equilibrium & titrations',
+  'AP Biology pathways & genetics',
+  'AP Psychology brain anatomy',
+  'AP Environmental data & CED',
   'Find academic papers',
   'Write a literature review',
   'Solve a calculus problem',
-  'Code my assignment',
-  'Create a presentation',
-  'Generate an image',
-  'Make a video',
-  'Create a voiceover'
+  'Code my assignment'
 ];
 
 export const HeroSection: React.FC<HeroSectionProps> = ({

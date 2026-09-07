@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { GraduationCap, Heart, ArrowUp } from 'lucide-react';
 import { CategoryId } from '../types';
 
@@ -11,87 +11,56 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCategory }) => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const navLinks: { id: CategoryId; label: string }[] = [
+    { id: 'all', label: 'Home' },
+    { id: 'research', label: 'Research' },
+    { id: 'stem', label: 'STEM' },
+    { id: 'writing', label: 'Writing' },
+    { id: 'coding', label: 'Coding' },
+    { id: 'visual', label: 'Visual' },
+    { id: 'video-audio', label: 'Video & Audio' },
+    { id: 'favorites', label: 'Favorites' }
+  ];
+
   return (
     <footer className="mt-20 border-t border-slate-800/80 bg-[#07090e] pt-12 pb-16 text-slate-400 text-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 pb-10 border-b border-slate-800/60">
           {/* Brand & Purpose */}
           <div className="max-w-md">
-            <div className="flex items-center gap-2 mb-2">
+            <div className="flex items-center gap-2.5 mb-2">
               <div className="w-8 h-8 rounded-lg bg-blue-600/20 border border-blue-500/30 flex items-center justify-center text-cyan-400">
                 <GraduationCap className="w-4 h-4" />
               </div>
-              <span className="text-base font-bold text-white tracking-tight">
+              <span className="text-base font-extrabold text-white tracking-tight">
                 AI Study Hub
               </span>
             </div>
-            <p className="text-slate-400 leading-relaxed">
+            <p className="text-slate-400 leading-relaxed italic">
               &ldquo;Your gateway to the best AI tools for studying, research, coding, and creative work.&rdquo;
             </p>
           </div>
 
           {/* Quick Category Jump Links */}
-          <div className="flex flex-wrap gap-x-6 gap-y-2 text-slate-300">
-            <button
-              onClick={() => onSelectCategory('all')}
-              className="hover:text-blue-400 transition"
-            >
-              Home
-            </button>
-            <button
-              onClick={() => onSelectCategory('ap-prep')}
-              className="hover:text-amber-400 transition"
-            >
-              AP & Exams
-            </button>
-            <button
-              onClick={() => onSelectCategory('ap-science')}
-              className="hover:text-emerald-400 transition"
-            >
-              AP Sciences
-            </button>
-            <button
-              onClick={() => onSelectCategory('research')}
-              className="hover:text-blue-400 transition"
-            >
-              Research
-            </button>
-            <button
-              onClick={() => onSelectCategory('stem')}
-              className="hover:text-blue-400 transition"
-            >
-              STEM
-            </button>
-            <button
-              onClick={() => onSelectCategory('writing')}
-              className="hover:text-blue-400 transition"
-            >
-              Writing
-            </button>
-            <button
-              onClick={() => onSelectCategory('coding')}
-              className="hover:text-blue-400 transition"
-            >
-              Coding
-            </button>
-            <button
-              onClick={() => onSelectCategory('visual')}
-              className="hover:text-blue-400 transition"
-            >
-              Visual
-            </button>
-            <button
-              onClick={() => onSelectCategory('video-audio')}
-              className="hover:text-blue-400 transition"
-            >
-              Video & Audio
-            </button>
-            <button
-              onClick={() => onSelectCategory('favorites')}
-              className="hover:text-red-400 transition flex items-center gap-1"
-            >
-              <Heart className="w-3 h-3 text-red-400" /> Favorites
-            </button>
+          <div className="flex flex-wrap gap-x-6 gap-y-2.5 text-slate-300">
+            {navLinks.map(link => (
+              <button
+                key={link.id}
+                onClick={() => {
+                  onSelectCategory(link.id);
+                  const catalog = document.getElementById('tools-catalog');
+                  if (catalog) {
+                    catalog.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+                className={`transition flex items-center gap-1 hover:text-white ${
+                  link.id === 'favorites' ? 'hover:text-red-400' : 'hover:text-blue-400'
+                }`}
+              >
+                {link.id === 'favorites' && <Heart className="w-3 h-3 text-red-400" />}
+                <span>{link.label}</span>
+              </button>
+            ))}
           </div>
 
           {/* Scroll to Top */}
@@ -110,8 +79,8 @@ export const Footer: React.FC<FooterProps> = ({ onSelectCategory }) => {
           <p>
             AI Study Hub is an independent tool directory and is not affiliated with the listed services.
           </p>
-          <p className="flex items-center gap-1">
-            Built for students, researchers, and creators worldwide.
+          <p className="flex items-center gap-1 text-slate-400">
+            Built for students, researchers, programmers, and creators.
           </p>
         </div>
       </div>

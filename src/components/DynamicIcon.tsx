@@ -1,22 +1,88 @@
-import React from 'react';
-import * as LucideIcons from 'lucide-react';
-import { LucideProps, Sparkles } from 'lucide-react';
+﻿import React from 'react';
+import {
+  LucideProps,
+  Sparkles,
+  BookOpen,
+  Search,
+  Library,
+  FileCheck,
+  Compass,
+  Binary,
+  Boxes,
+  PenTool,
+  Globe,
+  Code2,
+  GitPullRequest,
+  Terminal,
+  SquareTerminal,
+  FolderGit2,
+  CloudLightning,
+  Layers,
+  Type,
+  Palette,
+  Image,
+  FileVideo,
+  Mic,
+  Video,
+  Clapperboard,
+  Film,
+  Music2,
+  Disc3,
+  GraduationCap,
+  Heart,
+  Atom,
+  Award,
+  Cpu,
+  LineChart,
+  BookCheck,
+  MessageSquareQuote
+} from 'lucide-react';
 
 interface DynamicIconProps extends LucideProps {
   name: string;
 }
 
-// Normalize name mappings
-const ALIAS_MAP: Record<string, string> = {
-  SearchCheck: 'Search',
-  TerminalSquare: 'SquareTerminal',
-  FolderGit2: 'FolderGit2',
-  Video: 'Video',
-  Sparkles: 'Sparkles'
+const ICON_MAP: Record<string, React.FC<LucideProps>> = {
+  Sparkles,
+  BookOpen,
+  Search,
+  SearchCheck: Search,
+  Library,
+  FileCheck,
+  Compass,
+  Binary,
+  Boxes,
+  PenTool,
+  Globe,
+  Code2,
+  GitPullRequest,
+  Terminal,
+  TerminalSquare: SquareTerminal,
+  SquareTerminal,
+  FolderGit2,
+  CloudLightning,
+  Layers,
+  Type,
+  Palette,
+  Image,
+  FileVideo,
+  Mic,
+  Video,
+  Clapperboard,
+  Film,
+  Music2,
+  Disc3,
+  GraduationCap,
+  Heart,
+  Atom,
+  Award,
+  Cpu,
+  LineChart,
+  BookCheck,
+  MessageSquareQuote
 };
 
 export const DynamicIcon: React.FC<DynamicIconProps> = ({ name, ...props }) => {
-  const normalizedName = ALIAS_MAP[name] || name;
-  const IconComponent = (LucideIcons as any)[normalizedName] || Sparkles;
+  const IconComponent = ICON_MAP[name] || Sparkles;
   return <IconComponent {...props} />;
 };

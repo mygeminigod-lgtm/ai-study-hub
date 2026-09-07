@@ -2,37 +2,24 @@ import { Tool } from '../types';
 
 export const TOOLS: Tool[] = [
   // ==========================================
-  // Category: AP Sciences (Bio, Chem, Physics & APES)
+  // Category: AP Sciences (Physics, Chemistry, Biology, APES, Psych & CS)
   // ==========================================
+
+  // --- AP Physics (1, 2, C: Mechanics & C: E&M) ---
   {
     id: 'ap-chem-phet',
     name: 'PhET Interactive Simulations',
     url: 'https://phet.colorado.edu/',
     category: 'ap-science',
     categoryName: 'AP Sciences',
-    description: 'Award-winning interactive science simulations for AP Chemistry (acid-base titrations, gas laws, equilibrium) and AP Physics (circuits, projectile motion, optics).',
-    bestFor: ['Acid-base titration curves & buffer zones', 'Visualizing Le Chatelier’s principle', 'Circuit construction kit (DC & AC)', 'Photoelectric effect & optics'],
-    tags: ['AP Chemistry', 'AP Physics', 'Simulations', 'Labs', 'Titration', 'Circuits', 'STEM'],
+    description: 'Award-winning interactive science simulations for AP Physics (circuits, projectile motion, Faraday’s law, optics, wave interference) and AP Chemistry (acid-base titrations, gas laws, equilibrium).',
+    bestFor: ['Acid-base titration curves & buffer zones', 'Visualizing Le Chatelier’s principle', 'Circuit construction kit (DC & AC)', 'Photoelectric effect, optics & Faraday’s law'],
+    tags: ['AP Physics', 'AP Chemistry', 'Simulations', 'Labs', 'Titration', 'Circuits', 'STEM', 'Virtual Labs'],
     icon: 'FlaskConical',
     featured: true,
     pricing: 'Free (CU Boulder)',
     studentBonus: 'Perform virtual AP Chemistry and Physics lab experiments to understand conceptual FRQ questions before exam day.',
     toolOfTheDayRationale: 'Crucial for conceptual visual understanding of AP Chemistry equilibrium and AP Physics circuit labs.'
-  },
-  {
-    id: 'ap-chem-openai',
-    name: 'OpenAI o1 & o3-mini (AP Chemistry Solver)',
-    url: 'https://chatgpt.com/',
-    category: 'ap-science',
-    categoryName: 'AP Sciences',
-    description: 'Rigorous chain-of-thought derivations for AP Chemistry equilibrium expressions (Ka, Kb, Ksp), buffer pH calculations, thermodynamics (ΔG, ΔH, ΔS), and electrochemistry.',
-    bestFor: ['Equilibrium & Henderson-Hasselbalch derivations', 'Thermodynamics & Hess’s Law', 'Electrochemistry cell potentials (E°cell)', 'Reaction kinetics & rate laws'],
-    tags: ['AP Chemistry', 'Equilibrium', 'Thermodynamics', 'Kinetics', 'Electrochemistry', 'FRQ', 'Calculations'],
-    icon: 'BrainCircuit',
-    featured: true,
-    pricing: 'Freemium',
-    studentBonus: 'Reasoning models write out complete balanced chemical equations, ICE tables, and units to guarantee full College Board rubric points.',
-    toolOfTheDayRationale: 'The most reliable solver for challenging 10-point AP Chemistry Section II Free Response Questions.'
   },
   {
     id: 'ap-physics-gemini',
@@ -57,13 +44,92 @@ export const TOOLS: Tool[] = [
     categoryName: 'AP Sciences',
     description: 'Open-weights reasoning model for calculus-based AP Physics C: moment of inertia integrals, differential equations for air resistance/RC circuits, and Gauss’s law.',
     bestFor: ['Moment of inertia surface & volume integrals', 'Differential equations for damping & terminal velocity', 'Gauss’s Law & Ampère’s Law surface integrals', 'Calculus-based derivations'],
-    tags: ['AP Physics C', 'Calculus', 'Mechanics', 'E&M', 'Integrals', 'Derivations', 'Gauss Law'],
+    tags: ['AP Physics', 'AP Physics C', 'Calculus', 'Mechanics', 'E&M', 'Integrals', 'Derivations', 'Gauss Law'],
     icon: 'Binary',
     featured: true,
     pricing: 'Free Tier',
     studentBonus: 'Provides full calculus derivations with step-by-step limits of integration and coordinate system setups.',
     toolOfTheDayRationale: 'Unsurpassed step-by-step calculus derivations for AP Physics C Mechanics and Electricity & Magnetism.'
   },
+  {
+    id: 'ap-physics-wolfram',
+    name: 'WolframAlpha (Physics & Science Engine)',
+    url: 'https://www.wolframalpha.com/',
+    category: 'ap-science',
+    categoryName: 'AP Sciences',
+    description: 'Computational science intelligence engine that computes step-by-step solutions for kinematics, projectile trajectories, thermodynamic PV work cycles, RC circuit mesh equations, and vector calculus cross/dot products.',
+    bestFor: ['Kinematics & projectile trajectory steps', 'Thermodynamic PV work integrals', 'Vector cross & dot products', 'Exact physical constants & unit conversions'],
+    tags: ['AP Physics', 'Physics', 'Mechanics', 'Calculus', 'Thermodynamics', 'Wolfram', 'Calculations'],
+    icon: 'Binary',
+    featured: false,
+    pricing: 'Freemium',
+    studentBonus: 'Type raw physics expressions to receive step-by-step solutions, unit conversions, and formula plots.',
+    toolOfTheDayRationale: 'The ultimate computational engine for verifying multi-variable physics calculations.'
+  },
+  {
+    id: 'ap-physics-flipping',
+    name: 'Flipping Physics (AP Physics 1, 2 & C)',
+    url: 'https://www.flippingphysics.com/',
+    category: 'ap-science',
+    categoryName: 'AP Sciences',
+    description: 'Renowned video lecture and derivation library strictly aligned with College Board AP Physics 1, Physics 2, and Physics C unit guides, featuring real-world lab demonstrations and pacing guides.',
+    bestFor: ['AP Physics 1 & 2 unit walkthroughs', 'Physics C calculus derivations', 'Real-world visual lab demos', 'FRQ step-by-step problem sets'],
+    tags: ['AP Physics', 'Physics', 'Mechanics', 'E&M', 'Video Lessons', 'Labs', 'Derivations'],
+    icon: 'Video',
+    featured: false,
+    pricing: 'Free',
+    studentBonus: 'Provides concise, humorous review videos and derivation sheets keyed directly to the official College Board AP Physics CED units.',
+    toolOfTheDayRationale: 'The most popular video review resource for AP Physics students nationwide.'
+  },
+
+  // --- AP Chemistry ---
+  {
+    id: 'ap-chem-openai',
+    name: 'OpenAI o1 & o3-mini (AP Chemistry Solver)',
+    url: 'https://chatgpt.com/',
+    category: 'ap-science',
+    categoryName: 'AP Sciences',
+    description: 'Rigorous chain-of-thought derivations for AP Chemistry equilibrium expressions (Ka, Kb, Ksp), buffer pH calculations, thermodynamics (ΔG, ΔH, ΔS), and electrochemistry.',
+    bestFor: ['Equilibrium & Henderson-Hasselbalch derivations', 'Thermodynamics & Hess’s Law', 'Electrochemistry cell potentials (E°cell)', 'Reaction kinetics & rate laws'],
+    tags: ['AP Chemistry', 'Equilibrium', 'Thermodynamics', 'Kinetics', 'Electrochemistry', 'FRQ', 'Calculations'],
+    icon: 'BrainCircuit',
+    featured: true,
+    pricing: 'Freemium',
+    studentBonus: 'Reasoning models write out complete balanced chemical equations, ICE tables, and units to guarantee full College Board rubric points.',
+    toolOfTheDayRationale: 'The most reliable solver for challenging 10-point AP Chemistry Section II Free Response Questions.'
+  },
+  {
+    id: 'ap-chem-molview',
+    name: 'MolView (3D Interactive Molecular Modeler)',
+    url: 'https://molview.org/',
+    category: 'ap-science',
+    categoryName: 'AP Sciences',
+    description: 'Interactive 3D chemical modeling suite for sketching Lewis structures, visualizing VSEPR 3D geometries, calculating bond dipole moments, orbital hybridizations, and organic functional groups.',
+    bestFor: ['Visualizing VSEPR 3D geometries (octahedral, trigonal bipyramidal)', 'Lewis dot structures & formal charge', 'Dipole moments & polarity vectors', 'Organic functional group identification'],
+    tags: ['AP Chemistry', 'Chemistry', '3D Models', 'VSEPR', 'Molecules', 'Lewis Structures', 'Simulations', 'Virtual Labs'],
+    icon: 'Atom',
+    featured: false,
+    pricing: 'Free',
+    studentBonus: 'Rotate molecules in 3D space to immediately grasp bond angles, molecular polarity, and steric numbers required for AP Chem Unit 2.',
+    toolOfTheDayRationale: 'Essential for mastering VSEPR molecular geometry and intermolecular dipole interactions.'
+  },
+  {
+    id: 'ap-chem-chemcollective',
+    name: 'ChemCollective Virtual Chemistry Laboratory',
+    url: 'http://chemcollective.org/vlabs',
+    category: 'ap-science',
+    categoryName: 'AP Sciences',
+    description: 'Online chemistry stockroom and laboratory bench for conducting realistic acid-base titrations, solubility equilibrium Ksp experiments, buffer solution preparation, and calorimetry without physical lab constraints.',
+    bestFor: ['Virtual acid-base titration experiments', 'Buffer preparation & Henderson-Hasselbalch', 'Calorimetry & enthalpy of reaction', 'Gravimetric analysis & stoichiometry'],
+    tags: ['AP Chemistry', 'Chemistry', 'Virtual Labs', 'Titration', 'Buffers', 'Simulations'],
+    icon: 'FlaskConical',
+    featured: false,
+    pricing: 'Free (Carnegie Mellon)',
+    studentBonus: 'Mix solutions from an authentic stockroom and read virtual pH meters and analytical balances to solve AP Chem experimental design FRQs.',
+    toolOfTheDayRationale: 'Simulates realistic lab experiments and analytical techniques tested on AP Chemistry Section II.'
+  },
+
+  // --- AP Biology ---
   {
     id: 'ap-bio-notebooklm',
     name: 'Google NotebookLM (AP Biology Source Notebook)',
@@ -81,19 +147,36 @@ export const TOOLS: Tool[] = [
   },
   {
     id: 'ap-bio-hhmi',
-    name: 'HHMI BioInteractive',
+    name: 'HHMI BioInteractive (Virtual Labs & Datasets)',
     url: 'https://www.biointeractive.org/',
     category: 'ap-science',
     categoryName: 'AP Sciences',
     description: 'Premier scientific education platform offering real biological datasets, interactive click-and-learn virtual labs, pedigree charts, and evolutionary case studies.',
     bestFor: ['Eukaryotic gene regulation click & learn', 'Hardy-Weinberg population data simulations', 'Gel electrophoresis & CRISPR labs', 'Real-world ecology case studies'],
-    tags: ['AP Biology', 'Virtual Labs', 'Genetics', 'Evolution', 'Hardy-Weinberg', 'Ecology', 'Datasets'],
+    tags: ['AP Biology', 'Virtual Labs', 'Genetics', 'Evolution', 'Hardy-Weinberg', 'Ecology', 'Datasets', 'Simulations'],
     icon: 'Dna',
     featured: false,
     pricing: 'Free (HHMI)',
     studentBonus: 'Frequently used by College Board exam writers as the source material for AP Biology experimental design FRQs.',
     toolOfTheDayRationale: 'Practice with the exact real-world biological datasets and experiments featured on the AP Biology exam.'
   },
+  {
+    id: 'ap-bio-rcsb',
+    name: 'RCSB Protein Data Bank (3D Biomolecules)',
+    url: 'https://www.rcsb.org/',
+    category: 'ap-science',
+    categoryName: 'AP Sciences',
+    description: 'Global repository of 3D macromolecular structures allowing students to explore real crystallographic structures of proteins, enzyme-substrate active sites, DNA replication helicase complexes, and cell membrane receptors.',
+    bestFor: ['3D protein folding & tertiary structure', 'Enzyme-substrate active site visualization', 'DNA double helix & replication fork', 'Cellular membrane receptor channels'],
+    tags: ['AP Biology', 'Biology', '3D Models', 'Proteins', 'Enzymes', 'Genetics', 'Macromolecules', 'Simulations'],
+    icon: 'Dna',
+    featured: false,
+    pricing: 'Free',
+    studentBonus: 'Explore interactive 3D ribbon diagrams of DNA polymerase, hemoglobin, and aquaporins to understand structure-function relationships.',
+    toolOfTheDayRationale: 'Brings macromolecular biochemistry to life for AP Biology Units 1 and 2.'
+  },
+
+  // --- AP Environmental Science (APES) ---
   {
     id: 'ap-apes-perplexity',
     name: 'Perplexity AI (AP Environmental Science)',
@@ -124,14 +207,80 @@ export const TOOLS: Tool[] = [
     studentBonus: 'Provides the exact type of multi-variable demographic and ecological charts analyzed in APES Section I and Section II.',
     toolOfTheDayRationale: 'Master reading and interpreting real environmental charts and population models.'
   },
+
+  // --- AP Psychology (Brain & Behavioral Science) ---
+  {
+    id: 'ap-psych-brainfacts',
+    name: 'BrainFacts.org (3D Interactive Brain Explorer)',
+    url: 'https://www.brainfacts.org/3d-brain',
+    category: 'ap-science',
+    categoryName: 'AP Sciences',
+    description: 'Interactive 3D neurological model of the human brain mapping the cerebral cortex lobes, limbic system (amygdala, hippocampus, hypothalamus), neuron action potentials, and neurotransmitter synaptic pathways for AP Psychology.',
+    bestFor: ['3D brain lobes & cerebral cortex anatomy', 'Limbic system (amygdala, hippocampus) mapping', 'Synaptic transmission & neurotransmitter pathways', 'Brain scan interpretations (fMRI, EEG, PET)'],
+    tags: ['AP Psychology', 'Psychology', 'Neuroscience', 'Brain', '3D Models', 'Biology', 'STEM', 'Simulations'],
+    icon: 'Brain',
+    featured: true,
+    pricing: 'Free (SfN)',
+    studentBonus: 'Rotate and slice 3D brain regions to master the biological bases of behavior tested heavily in AP Psychology Unit 2.',
+    toolOfTheDayRationale: 'The premier visual tool for memorizing brain structures, lobes, and nervous system anatomy.'
+  },
+  {
+    id: 'ap-psych-claude',
+    name: 'Anthropic Claude (AP Psychology Experiment & Rubric Solver)',
+    url: 'https://claude.ai/',
+    category: 'ap-science',
+    categoryName: 'AP Sciences',
+    description: 'Evaluates AP Psychology Free Response Questions on experimental design, identifying independent/dependent variables, operational definitions, confounding factors, statistical significance (p-values), and ethical standards.',
+    bestFor: ['Psychology experimental design FRQs', 'Operational definitions & variable control', 'Classical vs. operant conditioning analysis', 'Statistical significance & p-value interpretation'],
+    tags: ['AP Psychology', 'Psychology', 'FRQ', 'Rubrics', 'Behavioral Science', 'Exam Prep'],
+    icon: 'Award',
+    featured: false,
+    pricing: 'Freemium',
+    studentBonus: 'Paste your practice FRQ answers alongside the College Board prompt to verify whether you met the criteria for operational definitions and confounding variables.',
+    toolOfTheDayRationale: 'Guarantees mastery over the research methods question on AP Psychology Section II.'
+  },
+
+  // --- AP Computer Science (Computational & Algorithmic Science) ---
+  {
+    id: 'ap-csa-qwen',
+    name: 'Qwen (AP CSA Java Recursion & Algorithm Solver)',
+    url: 'https://chat.qwen.ai/',
+    category: 'ap-science',
+    categoryName: 'AP Sciences',
+    description: 'Specialized programming reasoning model that simulates step-by-step Java execution call stacks for AP Computer Science A recursion, 2D array traversals, ArrayList manipulations, and OOP polymorphism.',
+    bestFor: ['Java recursive method tracing & stack frames', '2D array nested loop algorithms', 'ArrayList manipulation & index traps', 'Polymorphism & class hierarchy FRQs'],
+    tags: ['AP Computer Science', 'Computer Science', 'Java', 'Recursion', 'Coding', 'Algorithms', 'AP CSA'],
+    icon: 'Code',
+    featured: true,
+    pricing: 'Free Tier',
+    studentBonus: 'Simulates step-by-step Java execution stacks for AP CSA recursion problems that frequently appear on Section I & II.',
+    toolOfTheDayRationale: 'World-class performance on Java coding benchmarks for AP Computer Science A students.'
+  },
+  {
+    id: 'ap-cs-pythontutor',
+    name: 'Java & Python Tutor (Execution Stack Visualizer)',
+    url: 'https://pythontutor.com/java.html',
+    category: 'ap-science',
+    categoryName: 'AP Sciences',
+    description: 'Interactive code visualizer that renders Java and Python execution step-by-step, showing heap memory objects, pointer references, stack frames, and array state changes in real time.',
+    bestFor: ['Visualizing Java call stacks during recursion', 'Tracking object references and memory heap', 'Seeing 2D array matrix memory in real-time', 'Debugging off-by-one loop errors'],
+    tags: ['AP Computer Science', 'Computer Science', 'Java', 'Visualizer', 'Debugging', 'Simulations'],
+    icon: 'Terminal',
+    featured: false,
+    pricing: 'Free',
+    studentBonus: 'Paste any tricky AP CSA code snippet to see exact heap and stack frames step-by-step.',
+    toolOfTheDayRationale: 'The best visual aid for demystifying Java references and recursive call trees.'
+  },
+
+  // --- Universal AP Science Repositories ---
   {
     id: 'ap-science-central',
     name: 'College Board AP Science Central',
     url: 'https://apcentral.collegeboard.org/courses/past-exam-questions',
     category: 'ap-science',
     categoryName: 'AP Sciences',
-    description: 'Official College Board repository of released past Free Response Questions (FRQs), scoring guidelines, and Chief Reader commentaries across all AP Science courses.',
-    bestFor: ['AP Biology, Chemistry, Physics 1/2/C & APES past FRQs', 'Official scoring guidelines & rubrics', 'Sample student responses with scores', 'Chief Reader common misconception notes'],
+    description: 'Official College Board repository of released past Free Response Questions (FRQs), scoring guidelines, and Chief Reader commentaries across all AP Science courses (Bio, Chem, Phys 1/2/C, APES, Psych, CSA).',
+    bestFor: ['AP Biology, Chemistry, Physics 1/2/C, APES, Psych & CSA past FRQs', 'Official scoring guidelines & rubrics', 'Sample student responses with scores', 'Chief Reader common misconception notes'],
     tags: ['AP Science', 'College Board', 'Released FRQs', 'Scoring Rubrics', 'Chief Reader', 'Official'],
     icon: 'GraduationCap',
     featured: true,
@@ -146,12 +295,12 @@ export const TOOLS: Tool[] = [
     category: 'ap-science',
     categoryName: 'AP Sciences',
     description: 'Free practice exam rooms, diagnostic tests, and flashcards built strictly around official College Board Course and Exam Descriptions (CEDs) for all AP sciences.',
-    bestFor: ['CED unit-by-unit flashcards for AP Bio & Chem', 'AP Physics formula practice modules', 'APES vocabulary & legislation study rooms', 'Spaced repetition testing'],
-    tags: ['AP Science', 'Practice Exams', 'Flashcards', 'CED', 'Study Rooms', 'AP Bio', 'AP Chem', 'AP Physics'],
+    bestFor: ['CED unit-by-unit flashcards for all AP sciences', 'AP Physics & Chem formula practice modules', 'APES & AP Psych vocabulary study rooms', 'Spaced repetition testing'],
+    tags: ['AP Science', 'Practice Exams', 'Flashcards', 'CED', 'Study Rooms', 'AP Bio', 'AP Chem', 'AP Physics', 'AP Psych'],
     icon: 'BookCheck',
     featured: true,
     pricing: 'Free',
-    studentBonus: 'Study every unit of AP Biology, Chemistry, Physics, and APES with curated flashcard rooms completely free.',
+    studentBonus: 'Study every unit of AP Biology, Chemistry, Physics, APES, and Psychology with curated flashcard rooms completely free.',
     toolOfTheDayRationale: 'The most comprehensive free flashcard and diagnostic testing resource for AP science students.'
   },
 

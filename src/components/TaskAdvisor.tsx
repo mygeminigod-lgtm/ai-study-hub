@@ -21,7 +21,7 @@ export const TaskAdvisor: React.FC<TaskAdvisorProps> = ({
   onToggleFavorite,
   onSelectToolModal
 }) => {
-  const [activeTaskId, setActiveTaskId] = useState<string>(TASK_RECOMMENDATIONS[2].id); // Default to "Write a literature review"
+  const [activeTaskId, setActiveTaskId] = useState<string>(TASK_RECOMMENDATIONS[0].id); // Default to "Write a literature review"
 
   const activeTask =
     TASK_RECOMMENDATIONS.find(t => t.id === activeTaskId) || TASK_RECOMMENDATIONS[0];

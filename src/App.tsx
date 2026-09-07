@@ -8,6 +8,7 @@ import { FeaturedTools } from './components/FeaturedTools';
 import { CategoryFilters } from './components/CategoryFilters';
 import { ToolGrid } from './components/ToolGrid';
 import { ToolDetailModal } from './components/ToolDetailModal';
+import { SettingsModal } from './components/SettingsModal';
 import { Footer } from './components/Footer';
 import { useFavorites } from './hooks/useFavorites';
 import { useToolFilter } from './hooks/useToolFilter';
@@ -18,6 +19,7 @@ export function App() {
     favoriteIds,
     toggleFavorite,
     isFavorite,
+    clearAllFavorites,
     favoritesCount
   } = useFavorites();
 
@@ -26,6 +28,8 @@ export function App() {
     setSearchQuery,
     selectedCategory,
     setSelectedCategory,
+    selectedTag,
+    setSelectedTag,
     sortBy,
     setSortBy,
     viewMode,
@@ -37,6 +41,8 @@ export function App() {
   } = useToolFilter(favoriteIds);
 
   const [modalTool, setModalTool] = useState<Tool | null>(null);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [themeAccent, setThemeAccent] = useState<'blue' | 'purple' | 'cyan'>('blue');
 
   const handleSelectExample = (example: string) => {
     setSearchQuery(example);
@@ -46,9 +52,13 @@ export function App() {
     }
   };
 
-  const handleCategorySelect = (category: CategoryId) => {
+  const handleCategorySelect = (category: CategoryId, tagFilter?: string) => {
     setSelectedCategory(category);
-    // If user clicked favorites or specific category, make sure we show relevant items
+    if (tagFilter) {
+      setSelectedTag(tagFilter);
+    } else {
+      setSelectedTag(null);
+    }
     const catalog = document.getElementById('tools-catalog');
     if (catalog) {
       catalog.scrollIntoView({ behavior: 'smooth' });
@@ -70,8 +80,28 @@ export function App() {
     }
   };
 
+  const handleCycleTheme = () => {
+    const themes: ('blue' | 'purple' | 'cyan')[] = ['blue', 'purple', 'cyan'];
+    const next = themes[(themes.indexOf(themeAccent) + 1) % themes.length];
+    setThemeAccent(next);
+  };
+
+  // Dynamic ambient glow classes based on selected theme
+  const getThemeAmbient = () => {
+    if (themeAccent === 'purple') {
+      return 'bg-gradient-to-tr from-purple-600/15 via-indigo-600/10 to-pink-600/15';
+    }
+    if (themeAccent === 'cyan') {
+      return 'bg-gradient-to-tr from-cyan-600/15 via-teal-600/10 to-blue-600/15';
+    }
+    return 'bg-gradient-to-tr from-blue-600/15 via-indigo-500/10 to-purple-600/15';
+  };
+
   return (
-    <div className="min-h-screen bg-[#07090e] text-slate-100 flex flex-col font-sans selection:bg-blue-500/30 selection:text-blue-200">
+    <div className="min-h-screen bg-[#07090e] text-slate-100 flex flex-col font-sans selection:bg-blue-500/30 selection:text-blue-200 relative overflow-x-hidden">
+      {/* Dynamic Background Ambient Aura */}
+      <div className={`fixed top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[450px] ${getThemeAmbient()} blur-[140px] rounded-full pointer-events-none -z-10`} />
+
       {/* Top Sticky Header */}
       <Navbar
         selectedCategory={selectedCategory}
@@ -79,6 +109,8 @@ export function App() {
         favoritesCount={favoritesCount}
         onOpenSearch={handleOpenSearch}
         onOpenAdvisor={handleOpenAdvisor}
+        onOpenSettings={() => setIsSettingsOpen(true)}
+        onToggleTheme={handleCycleTheme}
       />
 
       {/* Main Content Area */}
@@ -125,6 +157,8 @@ export function App() {
         <CategoryFilters
           selectedCategory={selectedCategory}
           onSelectCategory={handleCategorySelect}
+          selectedTag={selectedTag}
+          onSelectTag={setSelectedTag}
           favoritesCount={favoritesCount}
           totalCount={totalCount}
           matchingCount={matchingCount}
@@ -154,6 +188,18 @@ export function App() {
         onClose={() => setModalTool(null)}
         isFavorite={modalTool ? isFavorite(modalTool.id) : false}
         onToggleFavorite={toggleFavorite}
+      />
+
+      {/* Settings Modal */}
+      <SettingsModal
+        isOpen={isSettingsOpen}
+        onClose={() => setIsSettingsOpen(false)}
+        viewMode={viewMode}
+        onViewModeChange={setViewMode}
+        themeAccent={themeAccent}
+        onThemeAccentChange={setThemeAccent}
+        favoritesCount={favoritesCount}
+        onClearFavorites={clearAllFavorites}
       />
 
       {/* Footer */}

@@ -50,6 +50,42 @@ export const TASK_RECOMMENDATIONS: TaskRecommendation[] = [
     }
   },
   {
+    id: 'ap-psych-brain',
+    taskTitle: 'Master AP Psychology brain anatomy & experiment design',
+    category: 'ap-science',
+    icon: 'Brain',
+    recommendedToolIds: ['ap-psych-brainfacts', 'ap-psych-claude', 'ap-science-knowt'],
+    explanations: {
+      'ap-psych-brainfacts': 'Rotate and slice 3D brain lobes, limbic structures, and neurotransmitter pathways for Unit 2.',
+      'ap-psych-claude': 'Evaluates experimental design FRQs, operational definitions, confounding variables, and ethics.',
+      'ap-science-knowt': 'Practice CED-aligned AP Psychology flashcard rooms and diagnostic tests.'
+    }
+  },
+  {
+    id: 'ap-csa-recursion',
+    taskTitle: 'Trace AP Computer Science A Java recursion & OOP',
+    category: 'ap-science',
+    icon: 'Code',
+    recommendedToolIds: ['ap-csa-qwen', 'ap-cs-pythontutor', 'ap-science-knowt'],
+    explanations: {
+      'ap-csa-qwen': 'Simulates step-by-step Java execution stacks for recursion, 2D arrays, and class polymorphism.',
+      'ap-cs-pythontutor': 'Visualizes live heap memory, object pointers, and stack frame mutations line-by-line.',
+      'ap-science-knowt': 'Complete AP CSA unit-by-unit practice rooms and Java multiple choice diagnostics.'
+    }
+  },
+  {
+    id: 'ap-science-3d-labs',
+    taskTitle: 'Model 3D chemical structures & virtual labs',
+    category: 'ap-science',
+    icon: 'Layers',
+    recommendedToolIds: ['ap-chem-molview', 'ap-chem-chemcollective', 'ap-bio-rcsb'],
+    explanations: {
+      'ap-chem-molview': 'Visualize 3D VSEPR geometries, bond dipole moments, and organic functional groups.',
+      'ap-chem-chemcollective': 'Perform virtual acid-base titrations, buffer preparations, and thermochemistry experiments.',
+      'ap-bio-rcsb': 'Explore 3D crystalline structures of proteins, enzyme active sites, and DNA replication forks.'
+    }
+  },
+  {
     id: 'grade-ap-essays',
     taskTitle: 'Grade DBQ / LEQ against AP rubrics',
     category: 'ap-prep',

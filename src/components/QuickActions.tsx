@@ -28,7 +28,7 @@ export const QuickActions: React.FC<QuickActionsProps> = ({
       id: 'ap-science',
       label: 'AP Sciences',
       emoji: '🔬',
-      subtext: 'Bio, Chem, Phys & APES',
+      subtext: 'Phys, Chem, Bio & All Branches',
       accentColor: 'text-emerald-400',
       bgGradient: 'from-emerald-950/40 to-slate-900/40',
       borderHover: 'group-hover:border-emerald-500/50'

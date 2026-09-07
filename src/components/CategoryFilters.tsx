@@ -1,8 +1,10 @@
-import React from 'react';
+﻿import React from 'react';
 import {
   LayoutGrid,
   List,
-  ArrowUpDown
+  ArrowUpDown,
+  Tag,
+  X
 } from 'lucide-react';
 import { CategoryId } from '../types';
 import { CATEGORIES } from '../data/categories';
@@ -11,6 +13,8 @@ import { DynamicIcon } from './DynamicIcon';
 interface CategoryFiltersProps {
   selectedCategory: CategoryId;
   onSelectCategory: (category: CategoryId) => void;
+  selectedTag?: string | null;
+  onSelectTag?: (tag: string | null) => void;
   favoritesCount: number;
   totalCount: number;
   matchingCount: number;
@@ -23,6 +27,8 @@ interface CategoryFiltersProps {
 export const CategoryFilters: React.FC<CategoryFiltersProps> = ({
   selectedCategory,
   onSelectCategory,
+  selectedTag = null,
+  onSelectTag,
   favoritesCount,
   totalCount,
   matchingCount,
@@ -34,7 +40,7 @@ export const CategoryFilters: React.FC<CategoryFiltersProps> = ({
   return (
     <div id="tools-catalog" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 scroll-mt-24">
       {/* Category Chips Carousel/Wrap */}
-      <div className="flex items-center justify-between gap-4 mb-4 pb-2 overflow-x-auto no-scrollbar">
+      <div className="flex items-center justify-between gap-4 mb-3 pb-2 overflow-x-auto no-scrollbar">
         <div className="flex items-center gap-1.5 flex-nowrap sm:flex-wrap">
           {CATEGORIES.map(category => {
             const isSelected = selectedCategory === category.id;
@@ -70,8 +76,23 @@ export const CategoryFilters: React.FC<CategoryFiltersProps> = ({
         </div>
       </div>
 
+      {/* Active Sub-Tag Pill if active */}
+      {selectedTag && onSelectTag && (
+        <div className="flex items-center gap-2 mb-4 p-2 px-3 rounded-xl bg-blue-950/40 border border-blue-800/40 text-xs text-blue-300">
+          <Tag className="w-3.5 h-3.5 text-blue-400" />
+          <span>Active filter: <strong className="text-white">&ldquo;{selectedTag}&rdquo;</strong></span>
+          <button
+            onClick={() => onSelectTag(null)}
+            className="ml-auto flex items-center gap-1 px-2 py-0.5 rounded-md bg-blue-900/50 hover:bg-blue-800 text-blue-200 text-[11px] transition"
+          >
+            <X className="w-3 h-3" />
+            <span>Clear Tag</span>
+          </button>
+        </div>
+      )}
+
       {/* Control Bar: Matching Count, Sorting, and View Switcher */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-4 border-t border-slate-800/80 text-xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-3 border-t border-slate-800/80 text-xs">
         <div className="text-slate-400">
           Showing <span className="font-semibold text-white">{matchingCount}</span> of{' '}
           <span className="font-semibold text-slate-300">{totalCount}</span> tools
@@ -114,8 +135,8 @@ export const CategoryFilters: React.FC<CategoryFiltersProps> = ({
                   ? 'bg-blue-600 text-white shadow-sm'
                   : 'text-slate-400 hover:text-white'
               }`}
-              title="Compact List View"
-              aria-label="Compact List View"
+              title="Compact View"
+              aria-label="Compact View"
             >
               <List className="w-3.5 h-3.5" />
             </button>

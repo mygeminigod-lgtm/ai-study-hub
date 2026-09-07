@@ -13,9 +13,9 @@ export const CATEGORIES: Category[] = [
   },
   {
     id: 'ap-science',
-    label: 'AP Sciences (Bio, Chem, Physics & APES)',
+    label: 'AP Sciences (Physics, Chemistry, Biology, APES, Psych & CS)',
     shortLabel: 'AP Sciences',
-    description: 'Specialized solvers, molecular simulations, and FRQ lab analyzers for AP Biology, AP Chemistry, AP Physics 1/2/C, and AP Environmental Science.',
+    description: 'Every branch of science: AP Physics (1, 2, C: Mech & E&M), AP Chemistry, AP Biology, AP Environmental Science, AP Psychology & Neuroscience, AP Computer Science, and 3D Virtual Labs.',
     iconName: 'Atom',
     color: '#10b981',
     gradient: 'from-emerald-500/20 via-teal-500/10 to-transparent',

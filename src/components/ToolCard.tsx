@@ -167,7 +167,7 @@ export const ToolCard: React.FC<ToolCardProps> = ({
           className="flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-500 rounded-xl transition shadow-md shadow-blue-600/20 group/btn"
           aria-label={`Open ${tool.name} in new tab`}
         >
-          <span>Open {tool.name.split(' ')[0]}</span>
+          <span>Open {tool.name.replace(/^Google\s+/, '').length <= 12 ? tool.name.replace(/^Google\s+/, '') : 'Tool'}</span>
           <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 transition-transform" />
         </a>
       </div>
